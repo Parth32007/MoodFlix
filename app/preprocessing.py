@@ -1,19 +1,15 @@
 import pandas as pd
-import numpy as np
 import ast
 import pickle
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Load datasets
 movies = pd.read_csv('data/tmdb_5000_movies.csv')
 credits = pd.read_csv('data/tmdb_5000_credits.csv')
 
-# Merge datasets
 movies = movies.merge(credits, on='title')
 
-# Select important columns
 movies = movies[['movie_id',
                  'title',
                  'overview',
@@ -22,10 +18,8 @@ movies = movies[['movie_id',
                  'cast',
                  'crew']]
 
-# Remove null values
 movies.dropna(inplace=True)
 
-# Convert genres and keywords
 def convert(text):
 
     L = []
@@ -38,7 +32,6 @@ def convert(text):
 movies['genres'] = movies['genres'].apply(convert)
 movies['keywords'] = movies['keywords'].apply(convert)
 
-# Extract top 3 cast members
 def convert_cast(text):
 
     L = []
@@ -57,7 +50,6 @@ def convert_cast(text):
 
 movies['cast'] = movies['cast'].apply(convert_cast)
 
-# Extract director
 def fetch_director(text):
 
     L = []
@@ -71,10 +63,8 @@ def fetch_director(text):
 
 movies['crew'] = movies['crew'].apply(fetch_director)
 
-# Process overview
 movies['overview'] = movies['overview'].apply(lambda x: x.split())
 
-# Remove spaces
 movies['genres'] = movies['genres'].apply(
     lambda x: [i.replace(" ", "") for i in x]
 )
@@ -91,23 +81,18 @@ movies['crew'] = movies['crew'].apply(
     lambda x: [i.replace(" ", "") for i in x]
 )
 
-# Create tags column
 movies['tags'] = movies['overview'] + \
                  movies['genres'] + \
                  movies['keywords'] + \
                  movies['cast'] + \
                  movies['crew']
 
-# Final dataframe
 new_df = movies[['movie_id', 'title', 'tags']]
 
-# Convert list to string
 new_df['tags'] = new_df['tags'].apply(lambda x: " ".join(x))
 
-# Convert to lowercase
 new_df['tags'] = new_df['tags'].apply(lambda x: x.lower())
 
-# Vectorization
 cv = CountVectorizer(
     max_features=5000,
     stop_words='english'
@@ -115,11 +100,13 @@ cv = CountVectorizer(
 
 vectors = cv.fit_transform(new_df['tags']).toarray()
 
-# Calculate cosine similarity
 similarity = cosine_similarity(vectors)
 
-# Recommendation function
 def recommend(movie):
+
+    if movie not in new_df['title'].values:
+        print("Movie not found!")
+        return
 
     movie_index = new_df[new_df['title'] == movie].index[0]
 
@@ -134,13 +121,8 @@ def recommend(movie):
     print(f"\nRecommended movies for {movie}:\n")
 
     for i in movies_list:
-        print(new_df.iloc[i[0]]['title'])
+        print(new_df.iloc[i[0]].title)
 
-# Test recommendation
 recommend('Avatar')
 
-# Save processed data
 pickle.dump(new_df, open('model/movies.pkl', 'wb'))
-
-# similarity.pkl intentionally not saved
-# because file becomes too large for GitHub
