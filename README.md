@@ -24,8 +24,6 @@ MoodFlix is an emotion-aware movie recommendation system that suggests movies ba
 - **IDE:** VS Code  
 - **Version Control:** Git & GitHub  
 
-# 📂 Project Structure
-
 # 📁 Project Structure
 
 ```bash
