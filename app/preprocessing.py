@@ -126,3 +126,43 @@ def recommend(movie):
 recommend('Avatar')
 
 pickle.dump(new_df, open('model/movies.pkl', 'wb'))
+
+mood_genre_map={"Happy":["comedy","family","animation"],
+                "Sad":["drama","emotional"],
+                "Excited":["action","adventure","thriller"],
+                "Romantic":["romance"],
+                "Motivational":["biography","sport","inspirational"],
+                "Curious":["mystery","sciencefiction","fantasy"],
+                "Scared":["horror","thriller"],
+                "Thoughtful":["documentary","history"],
+                "Nostalgic":["classic","period"],
+                "Energetic":["musical","dance","music"],
+                "Adventurous":["adventure","exploration","travel"]}
+
+def recommend_by_mood(mood):
+
+    mood=mood.capitalize()
+    if mood not in mood_genre_map:
+        print("Mood not found!")
+        return 
+    
+    genres=mood_genre_map[mood]
+
+    recommended_movies=[]
+
+    for index,row in new_df.iterrows():
+        tags=row['tags']
+
+        for genre in genres:
+            if genre in tags:
+                recommended_movies.append(row['title'])
+                break
+
+    print(f"\nRecommended movies for mood {mood}:\n")
+
+    for movie in recommended_movies[:10]:
+        print(movie)
+
+recommend_by_mood("Romantic")
+
+pickle.dump(mood_genre_map,open('model/mood_map.pkl', 'wb'))
