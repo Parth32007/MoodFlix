@@ -26,25 +26,31 @@ MoodFlix is an emotion-aware movie recommendation system that suggests movies ba
 
 # 📁 Project Structure
 
+```bash
 MoodFlix/
 │
 ├── app/
-│   ├── preprocessing.py          # Data preprocessing & recommendation logic
-│   └── app.py                    # Streamlit frontend application
+│   ├── preprocessing.py          # Data preprocessing and recommendation engine
+│   └── app.py                    # Streamlit web application
 │
-├── assets/                       # Images and UI assets
+├── assets/                       # Images, logos and UI assets
 │
 ├── data/
-│   ├── tmdb_5000_movies.csv
-│   └── tmdb_5000_credits.csv
+│   ├── tmdb_5000_movies.csv      # TMDB movies dataset
+│   └── tmdb_5000_credits.csv     # TMDB credits dataset
 │
 ├── model/
-│   ├── movies.pkl
-│   └── vectorizer.pkl
+│   ├── movies.pkl                # Processed movie dataset
+│   └── vectorizer.pkl            # Trained CountVectorizer model
 │
-├── notebooks/                    # Experimentation and testing
+├── notebooks/                    # Jupyter notebooks for experimentation
+│
 ├── screenshots/                  # Application screenshots
 │
-├── .gitignore
-├── README.md
-└── requirements.txt
+├── .venv/                        # Python virtual environment
+│
+├── .gitignore                    # Ignored files and folders
+│
+├── requirements.txt              # Project dependencies
+│
+└── README.md                     # Project documentation
