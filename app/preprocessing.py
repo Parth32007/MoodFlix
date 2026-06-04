@@ -167,3 +167,5 @@ recommend_by_mood("Romantic")
 
 pickle.dump(mood_genre_map,open('model/mood_map.pkl', 'wb'))
 pickle.dump(cv,open('model/vectorizer.pkl','wb'))
+
+print(new_df.head())
