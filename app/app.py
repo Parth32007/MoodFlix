@@ -4,7 +4,7 @@ import requests
 
 from sklearn.metrics.pairwise import cosine_similarity
 
-API_KEY = "c2fb1984938ade31af22a9c8d1077408"
+API_KEY = "YOUR_TMDB_API_KEY"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 cv = pickle.load(open('model/vectorizer.pkl', 'rb'))
@@ -19,7 +19,7 @@ st.set_page_config(
 )
 
 st.title("🎬 MoodFlix")
-st.write("Emotion-based Movie Recommendation System")
+st.write("Emotion-Aware Movie Recommendation System")
 
 movie_list = movies['title'].values
 
@@ -44,7 +44,7 @@ selected_mood = st.selectbox(
 )
 
 @st.cache_data
-def fetch_poster(movie_id):
+def fetch_movie_data(movie_id):
 
     try:
 
@@ -53,20 +53,49 @@ def fetch_poster(movie_id):
             f"{movie_id}?api_key={API_KEY}"
         )
 
-        data = requests.get(url).json()
+        response = requests.get(
+            url,
+            timeout=10
+        )
+
+        data = response.json()
 
         poster_path = data.get("poster_path")
 
         if poster_path:
-            return (
+
+            poster_url = (
                 "https://image.tmdb.org/t/p/w500"
                 + poster_path
             )
 
-    except Exception:
-        pass
+        else:
 
-    return None
+            poster_url = None
+
+        rating = data.get(
+            "vote_average",
+            "N/A"
+        )
+
+        release_date = data.get(
+            "release_date",
+            "N/A"
+        )
+
+        return (
+            poster_url,
+            rating,
+            release_date
+        )
+
+    except Exception:
+
+        return (
+            None,
+            "N/A",
+            "N/A"
+        )
 
 
 def recommend(movie):
@@ -85,49 +114,80 @@ def recommend(movie):
 
     recommended_movies = []
     recommended_posters = []
+    recommended_ratings = []
+    recommended_dates = []
 
     for i in movies_list:
 
         movie_id = movies.iloc[i[0]].movie_id
+
+        poster, rating, release_date = fetch_movie_data(
+            movie_id
+        )
 
         recommended_movies.append(
             movies.iloc[i[0]].title
         )
 
         recommended_posters.append(
-            fetch_poster(movie_id)
+            poster
         )
 
-    return recommended_movies, recommended_posters
+        recommended_ratings.append(
+            rating
+        )
+
+        recommended_dates.append(
+            release_date
+        )
+
+    return (
+        recommended_movies,
+        recommended_posters,
+        recommended_ratings,
+        recommended_dates
+    )
 
 
 if st.button("Recommend"):
 
-    recommended_movies, recommended_posters = recommend(
-        selected_movie
-    )
+    (
+        recommended_movies,
+        recommended_posters,
+        recommended_ratings,
+        recommended_dates
+    ) = recommend(selected_movie)
 
     st.subheader("🎥 Recommended Movies")
 
     cols = st.columns(5)
 
-    for i in range(len(recommended_movies)):
+    for i in range(5):
 
         with cols[i]:
 
             if recommended_posters[i]:
 
                 st.image(
-                    recommended_posters[i],
-                    use_container_width=True
+                    recommended_posters[i]
                 )
 
             else:
 
-                st.write("🎬 Poster Not Available")
+                st.write(
+                    "🎬 Poster Not Available"
+                )
 
-            st.caption(
-                recommended_movies[i]
+            st.markdown(
+                f"**{recommended_movies[i]}**"
+            )
+
+            st.write(
+                f"⭐ {recommended_ratings[i]}"
+            )
+
+            st.write(
+                f"📅 {recommended_dates[i]}"
             )
 
     st.success(
