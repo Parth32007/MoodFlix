@@ -4,7 +4,7 @@ import requests
 
 from sklearn.metrics.pairwise import cosine_similarity
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "Your_TMDB_API_Key_Here"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 cv = pickle.load(open('model/vectorizer.pkl', 'rb'))
@@ -19,7 +19,14 @@ st.set_page_config(
 )
 
 st.title("🎬 MoodFlix")
-st.write("Emotion-Aware Movie Recommendation System")
+
+st.markdown(
+    """
+    Discover movies based on your mood and
+    find similar films using AI-powered
+    recommendations.
+    """
+)
 
 movie_list = movies['title'].values
 
@@ -159,6 +166,7 @@ if st.button("Recommend"):
     ) = recommend(selected_movie)
 
     st.subheader("🎥 Recommended Movies")
+    st.divider()
 
     cols = st.columns(5)
 
@@ -179,17 +187,18 @@ if st.button("Recommend"):
                 )
 
             st.markdown(
-                f"**{recommended_movies[i]}**"
+                f"### {recommended_movies[i]}"
             )
 
-            st.write(
-                f"⭐ {recommended_ratings[i]}"
+            st.markdown(
+                f"⭐ **{recommended_ratings[i]}**"
             )
 
-            st.write(
-                f"📅 {recommended_dates[i]}"
+            st.markdown(
+                f"📅 **{recommended_dates[i]}**"
             )
 
-    st.success(
-        f"Mood Selected: {selected_mood}"
+
+    st.info(
+        f"Current Mood: {selected_mood}"
     )
