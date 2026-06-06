@@ -1,10 +1,10 @@
 import streamlit as st
 import pickle
 import requests
-
+from urllib.parse import quote
 from sklearn.metrics.pairwise import cosine_similarity
 
-API_KEY = "Your_TMDB_API_Key_Here"
+API_KEY = "your_api_key_here"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 cv = pickle.load(open('model/vectorizer.pkl', 'rb'))
@@ -51,23 +51,40 @@ selected_mood = st.selectbox(
 )
 
 @st.cache_data
-def fetch_movie_data(movie_id):
+def fetch_movie_data(movie_title):
 
     try:
 
-        url = (
-            f"https://api.themoviedb.org/3/movie/"
-            f"{movie_id}?api_key={API_KEY}"
+        search_url = (
+            f"https://api.themoviedb.org/3/search/movie"
+            f"?api_key={API_KEY}"
+            f"&query={quote(movie_title)}"
         )
 
         response = requests.get(
-            url,
+            search_url,
             timeout=10
         )
 
         data = response.json()
 
-        poster_path = data.get("poster_path")
+        results = data.get("results", [])
+
+        if len(results) == 0:
+
+            return (
+                None,
+                "N/A",
+                "N/A"
+            )
+
+        movie = results[0]
+
+        poster_path = movie.get(
+            "poster_path"
+        )
+
+        poster_url = None
 
         if poster_path:
 
@@ -76,16 +93,12 @@ def fetch_movie_data(movie_id):
                 + poster_path
             )
 
-        else:
-
-            poster_url = None
-
-        rating = data.get(
+        rating = movie.get(
             "vote_average",
             "N/A"
         )
 
-        release_date = data.get(
+        release_date = movie.get(
             "release_date",
             "N/A"
         )
@@ -126,10 +139,10 @@ def recommend(movie):
 
     for i in movies_list:
 
-        movie_id = movies.iloc[i[0]].movie_id
+        movie_title = movies.iloc[i[0]].title
 
         poster, rating, release_date = fetch_movie_data(
-            movie_id
+            movie_title
         )
 
         recommended_movies.append(
