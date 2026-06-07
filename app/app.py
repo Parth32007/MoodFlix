@@ -1,10 +1,11 @@
 import streamlit as st
 import pickle
 import requests
-from urllib.parse import quote
-from sklearn.metrics.pairwise import cosine_similarity
 
-API_KEY = "your_api_key_here"
+from sklearn.metrics.pairwise import cosine_similarity
+from urllib.parse import quote
+
+API_KEY = "YOUR_TMDB_API_KEY"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 cv = pickle.load(open('model/vectorizer.pkl', 'rb'))
@@ -18,22 +19,29 @@ st.set_page_config(
     layout="wide"
 )
 
+st.sidebar.title("🎬 MoodFlix")
+
+st.sidebar.markdown("""
+### About
+
+MoodFlix is an Emotion-Aware Movie Recommendation System.
+
+It uses:
+- Content-Based Filtering
+- Cosine Similarity
+- TMDB API
+
+to recommend movies similar to your interests.
+""")
+
 st.title("🎬 MoodFlix")
 
-st.markdown(
-    """
-    Discover movies based on your mood and
-    find similar films using AI-powered
-    recommendations.
-    """
-)
+st.markdown("""
+Discover movies based on your mood and
+find similar films using AI-powered recommendations.
+""")
 
 movie_list = movies['title'].values
-
-selected_movie = st.selectbox(
-    "Select Movie",
-    movie_list
-)
 
 moods = [
     "Happy",
@@ -45,10 +53,18 @@ moods = [
     "Scared"
 ]
 
+st.subheader("🎯 Find Your Next Movie")
+
+selected_movie = st.selectbox(
+    "🎥 Select Movie",
+    movie_list
+)
+
 selected_mood = st.selectbox(
-    "Select Mood",
+    "😀 Select Mood",
     moods
 )
+
 
 @st.cache_data
 def fetch_movie_data(movie_title):
@@ -146,7 +162,7 @@ def recommend(movie):
         )
 
         recommended_movies.append(
-            movies.iloc[i[0]].title
+            movie_title
         )
 
         recommended_posters.append(
@@ -169,16 +185,25 @@ def recommend(movie):
     )
 
 
-if st.button("Recommend"):
+if st.button("🎬 Recommend"):
 
-    (
-        recommended_movies,
-        recommended_posters,
-        recommended_ratings,
-        recommended_dates
-    ) = recommend(selected_movie)
+    with st.spinner(
+        "Finding the best movies for you..."
+    ):
+
+        (
+            recommended_movies,
+            recommended_posters,
+            recommended_ratings,
+            recommended_dates
+        ) = recommend(selected_movie)
+
+    st.info(
+        f"Current Mood: {selected_mood}"
+    )
 
     st.subheader("🎥 Recommended Movies")
+
     st.divider()
 
     cols = st.columns(5)
@@ -200,18 +225,13 @@ if st.button("Recommend"):
                 )
 
             st.markdown(
-                f"### {recommended_movies[i]}"
+                f"**{recommended_movies[i]}**"
             )
 
-            st.markdown(
-                f"⭐ **{recommended_ratings[i]}**"
+            st.write(
+                f"⭐ {recommended_ratings[i]}"
             )
 
-            st.markdown(
-                f"📅 **{recommended_dates[i]}**"
+            st.write(
+                f"📅 {recommended_dates[i]}"
             )
-
-
-    st.info(
-        f"Current Mood: {selected_mood}"
-    )
