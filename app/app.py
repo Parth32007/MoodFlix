@@ -259,9 +259,9 @@ if st.button("🎬 Recommend"):
             recommended_ratings,
             recommended_dates
         ) = recommend(
-                selected_movie,
-                selected_mood
-            )
+            selected_movie,
+            selected_mood
+        )
 
     st.info(
         f"Current Mood: {selected_mood}"
@@ -271,34 +271,44 @@ if st.button("🎬 Recommend"):
 
     st.divider()
 
-    cols = st.columns(5)
+    if len(recommended_movies) == 0:
 
-    for i in range(5):
+        st.warning(
+            "No movies found for this mood. Try another mood."
+        )
 
-        with cols[i]:
+    else:
 
-            if recommended_posters[i]:
+        cols = st.columns(
+            len(recommended_movies)
+        )
 
-                st.image(
-                    recommended_posters[i]
+        for i in range(
+            len(recommended_movies)
+        ):
+
+            with cols[i]:
+
+                if recommended_posters[i]:
+
+                    st.image(
+                        recommended_posters[i]
+                    )
+
+                else:
+
+                    st.write(
+                        "🎬 Poster Not Available"
+                    )
+
+                st.markdown(
+                    f"**{recommended_movies[i]}**"
                 )
-
-            else:
 
                 st.write(
-                    "🎬 Poster Not Available"
+                    f"⭐ {recommended_ratings[i]}"
                 )
 
-            st.markdown(
-                f"**{recommended_movies[i]}**"
-            )
-
-            st.write(
-                f"⭐ {recommended_ratings[i]}"
-            )
-
-            st.write(
-                f"📅 {recommended_dates[i]}"
-            )
-
-print(mood_map)
+                st.write(
+                    f"📅 {recommended_dates[i]}"
+                )
