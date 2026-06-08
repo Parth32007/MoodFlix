@@ -174,26 +174,48 @@ def fetch_movie_data(movie_title):
         )
 
 
-def recommend(movie):
+def recommend(movie, mood):
 
     movie_index = movies[
         movies['title'] == movie
     ].index[0]
 
     distances = similarity[movie_index]
+    mood_genres = mood_map.get(
+        mood,
+        []
+    )
 
     movies_list = sorted(
         list(enumerate(distances)),
         reverse=True,
         key=lambda x: x[1]
-    )[1:6]
+    )[1:50]
+
+    filtered_movies = []
+
+    for i in movies_list:
+
+        movie_tags = movies.iloc[
+            i[0]
+        ]['tags']
+
+        if any(
+            genre in movie_tags
+            for genre in mood_genres
+        ):
+
+            filtered_movies.append(i)
+
+        if len(filtered_movies) == 5:
+            break
 
     recommended_movies = []
     recommended_posters = []
     recommended_ratings = []
     recommended_dates = []
 
-    for i in movies_list:
+    for i in filtered_movies:
 
         movie_title = movies.iloc[i[0]].title
 
@@ -236,7 +258,10 @@ if st.button("🎬 Recommend"):
             recommended_posters,
             recommended_ratings,
             recommended_dates
-        ) = recommend(selected_movie)
+        ) = recommend(
+                selected_movie,
+                selected_mood
+            )
 
     st.info(
         f"Current Mood: {selected_mood}"
