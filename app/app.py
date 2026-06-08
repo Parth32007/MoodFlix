@@ -53,6 +53,45 @@ moods = [
     "Scared"
 ]
 
+mood_genres = {
+    "Happy": [
+        "Comedy",
+        "Family",
+        "Adventure"
+    ],
+
+    "Sad": [
+        "Drama",
+        "Romance"
+    ],
+
+    "Excited": [
+        "Action",
+        "Adventure",
+        "Science Fiction"
+    ],
+
+    "Romantic": [
+        "Romance",
+        "Drama"
+    ],
+
+    "Motivational": [
+        "Drama",
+        "Adventure"
+    ],
+
+    "Curious": [
+        "Mystery",
+        "Science Fiction"
+    ],
+
+    "Scared": [
+        "Horror",
+        "Thriller"
+    ]
+}
+
 st.subheader("🎯 Find Your Next Movie")
 
 selected_movie = st.selectbox(
