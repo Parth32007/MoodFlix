@@ -87,7 +87,14 @@ movies['tags'] = movies['overview'] + \
                  movies['cast'] + \
                  movies['crew']
 
-new_df = movies[['movie_id', 'title', 'tags']]
+new_df = movies[
+    [
+        'movie_id',
+        'title',
+        'genres',
+        'tags'
+    ]
+]
 
 new_df['tags'] = new_df['tags'].apply(lambda x: " ".join(x))
 
@@ -168,4 +175,7 @@ recommend_by_mood("Romantic")
 pickle.dump(mood_genre_map,open('model/mood_map.pkl', 'wb'))
 pickle.dump(cv,open('model/vectorizer.pkl','wb'))
 
-print(new_df.head())
+movies = pickle.load(open('model/movies.pkl', 'rb'))
+
+print(movies.head())
+print(movies.columns)

@@ -8,6 +8,7 @@ from urllib.parse import quote
 API_KEY = "YOUR_TMDB_API_KEY"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
+mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
 cv = pickle.load(open('model/vectorizer.pkl', 'rb'))
 
 vectors = cv.transform(movies['tags']).toarray()
@@ -274,3 +275,5 @@ if st.button("🎬 Recommend"):
             st.write(
                 f"📅 {recommended_dates[i]}"
             )
+
+print(mood_map)
