@@ -5,7 +5,7 @@ import requests
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your TMDB API Key Here"
+API_KEY = "02668caf4a1b090b521a830878aecb9c"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
@@ -137,6 +137,31 @@ def fetch_movie_data(movie_title):
             )
 
         movie = results[0]
+        movie_id = movie.get("id")
+        genres = []
+
+        if movie_id:
+
+            details_url = (
+                f"https://api.themoviedb.org/3/movie/"
+                f"{movie_id}"
+                f"?api_key={API_KEY}"
+            )
+
+            details_response = requests.get(
+                details_url,
+                timeout=10
+            )
+
+        details_data = details_response.json()
+
+        genres = [
+            genre["name"]
+            for genre in details_data.get(
+                "genres",
+                []
+            )
+        ]
 
         poster_path = movie.get(
             "poster_path"
@@ -165,8 +190,6 @@ def fetch_movie_data(movie_title):
             "overview",
             "No overview available."
         )
-
-        genres = []
 
         return (
             poster_url,
@@ -228,6 +251,7 @@ def recommend(movie, mood):
     recommended_ratings = []
     recommended_dates = []
     recommended_overviews = []
+    recommended_genres = []
 
     for i in filtered_movies:
 
@@ -257,12 +281,17 @@ def recommend(movie, mood):
             overview
         )
 
+        recommended_genres.append(
+            genres
+        )
+
     return (
         recommended_movies,
         recommended_posters,
         recommended_ratings,
         recommended_dates,
-        recommended_overviews
+        recommended_overviews,
+        recommended_genres 
     )
 
 
@@ -277,7 +306,8 @@ if st.button("🎬 Recommend"):
             recommended_posters,
             recommended_ratings,
             recommended_dates,
-            recommended_overviews
+            recommended_overviews,
+            recommended_genres
         ) = recommend(
             selected_movie,
             selected_mood
@@ -332,6 +362,15 @@ if st.button("🎬 Recommend"):
                 st.write(
                     f"📅 {recommended_dates[i]}"
                 )
+
+                if len(recommended_genres[i]) > 0:
+
+                    st.write(
+                        "🏷 " +
+                        " | ".join(
+                            recommended_genres[i]
+                            )
+                        )
 
                 st.markdown("##### Overview")
 
