@@ -5,7 +5,7 @@ import requests
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "Your TMDB API Key Here"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
@@ -131,7 +131,9 @@ def fetch_movie_data(movie_title):
             return (
                 None,
                 "N/A",
-                "N/A"
+                "N/A",
+                "No overview available.",
+                []
             )
 
         movie = results[0]
@@ -159,10 +161,19 @@ def fetch_movie_data(movie_title):
             "N/A"
         )
 
+        overview = movie.get(
+            "overview",
+            "No overview available."
+        )
+
+        genres = []
+
         return (
             poster_url,
             rating,
-            release_date
+            release_date,
+            overview,
+            genres
         )
 
     except Exception:
@@ -170,7 +181,9 @@ def fetch_movie_data(movie_title):
         return (
             None,
             "N/A",
-            "N/A"
+            "N/A",
+            "No overview available.",
+            []
         )
 
 
@@ -214,12 +227,13 @@ def recommend(movie, mood):
     recommended_posters = []
     recommended_ratings = []
     recommended_dates = []
+    recommended_overviews = []
 
     for i in filtered_movies:
 
         movie_title = movies.iloc[i[0]].title
 
-        poster, rating, release_date = fetch_movie_data(
+        poster, rating, release_date, overview, genres = fetch_movie_data(
             movie_title
         )
 
@@ -239,11 +253,16 @@ def recommend(movie, mood):
             release_date
         )
 
+        recommended_overviews.append(
+            overview
+        )
+
     return (
         recommended_movies,
         recommended_posters,
         recommended_ratings,
-        recommended_dates
+        recommended_dates,
+        recommended_overviews
     )
 
 
@@ -257,7 +276,8 @@ if st.button("🎬 Recommend"):
             recommended_movies,
             recommended_posters,
             recommended_ratings,
-            recommended_dates
+            recommended_dates,
+            recommended_overviews
         ) = recommend(
             selected_movie,
             selected_mood
@@ -311,4 +331,10 @@ if st.button("🎬 Recommend"):
 
                 st.write(
                     f"📅 {recommended_dates[i]}"
+                )
+
+                st.markdown("##### Overview")
+
+                st.write(
+                    recommended_overviews[i][:120] + "..."
                 )
