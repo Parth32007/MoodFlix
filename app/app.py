@@ -5,7 +5,7 @@ import requests
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your TMDB API Key Here"
+API_KEY = "YOUR_TMDB_API_KEY"
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
@@ -53,45 +53,6 @@ moods = [
     "Curious",
     "Scared"
 ]
-
-mood_genres = {
-    "Happy": [
-        "Comedy",
-        "Family",
-        "Adventure"
-    ],
-
-    "Sad": [
-        "Drama",
-        "Romance"
-    ],
-
-    "Excited": [
-        "Action",
-        "Adventure",
-        "Science Fiction"
-    ],
-
-    "Romantic": [
-        "Romance",
-        "Drama"
-    ],
-
-    "Motivational": [
-        "Drama",
-        "Adventure"
-    ],
-
-    "Curious": [
-        "Mystery",
-        "Science Fiction"
-    ],
-
-    "Scared": [
-        "Horror",
-        "Thriller"
-    ]
-}
 
 st.subheader("🎯 Find Your Next Movie")
 
@@ -153,15 +114,15 @@ def fetch_movie_data(movie_title):
                 timeout=10
             )
 
-        details_data = details_response.json()
+            details_data = details_response.json()
 
-        genres = [
-            genre["name"]
-            for genre in details_data.get(
-                "genres",
-                []
-            )
-        ]
+            genres = [
+                genre["name"]
+                for genre in details_data.get(
+                    "genres",
+                    []
+                )
+            ]
 
         poster_path = movie.get(
             "poster_path"
@@ -252,6 +213,7 @@ def recommend(movie, mood):
     recommended_dates = []
     recommended_overviews = []
     recommended_genres = []
+    recommended_reasons = []
 
     for i in filtered_movies:
 
@@ -285,13 +247,22 @@ def recommend(movie, mood):
             genres
         )
 
+        recommended_reason = (
+            f"Similar to {movie} • {mood} mood"
+        )
+
+        recommended_reasons.append(
+            recommended_reason
+        )
+
     return (
         recommended_movies,
         recommended_posters,
         recommended_ratings,
         recommended_dates,
         recommended_overviews,
-        recommended_genres 
+        recommended_genres,
+        recommended_reasons
     )
 
 
@@ -307,7 +278,8 @@ if st.button("🎬 Recommend"):
             recommended_ratings,
             recommended_dates,
             recommended_overviews,
-            recommended_genres
+            recommended_genres,
+            recommended_reasons
         ) = recommend(
             selected_movie,
             selected_mood
@@ -329,9 +301,7 @@ if st.button("🎬 Recommend"):
 
     else:
 
-        cols = st.columns(
-            len(recommended_movies)
-        )
+        cols = st.columns(5)
 
         for i in range(
             len(recommended_movies)
@@ -342,7 +312,7 @@ if st.button("🎬 Recommend"):
                 if recommended_posters[i]:
 
                     st.image(
-                        recommended_posters[i]
+                    recommended_posters[i]
                     )
 
                 else:
@@ -351,9 +321,16 @@ if st.button("🎬 Recommend"):
                         "🎬 Poster Not Available"
                     )
 
-                st.markdown(
-                    f"**{recommended_movies[i]}**"
-                )
+                    st.image(
+                        "https://via.placeholder.com/300x450?text=No+Poster"
+                    )
+
+                title = recommended_movies[i]
+
+                if len(title) > 30:
+                    title = title[:30] + "..."
+
+                st.markdown(f"### {title}")
 
                 st.write(
                     f"⭐ {recommended_ratings[i]}"
@@ -376,4 +353,8 @@ if st.button("🎬 Recommend"):
 
                 st.write(
                     recommended_overviews[i][:120] + "..."
+                )
+
+                st.success(
+                    "💡 " + recommended_reasons[i]
                 )
