@@ -14,6 +14,14 @@ os.makedirs(
     exist_ok=True
 )
 
+WATCHLIST_FILE = "user_data/watchlist.pkl"
+if os.path.exists(WATCHLIST_FILE):
+    watchlist = pickle.load(
+        open(WATCHLIST_FILE, "rb")
+    )
+else:
+    watchlist = []
+
 if os.path.exists(FAVORITES_FILE):
     favorites = pickle.load(
         open(FAVORITES_FILE, "rb")
@@ -65,6 +73,22 @@ else:
             "• " + movie
         )
 
+st.sidebar.markdown("---")
+st.sidebar.subheader("📌 Watchlist")
+if len(watchlist) == 0:
+
+    st.sidebar.write(
+        "No movies in watchlist."
+    )
+
+else:
+
+    for movie in watchlist:
+
+        st.sidebar.write(
+            "• " + movie
+        )
+
 st.title("🎬 MoodFlix")
 
 st.markdown("""
@@ -95,8 +119,6 @@ selected_mood = st.selectbox(
     "😀 Select Mood",
     moods
 )
-
-st.write("App Running")
 
 @st.cache_data
 def fetch_movie_data(movie_title):
@@ -400,6 +422,26 @@ if st.session_state.recommendations:
                         favorites,
                         open(
                             FAVORITES_FILE,
+                            "wb"
+                        )
+                    )
+
+                    st.rerun()
+            
+            if st.button(
+                f"📌 Watchlist {i}"
+            ):
+
+                if recommended_movies[i] not in watchlist:
+
+                    watchlist.append(
+                        recommended_movies[i]
+                    )
+
+                    pickle.dump(
+                        watchlist,
+                        open(
+                            WATCHLIST_FILE,
                             "wb"
                         )
                     )
