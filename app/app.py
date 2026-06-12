@@ -1,11 +1,25 @@
 import streamlit as st
 import pickle
 import requests
+import os
 
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
 API_KEY = "YOUR_TMDB_API_KEY"
+
+FAVORITES_FILE = "user_data/favorites.pkl"
+os.makedirs(
+    "user_data",
+    exist_ok=True
+)
+
+if os.path.exists(FAVORITES_FILE):
+    favorites = pickle.load(
+        open(FAVORITES_FILE, "rb")
+    )
+else:
+    favorites = []
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
@@ -34,6 +48,22 @@ It uses:
 
 to recommend movies similar to your interests.
 """)
+
+st.sidebar.markdown("---")
+st.sidebar.subheader("❤️ Favorites")
+if len(favorites) == 0:
+
+    st.sidebar.write(
+        "No favorites yet."
+    )
+
+else:
+
+    for movie in favorites:
+
+        st.sidebar.write(
+            "• " + movie
+        )
 
 st.title("🎬 MoodFlix")
 
@@ -66,6 +96,7 @@ selected_mood = st.selectbox(
     moods
 )
 
+st.write("App Running")
 
 @st.cache_data
 def fetch_movie_data(movie_title):
@@ -265,6 +296,8 @@ def recommend(movie, mood):
         recommended_reasons
     )
 
+if "recommendations" not in st.session_state:
+    st.session_state.recommendations = None
 
 if st.button("🎬 Recommend"):
 
@@ -272,89 +305,103 @@ if st.button("🎬 Recommend"):
         "Finding the best movies for you..."
     ):
 
-        (
-            recommended_movies,
-            recommended_posters,
-            recommended_ratings,
-            recommended_dates,
-            recommended_overviews,
-            recommended_genres,
-            recommended_reasons
-        ) = recommend(
+        st.session_state.recommendations = recommend(
             selected_movie,
             selected_mood
         )
 
+        st.session_state.current_mood = selected_mood
+
+if st.session_state.recommendations:
+
+    (
+        recommended_movies,
+        recommended_posters,
+        recommended_ratings,
+        recommended_dates,
+        recommended_overviews,
+        recommended_genres,
+        recommended_reasons
+    ) = st.session_state.recommendations
+
     st.info(
-        f"Current Mood: {selected_mood}"
+        f"Current Mood: {st.session_state.current_mood}"
     )
 
     st.subheader("🎥 Recommended Movies")
 
     st.divider()
 
-    if len(recommended_movies) == 0:
+    cols = st.columns(5)
 
-        st.warning(
-            "No movies found for this mood. Try another mood."
-        )
+    for i in range(
+        len(recommended_movies)
+    ):
 
-    else:
+        with cols[i]:
 
-        cols = st.columns(5)
+            if recommended_posters[i]:
 
-        for i in range(
-            len(recommended_movies)
-        ):
-
-            with cols[i]:
-
-                if recommended_posters[i]:
-
-                    st.image(
+                st.image(
                     recommended_posters[i]
-                    )
-
-                else:
-
-                    st.write(
-                        "🎬 Poster Not Available"
-                    )
-
-                    st.image(
-                        "https://via.placeholder.com/300x450?text=No+Poster"
-                    )
-
-                title = recommended_movies[i]
-
-                if len(title) > 30:
-                    title = title[:30] + "..."
-
-                st.markdown(f"### {title}")
-
-                st.write(
-                    f"⭐ {recommended_ratings[i]}"
                 )
 
+            else:
+
                 st.write(
-                    f"📅 {recommended_dates[i]}"
+                    "🎬 Poster Not Available"
                 )
 
-                if len(recommended_genres[i]) > 0:
+            title = recommended_movies[i]
 
-                    st.write(
-                        "🏷 " +
-                        " | ".join(
-                            recommended_genres[i]
-                            )
+            if len(title) > 30:
+                title = title[:30] + "..."
+
+            st.markdown(f"### {title}")
+
+            st.write(
+                f"⭐ {recommended_ratings[i]}"
+            )
+
+            st.write(
+                f"📅 {recommended_dates[i]}"
+            )
+
+            if len(recommended_genres[i]) > 0:
+
+                st.write(
+                    "🏷 " +
+                    " | ".join(
+                        recommended_genres[i]
+                    )
+                )
+
+            st.markdown("##### Overview")
+
+            st.write(
+                recommended_overviews[i][:120] + "..."
+            )
+
+            st.success(
+                "💡 " + recommended_reasons[i]
+            )
+
+            if st.button(
+                f"❤️ Favorite {i}"
+            ):
+
+                if recommended_movies[i] not in favorites:
+
+                    favorites.append(
+                        recommended_movies[i]
+                    )
+
+                    pickle.dump(
+                        favorites,
+                        open(
+                            FAVORITES_FILE,
+                            "wb"
                         )
+                    )
 
-                st.markdown("##### Overview")
-
-                st.write(
-                    recommended_overviews[i][:120] + "..."
-                )
-
-                st.success(
-                    "💡 " + recommended_reasons[i]
-                )
+                    st.rerun()
