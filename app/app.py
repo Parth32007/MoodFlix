@@ -13,6 +13,12 @@ os.makedirs(
     "user_data",
     exist_ok=True
 )
+if os.path.exists(FAVORITES_FILE):
+    favorites = pickle.load(
+        open(FAVORITES_FILE, "rb")
+    )
+else:
+    favorites = []
 
 WATCHLIST_FILE = "user_data/watchlist.pkl"
 if os.path.exists(WATCHLIST_FILE):
@@ -22,12 +28,14 @@ if os.path.exists(WATCHLIST_FILE):
 else:
     watchlist = []
 
-if os.path.exists(FAVORITES_FILE):
-    favorites = pickle.load(
-        open(FAVORITES_FILE, "rb")
+HISTORY_FILE = "user_data/history.pkl"
+if os.path.exists(HISTORY_FILE):
+    history = pickle.load(
+        open(HISTORY_FILE, "rb")
     )
 else:
-    favorites = []
+    history = []
+
 
 movies = pickle.load(open('model/movies.pkl', 'rb'))
 mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
@@ -87,6 +95,23 @@ else:
 
         st.sidebar.write(
             "• " + movie
+        )
+
+st.sidebar.markdown("---")
+st.sidebar.subheader("🕒 Recent Searches")
+
+if len(history) == 0:
+
+    st.sidebar.write(
+        "No searches yet."
+    )
+
+else:
+
+    for item in history[-5:][::-1]:
+
+        st.sidebar.write(
+            "• " + item
         )
 
 st.title("🎬 MoodFlix")
@@ -333,6 +358,22 @@ if st.button("🎬 Recommend"):
         )
 
         st.session_state.current_mood = selected_mood
+
+        search_entry = (
+            f"{selected_movie} → {selected_mood}"
+        )
+
+        history.append(
+            search_entry
+        )
+
+        pickle.dump(
+            history,
+            open(
+                HISTORY_FILE,
+                "wb"
+            )
+        )
 
 if st.session_state.recommendations:
 
