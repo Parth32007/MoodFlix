@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your_TMDB_API_Key_Here"
+API_KEY = "02668caf4a1b090b521a830878aecb9c"
 
 FAVORITES_FILE = "user_data/favorites.pkl"
 os.makedirs(
@@ -151,6 +151,23 @@ else:
         st.sidebar.write(
             "• " + item
         )
+
+st.sidebar.markdown("---")
+st.sidebar.subheader("📊 Dashboard")
+st.sidebar.metric(
+    "❤️ Favorites",
+    len(favorites)
+)
+
+st.sidebar.metric(
+    "📌 Watchlist",
+    len(watchlist)
+)
+
+st.sidebar.metric(
+    "🕒 Searches",
+    len(history)
+)
 
 st.title("🎬 MoodFlix")
 
