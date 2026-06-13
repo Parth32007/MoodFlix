@@ -154,15 +154,19 @@ else:
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("📊 Dashboard")
-st.sidebar.metric(
-    "❤️ Favorites",
-    len(favorites)
-)
+col1, col2 = st.sidebar.columns(2)
 
-st.sidebar.metric(
-    "📌 Watchlist",
-    len(watchlist)
-)
+with col1:
+    st.metric(
+        "❤️",
+        len(favorites)
+    )
+
+with col2:
+    st.metric(
+        "📌",
+        len(watchlist)
+    )
 
 st.sidebar.metric(
     "🕒 Searches",
@@ -170,6 +174,10 @@ st.sidebar.metric(
 )
 
 st.title("🎬 MoodFlix")
+
+st.caption(
+    "Emotion-Aware Movie Recommendation System"
+)
 
 st.markdown("""
 Discover movies based on your mood and
@@ -446,7 +454,9 @@ if st.session_state.recommendations:
         f"Current Mood: {st.session_state.current_mood}"
     )
 
-    st.subheader("🎥 Recommended Movies")
+    st.markdown(
+    "## 🎥 Recommended Movies"
+    )
 
     st.divider()
 
@@ -494,13 +504,13 @@ if st.session_state.recommendations:
                     )
                 )
 
-            st.markdown("##### Overview")
+            st.caption("📝 Overview")
 
             st.write(
                 recommended_overviews[i][:120] + "..."
             )
 
-            st.success(
+            st.info(
                 "💡 " + recommended_reasons[i]
             )
 
@@ -543,3 +553,9 @@ if st.session_state.recommendations:
                     )
 
                     st.rerun()
+
+                    st.markdown("---")
+
+st.caption(
+    "Built with ❤️ using Streamlit, Scikit-Learn and TMDB API"
+)
