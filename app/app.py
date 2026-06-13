@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "Your_TMDB_API_Key_Here"
 
 FAVORITES_FILE = "user_data/favorites.pkl"
 os.makedirs(
@@ -77,9 +77,28 @@ else:
 
     for movie in favorites:
 
-        st.sidebar.write(
-            "• " + movie
-        )
+        col1, col2 = st.sidebar.columns([4,1])
+
+        with col1:
+            st.write(movie)
+
+        with col2:
+            if st.button(
+                "❌",
+                key=f"fav_{movie}"
+            ):
+
+                favorites.remove(movie)
+
+                pickle.dump(
+                    favorites,
+                    open(
+                        FAVORITES_FILE,
+                        "wb"
+                    )
+                )
+
+                st.rerun()
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("📌 Watchlist")
@@ -93,9 +112,28 @@ else:
 
     for movie in watchlist:
 
-        st.sidebar.write(
-            "• " + movie
-        )
+        col1, col2 = st.sidebar.columns([4,1])
+
+        with col1:
+            st.write(movie)
+
+        with col2:
+            if st.button(
+                "❌",
+                key=f"watch_{movie}"
+            ):
+
+                watchlist.remove(movie)
+
+                pickle.dump(
+                    watchlist,
+                    open(
+                        WATCHLIST_FILE,
+                        "wb"
+                    )
+                )
+
+                st.rerun()
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("🕒 Recent Searches")
