@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "02668caf4a1b090b521a830878aecb9c"
+API_KEY = "YOUR_TMDB_API_KEY"
 
 FAVORITES_FILE = "user_data/favorites.pkl"
 os.makedirs(
@@ -184,7 +184,28 @@ Discover movies based on your mood and
 find similar films using AI-powered recommendations.
 """)
 
-movie_list = movies['title'].values
+search_query = st.text_input(
+    "🔍 Search Movie"
+)
+
+movie_list = movies['title'].tolist()
+
+if search_query:
+
+    movie_list = [
+    movie
+    for movie in movie_list
+    if search_query.lower().replace("-", " ").strip()
+    in movie.lower().replace("-", " ")
+]
+
+if len(movie_list) == 0:
+
+    st.warning(
+        "No movies found."
+    )
+
+    st.stop()
 
 moods = [
     "Happy",
@@ -554,7 +575,7 @@ if st.session_state.recommendations:
 
                     st.rerun()
 
-                    st.markdown("---")
+st.markdown("---")
 
 st.caption(
     "Built with ❤️ using Streamlit, Scikit-Learn and TMDB API"
