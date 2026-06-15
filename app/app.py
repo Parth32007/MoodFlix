@@ -1,3 +1,5 @@
+from wsgiref import headers
+
 import streamlit as st
 import pickle
 import requests
@@ -6,7 +8,11 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "02668caf4a1b090b521a830878aecb9c"
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0"
+}
 
 FAVORITES_FILE = "user_data/favorites.pkl"
 os.makedirs(
@@ -184,29 +190,6 @@ Discover movies based on your mood and
 find similar films using AI-powered recommendations.
 """)
 
-search_query = st.text_input(
-    "🔍 Search Movie"
-)
-
-movie_list = movies['title'].tolist()
-
-if search_query:
-
-    movie_list = [
-    movie
-    for movie in movie_list
-    if search_query.lower().replace("-", " ").strip()
-    in movie.lower().replace("-", " ")
-]
-
-if len(movie_list) == 0:
-
-    st.warning(
-        "No movies found."
-    )
-
-    st.stop()
-
 moods = [
     "Happy",
     "Sad",
@@ -218,16 +201,6 @@ moods = [
 ]
 
 st.subheader("🎯 Find Your Next Movie")
-
-selected_movie = st.selectbox(
-    "🎥 Select Movie",
-    movie_list
-)
-
-selected_mood = st.selectbox(
-    "😀 Select Mood",
-    moods
-)
 
 @st.cache_data
 def fetch_movie_data(movie_title):
@@ -242,7 +215,8 @@ def fetch_movie_data(movie_title):
 
         response = requests.get(
             search_url,
-            timeout=10
+            headers=headers,
+            timeout=20
         )
 
         data = response.json()
@@ -331,7 +305,41 @@ def fetch_movie_data(movie_title):
             "No overview available.",
             []
         )
+    
+search_query = st.text_input(
+    "🔍 Search Movie"
+)
 
+movie_list = movies['title'].tolist()
+
+if search_query:
+
+    movie_list = [
+    movie
+    for movie in movie_list
+    if search_query.lower().replace("-", " ").strip()
+    in movie.lower().replace("-", " ")
+]
+
+if len(movie_list) == 0:
+
+    st.warning(
+        "No movies found."
+    )
+
+    st.stop()
+
+selected_movie = st.selectbox(
+    "🎥 Select Movie",
+    movie_list
+)
+
+selected_mood = st.selectbox(
+    "😀 Select Mood",
+    moods
+)
+
+st.markdown("### 🎬 Movie Details")
 
 def recommend(movie, mood):
 
