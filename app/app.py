@@ -306,6 +306,62 @@ def fetch_movie_data(movie_title):
             []
         )
     
+@st.cache_data(ttl=3600)
+def fetch_trending_movies():
+
+    try:
+
+        url = (
+            f"https://api.themoviedb.org/3/trending/movie/day"
+            f"?api_key={API_KEY}"
+        )
+
+        response = requests.get(
+            url,
+            timeout=10
+        )
+
+        data = response.json()
+
+        trending_movies = []
+
+        for movie in data.get(
+            "results",
+            []
+        )[:5]:
+
+            trending_movies.append(
+                movie["title"]
+            )
+
+        return trending_movies
+
+    except Exception:
+
+        return []
+    
+trending_movies = fetch_trending_movies()
+
+if len(trending_movies) > 0:
+
+    st.markdown("## 🔥 Trending Movies Today")
+
+    cols = st.columns(
+        len(trending_movies)
+    )
+
+    for i in range(
+        len(trending_movies)
+    ):
+
+        with cols[i]:
+
+            st.write(
+                trending_movies[i]
+            )
+
+    st.divider()
+    
 search_query = st.text_input(
     "🔍 Search Movie"
 )
