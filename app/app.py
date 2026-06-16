@@ -1,5 +1,3 @@
-from wsgiref import headers
-
 import streamlit as st
 import pickle
 import requests
@@ -8,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "02668caf4a1b090b521a830878aecb9c"
+API_KEY = "YOUR_TMDB_API_KEY"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -215,7 +213,7 @@ def fetch_movie_data(movie_title):
 
         response = requests.get(
             search_url,
-            headers=headers,
+            headers=HEADERS,
             timeout=20
         )
 
@@ -336,15 +334,33 @@ def fetch_trending_movies():
 
         return trending_movies
 
-    except Exception:
+    except Exception as e:
 
-        return []
+        st.warning(
+            "Trending movies temporarily unavailable."
+        )
+
+    return []
     
 trending_movies = fetch_trending_movies()
 
 if len(trending_movies) > 0:
 
-    st.markdown("## 🔥 Trending Movies Today")
+    st.session_state.trending_movies = (
+        trending_movies
+    )
+
+elif "trending_movies" in st.session_state:
+
+    trending_movies = (
+        st.session_state.trending_movies
+    )
+
+if len(trending_movies) > 0:
+
+    st.markdown(
+        "## 🔥 Trending Movies Today"
+    )
 
     cols = st.columns(
         len(trending_movies)
@@ -361,7 +377,7 @@ if len(trending_movies) > 0:
             )
 
     st.divider()
-    
+
 search_query = st.text_input(
     "🔍 Search Movie"
 )
@@ -394,8 +410,6 @@ selected_mood = st.selectbox(
     "😀 Select Mood",
     moods
 )
-
-st.markdown("### 🎬 Movie Details")
 
 def recommend(movie, mood):
 
