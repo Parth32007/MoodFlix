@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "02668caf4a1b090b521a830878aecb9c"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -340,7 +340,7 @@ def fetch_trending_movies():
             "Trending movies temporarily unavailable."
         )
 
-    return []
+        return []
     
 trending_movies = fetch_trending_movies()
 
