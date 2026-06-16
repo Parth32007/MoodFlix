@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "02668caf4a1b090b521a830878aecb9c"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -341,8 +341,44 @@ def fetch_trending_movies():
         )
 
         return []
+
+@st.cache_data(ttl=3600)
+def fetch_top_rated_movies():
+
+    try:
+
+        url = (
+            f"https://api.themoviedb.org/3/movie/top_rated"
+            f"?api_key={API_KEY}"
+        )
+
+        response = requests.get(
+            url,
+            headers=HEADERS,
+            timeout=20
+        )
+
+        data = response.json()
+
+        top_rated_movies = []
+
+        for movie in data.get(
+            "results",
+            []
+        )[:5]:
+
+            top_rated_movies.append(
+                movie["title"]
+            )
+
+        return top_rated_movies
+
+    except Exception:
+
+        return []
     
 trending_movies = fetch_trending_movies()
+top_rated_movies = fetch_top_rated_movies()
 
 if len(trending_movies) > 0:
 
@@ -374,6 +410,40 @@ if len(trending_movies) > 0:
 
             st.write(
                 trending_movies[i]
+            )
+
+    st.divider()
+
+if len(top_rated_movies) > 0:
+
+    st.session_state.top_rated_movies = (
+        top_rated_movies
+    )
+
+elif "top_rated_movies" in st.session_state:
+
+    top_rated_movies = (
+        st.session_state.top_rated_movies
+    )
+
+if len(top_rated_movies) > 0:
+
+    st.markdown(
+        "## ⭐ Top Rated Movies"
+    )
+
+    cols = st.columns(
+        len(top_rated_movies)
+    )
+
+    for i in range(
+        len(top_rated_movies)
+    ):
+
+        with cols[i]:
+
+            st.write(
+                top_rated_movies[i]
             )
 
     st.divider()
@@ -410,6 +480,8 @@ selected_mood = st.selectbox(
     "😀 Select Mood",
     moods
 )
+
+
 
 def recommend(movie, mood):
 
