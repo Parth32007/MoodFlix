@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "YOUR_TMDB_API_KEY"
+API_KEY = "02668caf4a1b090b521a830878aecb9c"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -175,6 +175,12 @@ with col2:
 st.sidebar.metric(
     "🕒 Searches",
     len(history)
+)
+
+st.sidebar.markdown("---")
+
+st.sidebar.caption(
+    "MoodFlix v1.0"
 )
 
 st.title("🎬 MoodFlix")
@@ -394,9 +400,10 @@ elif "trending_movies" in st.session_state:
 
 if len(trending_movies) > 0:
 
-    st.markdown(
-        "## 🔥 Trending Movies Today"
-    )
+    st.markdown("""
+        ## 🔥 Trending Movies Today
+        See what's popular right now.
+    """)
 
     cols = st.columns(
         len(trending_movies)
@@ -428,9 +435,10 @@ elif "top_rated_movies" in st.session_state:
 
 if len(top_rated_movies) > 0:
 
-    st.markdown(
-        "## ⭐ Top Rated Movies"
-    )
+    st.markdown("""
+        ## ⭐ Top Rated Movies
+        Highest rated movies on TMDB.
+    """)
 
     cols = st.columns(
         len(top_rated_movies)
@@ -447,6 +455,10 @@ if len(top_rated_movies) > 0:
             )
 
     st.divider()
+
+st.info(
+    "Search for a movie and select your mood to get personalized recommendations."
+)
 
 search_query = st.text_input(
     "🔍 Search Movie"
@@ -621,12 +633,12 @@ if st.session_state.recommendations:
         recommended_reasons
     ) = st.session_state.recommendations
 
-    st.info(
-        f"Current Mood: {st.session_state.current_mood}"
+    st.success(
+        f"😀 Mood Selected: {st.session_state.current_mood}"
     )
 
     st.markdown(
-    "## 🎥 Recommended Movies"
+        f"## 🎥 Recommendations for {selected_movie}"
     )
 
     st.divider()
@@ -728,5 +740,5 @@ if st.session_state.recommendations:
 st.markdown("---")
 
 st.caption(
-    "Built with ❤️ using Streamlit, Scikit-Learn and TMDB API"
+    "🎬 MoodFlix | Built with ❤️ using Streamlit, Scikit-Learn and TMDB API"
 )
