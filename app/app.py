@@ -563,6 +563,7 @@ def recommend(movie, mood):
     recommended_overviews = []
     recommended_genres = []
     recommended_reasons = []
+    recommended_scores = []
 
     for i in filtered_movies:
 
@@ -604,6 +605,14 @@ def recommend(movie, mood):
             recommended_reason
         )
 
+        match_score = round(
+            i[1] * 100
+        )
+
+        recommended_scores.append(
+                match_score
+        )
+
     return (
         recommended_movies,
         recommended_posters,
@@ -611,7 +620,8 @@ def recommend(movie, mood):
         recommended_dates,
         recommended_overviews,
         recommended_genres,
-        recommended_reasons
+        recommended_reasons,
+        recommended_scores
     )
 
 if "recommendations" not in st.session_state:
@@ -655,7 +665,8 @@ if st.session_state.recommendations:
         recommended_dates,
         recommended_overviews,
         recommended_genres,
-        recommended_reasons
+        recommended_reasons,
+        recommended_scores
     ) = st.session_state.recommendations
 
     st.success(
@@ -694,6 +705,10 @@ if st.session_state.recommendations:
                 title = title[:30] + "..."
 
             st.markdown(f"### {title}")
+
+            st.write(
+                f"🎯 Match Score: {recommended_scores[i]}%"
+            )
 
             st.write(
                 f"⭐ {recommended_ratings[i]}"
