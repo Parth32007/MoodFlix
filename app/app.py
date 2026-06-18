@@ -179,6 +179,31 @@ st.sidebar.metric(
 
 st.sidebar.markdown("---")
 
+most_used_mood = "N/A"
+
+if len(history) > 0:
+
+    moods_used = []
+
+    for item in history:
+
+        if "→" in item:
+
+            moods_used.append(
+                item.split("→")[1].strip()
+            )
+
+    if len(moods_used) > 0:
+
+        most_used_mood = max(
+            set(moods_used),
+            key=moods_used.count
+        )
+
+st.sidebar.write(
+    f"😀 Most Used Mood: {most_used_mood}"
+)
+
 st.sidebar.caption(
     "MoodFlix v1.0"
 )
