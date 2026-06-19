@@ -2,11 +2,12 @@ import streamlit as st
 import pickle
 import requests
 import os
+import pandas as pd 
 
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your_TMDB_API_Key_Here"  # Replace with your actual TMDB API key
+API_KEY = "02668caf4a1b090b521a830878aecb9c"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -103,6 +104,18 @@ else:
                 )
 
                 st.rerun()
+
+if len(favorites) > 0:
+
+    favorites_df = pd.DataFrame(
+        {
+            "Movie Title": favorites
+        }
+    )
+
+    csv = favorites_df.to_csv(
+        index=False
+    )
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("📌 Watchlist")
@@ -203,6 +216,15 @@ if len(history) > 0:
 st.sidebar.write(
     f"😀 Most Used Mood: {most_used_mood}"
 )
+
+if len(favorites) > 0:
+
+    st.sidebar.download_button(
+        label="⬇ Download Favorites",
+        data=csv,
+        file_name="favorites.csv",
+        mime="text/csv"
+    )
 
 st.sidebar.caption(
     "MoodFlix v1.0"
