@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your_TMDB_API_Key_Here"  # Replace with your actual TMDB API key
+API_KEY = "02668caf4a1b090b521a830878aecb9c"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -213,6 +213,23 @@ if len(history) > 0:
             key=moods_used.count
         )
 
+mood_counts = {}
+
+for item in history:
+
+    if "→" in item:
+
+        mood = item.split(
+            "→"
+        )[1].strip()
+
+        mood_counts[mood] = (
+            mood_counts.get(
+                mood,
+                0
+            ) + 1
+        )
+
 st.sidebar.write(
     f"😀 Most Used Mood: {most_used_mood}"
 )
@@ -225,6 +242,32 @@ if len(favorites) > 0:
         file_name="favorites.csv",
         mime="text/csv"
     )
+
+st.sidebar.markdown("---")
+
+st.sidebar.subheader(
+    "📈 Mood Trends"
+)
+
+if len(mood_counts) == 0:
+
+    st.sidebar.write(
+        "No mood data yet."
+    )
+
+else:
+
+    sorted_moods = sorted(
+        mood_counts.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    for mood, count in sorted_moods:
+
+        st.sidebar.write(
+            f"{mood}: {count}"
+        )
 
 st.sidebar.caption(
     "MoodFlix v1.0"
