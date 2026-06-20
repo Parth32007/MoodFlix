@@ -412,7 +412,8 @@ def fetch_trending_movies():
 
         response = requests.get(
             url,
-            timeout=10
+            headers=HEADERS,
+            timeout=20
         )
 
         data = response.json()
@@ -472,7 +473,7 @@ def fetch_top_rated_movies():
     except Exception:
 
         return []
-    
+
 trending_movies = fetch_trending_movies()
 top_rated_movies = fetch_top_rated_movies()
 
@@ -662,10 +663,26 @@ def recommend(movie, mood):
             genres
         )
 
-        recommended_reason = (
-            f"Similar to {movie} • {mood} mood"
-        )
+        if len(genres) > 0:
 
+            genre_text = ", ".join(
+                genres[:3]
+            )
+
+            recommended_reason = (
+                f"Recommended because it includes "
+                f"{genre_text} themes and matches "
+                f"your {mood} mood."
+            )
+
+        else:
+
+            recommended_reason = (
+                f"Recommended because it matches "
+                f"your {mood} mood and shares "
+                f"similar themes."
+            )
+            
         recommended_reasons.append(
             recommended_reason
         )
