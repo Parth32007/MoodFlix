@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your_TMDB_API_Key_Here"  # Replace with your actual TMDB API key
+API_KEY = "02668caf4a1b090b521a830878aecb9c"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -46,8 +46,20 @@ movies = pickle.load(open('model/movies.pkl', 'rb'))
 mood_map = pickle.load(open('model/mood_map.pkl', 'rb'))
 cv = pickle.load(open('model/vectorizer.pkl', 'rb'))
 
-vectors = cv.transform(movies['tags']).toarray()
-similarity = cosine_similarity(vectors)
+@st.cache_resource
+def load_similarity():
+
+    vectors = cv.transform(
+        movies['tags']
+    ).toarray()
+
+    similarity = cosine_similarity(
+        vectors
+    )
+
+    return similarity
+
+similarity = load_similarity()
 
 st.set_page_config(
     page_title="MoodFlix",
@@ -296,7 +308,7 @@ moods = [
 
 st.subheader("🎯 Find Your Next Movie")
 
-@st.cache_data
+@st.cache_data(ttl=86400)
 def fetch_movie_data(movie_title):
 
     try:
@@ -584,8 +596,7 @@ selected_mood = st.selectbox(
     moods
 )
 
-
-
+@st.cache_data
 def recommend(movie, mood):
 
     movie_index = movies[
