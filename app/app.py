@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your_API_Key_Here"  # Replace with your actual TMDB API key
+API_KEY = "Your TMDB API Key"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -285,16 +285,54 @@ st.sidebar.caption(
     "MoodFlix v1.0"
 )
 
-st.title("🎬 MoodFlix")
+hero = st.container()
 
-st.caption(
-    "Emotion-Aware Movie Recommendation System"
-)
+with hero:
 
-st.markdown("""
-Discover movies based on your mood and
-find similar films using AI-powered recommendations.
-""")
+    st.title("🎬 MoodFlix")
+
+    st.caption(
+        "AI-Powered Emotion-Aware Movie Recommendation System"
+    )
+
+    st.markdown(
+        """
+        ### 🍿 Discover movies that perfectly match your mood
+
+        Find trending movies, explore top-rated films, and receive
+        personalized recommendations powered by AI.
+        """
+    )
+
+dashboard = st.container()
+
+with dashboard:
+
+    st.subheader("📊 Dashboard")
+
+    stats1, stats2, stats3 = st.columns(3)
+
+    with stats1:
+        st.metric(
+            "❤️ Favorites",
+            len(favorites)
+        )
+
+    with stats2:
+        st.metric(
+            "📌 Watchlist",
+            len(watchlist)
+        )
+
+    with stats3:
+        st.metric(
+            "🔍 Searches",
+            len(history)
+        )
+
+st.divider()
+
+st.markdown("---")
 
 moods = [
     "Happy",
@@ -501,28 +539,32 @@ elif "trending_movies" in st.session_state:
         st.session_state.trending_movies
     )
 
-if len(trending_movies) > 0:
+trending_section = st.container()
 
-    st.markdown("""
-        ## 🔥 Trending Movies Today
-        See what's popular right now.
-    """)
+with trending_section:
 
-    cols = st.columns(
-        len(trending_movies)
-    )
+    if len(trending_movies) > 0:
 
-    for i in range(
-        len(trending_movies)
-    ):
+        st.markdown("""
+            ## 🔥 Trending Movies Today
+            See what's popular right now.
+        """)
 
-        with cols[i]:
+        cols = st.columns(
+            len(trending_movies)
+        )
 
-            st.write(
-                trending_movies[i]
-            )
+        for i in range(
+            len(trending_movies)
+        ):
 
-    st.divider()
+            with cols[i]:
+
+                st.write(
+                    trending_movies[i]
+                )
+
+        st.divider()
 
 if len(top_rated_movies) > 0:
 
@@ -536,32 +578,42 @@ elif "top_rated_movies" in st.session_state:
         st.session_state.top_rated_movies
     )
 
-if len(top_rated_movies) > 0:
+top_rated_section = st.container()
 
-    st.markdown("""
-        ## ⭐ Top Rated Movies
-        Highest rated movies on TMDB.
-    """)
+with top_rated_section:
 
-    cols = st.columns(
-        len(top_rated_movies)
+    if len(top_rated_movies) > 0:
+
+        st.markdown("""
+            ## ⭐ Top Rated Movies
+            Highest rated movies on TMDB.
+        """)
+
+        cols = st.columns(
+            len(top_rated_movies)
+        )
+
+        for i in range(
+            len(top_rated_movies)
+        ):
+
+            with cols[i]:
+
+                st.write(
+                    top_rated_movies[i]
+                )
+
+        st.divider()
+
+search_section = st.container()
+
+with search_section:
+
+    st.subheader("🔍 Search Movies")
+
+    st.info(
+        "Search for a movie and select your mood to get personalized recommendations."
     )
-
-    for i in range(
-        len(top_rated_movies)
-    ):
-
-        with cols[i]:
-
-            st.write(
-                top_rated_movies[i]
-            )
-
-    st.divider()
-
-st.info(
-    "Search for a movie and select your mood to get personalized recommendations."
-)
 
 search_query = st.text_input(
     "🔍 Search Movie"
@@ -749,126 +801,130 @@ if st.button("🎬 Recommend"):
             )
         )
 
-if st.session_state.recommendations:
+recommendation_section = st.container()
 
-    (
-        recommended_movies,
-        recommended_posters,
-        recommended_ratings,
-        recommended_dates,
-        recommended_overviews,
-        recommended_genres,
-        recommended_reasons,
-        recommended_scores
-    ) = st.session_state.recommendations
+with recommendation_section:
 
-    st.success(
-        f"😀 Mood Selected: {st.session_state.current_mood}"
-    )
+    if st.session_state.recommendations:
 
-    st.markdown(
-        f"## 🎥 Recommendations for {selected_movie}"
-    )
+        (
+            recommended_movies,
+            recommended_posters,
+            recommended_ratings,
+            recommended_dates,
+            recommended_overviews,
+            recommended_genres,
+            recommended_reasons,
+            recommended_scores
+        ) = st.session_state.recommendations
 
-    st.divider()
+        st.success(
+            f"😀 Mood Selected: {st.session_state.current_mood}"
+        )
 
-    cols = st.columns(5)
+        st.markdown(
+            f"## 🎥 Recommendations for {selected_movie}"
+        )
 
-    for i in range(
-        len(recommended_movies)
-    ):
+        st.divider()
 
-        with cols[i]:
+        cols = st.columns(5)
 
-            if recommended_posters[i]:
+        for i in range(
+            len(recommended_movies)
+        ):
 
-                st.image(
-                    recommended_posters[i]
-                )
+            with cols[i]:
 
-            else:
+                if recommended_posters[i]:
 
-                st.write(
-                    "🎬 Poster Not Available"
-                )
-
-            title = recommended_movies[i]
-
-            if len(title) > 30:
-                title = title[:30] + "..."
-
-            st.markdown(f"### {title}")
-
-            st.write(
-                f"🎯 Match Score: {recommended_scores[i]}%"
-            )
-
-            st.write(
-                f"⭐ {recommended_ratings[i]}"
-            )
-
-            st.write(
-                f"📅 {recommended_dates[i]}"
-            )
-
-            if len(recommended_genres[i]) > 0:
-
-                st.write(
-                    "🏷 " +
-                    " | ".join(
-                        recommended_genres[i]
-                    )
-                )
-
-            st.caption("📝 Overview")
-
-            st.write(
-                recommended_overviews[i][:120] + "..."
-            )
-
-            st.info(
-                "💡 " + recommended_reasons[i]
-            )
-
-            if st.button(
-                f"❤️ Favorite {i}"
-            ):
-
-                if recommended_movies[i] not in favorites:
-
-                    favorites.append(
-                        recommended_movies[i]
+                    st.image(
+                        recommended_posters[i]
                     )
 
-                    pickle.dump(
-                        favorites,
-                        open(
-                            FAVORITES_FILE,
-                            "wb"
+                else:
+
+                    st.write(
+                        "🎬 Poster Not Available"
+                    )
+
+                title = recommended_movies[i]
+
+                if len(title) > 30:
+                    title = title[:30] + "..."
+
+                st.markdown(f"### {title}")
+
+                st.write(
+                    f"🎯 Match Score: {recommended_scores[i]}%"
+                )
+
+                st.write(
+                    f"⭐ {recommended_ratings[i]}"
+                )
+
+                st.write(
+                    f"📅 {recommended_dates[i]}"
+                )
+
+                if len(recommended_genres[i]) > 0:
+
+                    st.write(
+                        "🏷 " +
+                        " | ".join(
+                            recommended_genres[i]
                         )
                     )
 
-                    st.rerun()
-            
-            if st.button(
-                f"📌 Watchlist {i}"
-            ):
+                st.caption("📝 Overview")
 
-                if recommended_movies[i] not in watchlist:
+                st.write(
+                    recommended_overviews[i][:120] + "..."
+                )
 
-                    watchlist.append(
-                        recommended_movies[i]
-                    )
+                st.info(
+                    "💡 " + recommended_reasons[i]
+                )
 
-                    pickle.dump(
-                        watchlist,
-                        open(
-                            WATCHLIST_FILE,
-                            "wb"
+                if st.button(
+                    f"❤️ Favorite {i}"
+                ):
+
+                    if recommended_movies[i] not in favorites:
+
+                        favorites.append(
+                            recommended_movies[i]
                         )
-                    )
 
-                    st.rerun()
+                        pickle.dump(
+                            favorites,
+                            open(
+                                FAVORITES_FILE,
+                                "wb"
+                            )
+                        )
+
+                        st.rerun()
+                
+                if st.button(
+                    f"📌 Watchlist {i}"
+                ):
+
+                    if recommended_movies[i] not in watchlist:
+
+                        watchlist.append(
+                            recommended_movies[i]
+                        )
+
+                        pickle.dump(
+                            watchlist,
+                            open(
+                                WATCHLIST_FILE,
+                                "wb"
+                            )
+                        )
+
+                        st.rerun()
 
 st.markdown("---")
 
