@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "Your TMDB API Key"  # Replace with your actual TMDB API key
+API_KEY = "02668caf4a1b090b521a830878aecb9c"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -66,6 +66,68 @@ st.set_page_config(
     page_icon="🎬",
     layout="wide"
 )
+
+st.markdown("""
+<style>
+
+/* ---------- Main App ---------- */
+
+.stApp{
+    background-color:#0F172A;
+}
+
+/* ---------- Sidebar ---------- */
+
+section[data-testid="stSidebar"]{
+    background:#111827;
+    border-right:1px solid #1F2937;
+}
+
+/* ---------- Headings ---------- */
+
+h1,h2,h3,h4{
+    color:#F8FAFC;
+}
+
+/* ---------- Paragraphs ---------- */
+
+p,label,span{
+    color:#CBD5E1;
+}
+
+/* ---------- Buttons ---------- */
+
+.stButton>button{
+    width:100%;
+    background:#F97316;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.stButton>button:hover{
+    background:#EA580C;
+}
+
+/* ---------- Metrics ---------- */
+
+div[data-testid="metric-container"]{
+    background:#1E293B;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #334155;
+}
+
+/* ---------- Images ---------- */
+
+img{
+    border-radius:12px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 st.sidebar.title("🎬 MoodFlix")
 
