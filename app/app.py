@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "f50915d100cf39b8308798299d29e659"  # Replace with your actual TMDB API key
+API_KEY = "Your TMDB API Key"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
