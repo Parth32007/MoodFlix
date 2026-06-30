@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from urllib.parse import quote
 
-API_KEY = "02668caf4a1b090b521a830878aecb9c"  # Replace with your actual TMDB API key
+API_KEY = "f50915d100cf39b8308798299d29e659"  # Replace with your actual TMDB API key
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
@@ -591,6 +591,55 @@ def fetch_top_rated_movies():
     except Exception:
 
         return []
+    
+def movie_card(movie_title):
+
+    poster, rating, release_date, overview, genres = fetch_movie_data(
+        movie_title
+    )
+
+    with st.container():
+
+        if poster:
+
+            st.image(
+                poster,
+                use_container_width=True
+            )
+
+        else:
+
+            st.image(
+                "https://via.placeholder.com/300x450?text=No+Poster",
+                use_container_width=True
+            )
+
+        st.markdown(
+            f"### {movie_title}"
+        )
+
+        year = (
+            release_date[:4]
+            if release_date != "N/A"
+            else "N/A"
+        )
+
+        info1, info2 = st.columns(2)
+
+        with info1:
+            st.caption(f"⭐ {rating}")
+
+        with info2:
+            st.caption(f"📅 {year}")
+
+        if genres:
+
+            st.caption(
+                "🎭 " +
+                ", ".join(genres[:2])
+            )
+
+        st.divider()
 
 trending_movies = fetch_trending_movies()
 top_rated_movies = fetch_top_rated_movies()
@@ -613,10 +662,8 @@ with trending_section:
 
     if len(trending_movies) > 0:
 
-        st.markdown("""
-            ## 🔥 Trending Movies Today
-            See what's popular right now.
-        """)
+        st.markdown("## 🔥 Trending Now")
+        st.caption("Most popular movies today")
 
         cols = st.columns(
             len(trending_movies)
@@ -628,11 +675,11 @@ with trending_section:
 
             with cols[i]:
 
-                st.write(
+                movie_card(
                     trending_movies[i]
                 )
 
-        st.divider()
+        st.markdown("<br>", unsafe_allow_html=True)
 
 if len(top_rated_movies) > 0:
 
@@ -652,10 +699,8 @@ with top_rated_section:
 
     if len(top_rated_movies) > 0:
 
-        st.markdown("""
-            ## ⭐ Top Rated Movies
-            Highest rated movies on TMDB.
-        """)
+        st.markdown("## ⭐ Top Rated")
+        st.caption("Highest rated movies on TMDB")
 
         cols = st.columns(
             len(top_rated_movies)
@@ -667,11 +712,11 @@ with top_rated_section:
 
             with cols[i]:
 
-                st.write(
+                movie_card(
                     top_rated_movies[i]
-                )
+                )   
 
-        st.divider()
+        st.markdown("<br>", unsafe_allow_html=True)
 
 search_section = st.container()
 
