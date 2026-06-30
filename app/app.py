@@ -351,26 +351,32 @@ hero = st.container()
 
 with hero:
 
-    st.title("🎬 MoodFlix")
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg,#1E293B,#0F172A);
+        padding:30px;
+        border-radius:18px;
+        border:1px solid #334155;
+        margin-bottom:20px;
+    ">
+    <h1 style="margin-bottom:8px;">
+        🎬 MoodFlix
+    </h1>
 
-    st.caption(
-        "AI-Powered Emotion-Aware Movie Recommendation System"
-    )
+    <p style="
+        color:#CBD5E1;
+        font-size:18px;
+    ">
+        Discover great movies based on your mood using AI-powered recommendations.
+    </p>
 
-    st.markdown(
-        """
-        ### 🍿 Discover movies that perfectly match your mood
-
-        Find trending movies, explore top-rated films, and receive
-        personalized recommendations powered by AI.
-        """
-    )
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 dashboard = st.container()
 
 with dashboard:
-
-    st.subheader("📊 Dashboard")
 
     stats1, stats2, stats3 = st.columns(3)
 
@@ -677,38 +683,39 @@ with search_section:
         "Search for a movie and select your mood to get personalized recommendations."
     )
 
-search_query = st.text_input(
-    "🔍 Search Movie"
-)
-
-movie_list = movies['title'].tolist()
-
-if search_query:
-
-    movie_list = [
-    movie
-    for movie in movie_list
-    if search_query.lower().replace("-", " ").strip()
-    in movie.lower().replace("-", " ")
-]
-
-if len(movie_list) == 0:
-
-    st.warning(
-        "No movies found."
+    search_query = st.text_input(
+        "🔍 Search Movie"
     )
 
-    st.stop()
+    movie_list = movies['title'].tolist()
 
-selected_movie = st.selectbox(
-    "🎥 Select Movie",
-    movie_list
-)
+    if search_query:
 
-selected_mood = st.selectbox(
-    "😀 Select Mood",
-    moods
-)
+        movie_list = [
+        movie
+        for movie in movie_list
+        if search_query.lower().replace("-", " ").strip()
+        in movie.lower().replace("-", " ")
+        ]
+
+    if len(movie_list) == 0:
+
+        st.warning(
+            "No movies found."
+        )
+
+        st.stop()
+
+    selected_movie = st.selectbox(
+        "🎥 Select Movie",
+        movie_list
+    )
+
+    selected_mood = st.selectbox(
+        "😀 Select Mood",
+        moods
+    )
+
 
 @st.cache_data
 def recommend(movie, mood):
