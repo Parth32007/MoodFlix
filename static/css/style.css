@@ -251,3 +251,104 @@ nav li:hover{
 
     color:#9ca3af;
 }
+
+/* Movie Section */
+
+.movie-section{
+
+    margin-top:50px;
+}
+
+.movie-section h2{
+
+    margin-bottom:25px;
+
+    font-size:30px;
+}
+
+/* Grid */
+
+.movie-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+}
+
+/* Card */
+
+.movie-card{
+
+    background:#0B1120;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    cursor:pointer;
+}
+
+.movie-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 0 20px rgba(255,152,0,.25);
+}
+
+/* Poster */
+
+.movie-card img{
+
+    width:100%;
+
+    height:320px;
+
+    object-fit:cover;
+}
+
+/* Information */
+
+.movie-info{
+
+    padding:20px;
+}
+
+.movie-info h3{
+
+    margin-bottom:10px;
+}
+
+.movie-info p{
+
+    color:#9ca3af;
+
+    margin-bottom:18px;
+}
+
+.movie-info button{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#ff9800;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.movie-info button:hover{
+
+    background:#e68900;
+}
