@@ -1,13 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MoodFlix</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
+
 <body>
 
-<h1>Welcome to MoodFlix 🎬</h1>
+<div class="container">
 
-<p>Flask is working successfully.</p>
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h1>MoodFlix</h1>
+
+            <p>AI Movie Recommender</p>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li class="active">🏠 Home</li>
+
+                <li>❤️ Favorites</li>
+
+                <li>🔖 Watchlist</li>
+
+                <li>🧠 Mood History</li>
+
+                <li>📊 Dashboard</li>
+
+            </ul>
+
+        </nav>
+
+        <div class="stats">
+
+            <h3>Quick Stats</h3>
+
+            <div class="stat-box">
+
+                😊 Current Mood
+
+            </div>
+
+            <div class="stat-box">
+
+                🎬 Recommended
+
+            </div>
+
+            <div class="stat-box">
+
+                ⭐ Favorite Genre
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static',
+filename='js/script.js') }}"></script>
 
 </body>
+
 </html>
