@@ -118,3 +118,136 @@ nav li:hover{
 
     padding:40px;
 }
+
+.hero{
+
+    background:#0B1120;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
+
+    margin-bottom:40px;
+}
+
+.hero h1{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.hero p{
+
+    color:#b0b0b0;
+
+    font-size:18px;
+}
+
+.search-area{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.search-area input{
+
+    flex:2;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#111827;
+
+    color:white;
+
+    font-size:16px;
+}
+
+.search-area select{
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#111827;
+
+    color:white;
+}
+
+.search-area button{
+
+    background:#ff9800;
+
+    color:white;
+
+    border:none;
+
+    padding:16px 30px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s;
+}
+
+.search-area button:hover{
+
+    background:#e68900;
+}
+
+.summary{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+}
+
+.summary-card{
+
+    background:#0B1120;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+.summary-card:hover{
+
+    transform:translateY(-5px);
+}
+
+.summary-card h2{
+
+    margin:15px 0;
+
+    font-size:32px;
+}
+
+.summary-card p{
+
+    color:#9ca3af;
+}
