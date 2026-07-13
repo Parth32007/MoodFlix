@@ -1,7 +1,22 @@
+import pickle
+from pathlib import Path
 from src.mood_engine import (
     mood_mapping,
     calculate_mood_score
 )
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_DIR = BASE_DIR / "model"
+
+
+with open(MODEL_DIR / "movies.pkl", "rb") as file:
+    new_df = pickle.load(file)
+
+with open(MODEL_DIR / "similarity.pkl", "rb") as file:
+    similarity = pickle.load(file)
+
+with open(MODEL_DIR / "vectorizer.pkl", "rb") as file:
+    cv = pickle.load(file)
 
 def recommend(movie):
 
