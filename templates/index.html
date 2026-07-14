@@ -179,8 +179,10 @@
 
         <div class="movie-card">
 
-            <img src="https://via.placeholder.com/250x350"
-                 alt="Movie Poster">
+            <img
+            src="https://via.placeholder.com/250x350"
+            alt="Movie Poster"
+            >
 
             <div class="movie-info">
 
@@ -202,8 +204,10 @@
 
         <div class="movie-card">
 
-            <img src="https://via.placeholder.com/250x350"
-                 alt="Movie Poster">
+            <img
+            src="https://via.placeholder.com/250x350"
+            alt="Movie Poster"
+            >
 
             <div class="movie-info">
 
@@ -225,8 +229,10 @@
 
         <div class="movie-card">
 
-            <img src="https://via.placeholder.com/250x350"
-                 alt="Movie Poster">
+            <img
+            src="https://via.placeholder.com/250x350"
+            alt="Movie Poster"
+            >
 
             <div class="movie-info">
 
@@ -248,8 +254,10 @@
 
         <div class="movie-card">
 
-            <img src="https://via.placeholder.com/250x350"
-                 alt="Movie Poster">
+            <img
+            src="https://via.placeholder.com/250x350"
+            alt="Movie Poster"
+            >
 
             <div class="movie-info">
 
@@ -285,14 +293,24 @@
 
         <div class="movie-card">
 
-            <img src="https://via.placeholder.com/250x350"
-                 alt="Movie Poster">
+            <img
+            src="{{ movie.poster }}"
+            alt="{{ movie.title }}"
+            >
 
             <div class="movie-info">
 
-                <h3>{{ movie }}</h3>
+                <h3>{{ movie.title }}</h3>
 
-                <p>Recommended for your mood</p>
+                <p>
+
+                    ⭐ {{ movie.rating }}
+
+                    <br>
+
+                    📅 {{ movie.release_date }}
+
+                </p>
 
                 <button>
 
