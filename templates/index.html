@@ -92,31 +92,38 @@
 
         </div>
 
-        <div class="search-area">
+        <form class="search-area" method="POST">
 
             <input
                 type="text"
+                name="movie"
                 placeholder="Search a movie..."
+                required
             >
 
-            <select>
+        <select name="mood">
 
-                <option>Happy</option>
-                <option>Sad</option>
-                <option>Excited</option>
-                <option>Relaxed</option>
-                <option>Romantic</option>
-                <option>Inspired</option>
+            <option value="Happy">Happy</option>
 
-            </select>
+            <option value="Sad">Sad</option>
 
-            <button>
+            <option value="Excited">Excited</option>
 
-                ✨ Recommend
+            <option value="Relaxed">Relaxed</option>
 
-            </button>
+            <option value="Romantic">Romantic</option>
 
-        </div>
+            <option value="Inspired">Inspired</option>
+
+        </select>
+
+        <button type="submit">
+
+            ✨ Recommend
+
+        </button>
+
+        </form>
 
     </div>
 
@@ -263,6 +270,47 @@
     </div>
 
 </section>
+
+<!-- AI Recommendations -->
+
+{% if recommendations %}
+
+<section class="movie-section">
+
+    <h2>✨ AI Recommendations</h2>
+
+    <div class="movie-grid">
+
+        {% for movie in recommendations %}
+
+        <div class="movie-card">
+
+            <img src="https://via.placeholder.com/250x350"
+                 alt="Movie Poster">
+
+            <div class="movie-info">
+
+                <h3>{{ movie }}</h3>
+
+                <p>Recommended for your mood</p>
+
+                <button>
+
+                    View Details
+
+                </button>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
 
 <script src="{{ url_for('static',
 filename='js/script.js') }}"></script>
