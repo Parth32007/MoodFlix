@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MoodFlix</title>
@@ -18,7 +17,7 @@
 
 <div class="container">
 
-    <!-- Sidebar -->
+    <!-- ================= Sidebar ================= -->
 
     <aside class="sidebar">
 
@@ -74,264 +73,303 @@
 
     </aside>
 
-    <!-- Main Content -->
+    <!-- ================= Main Content ================= -->
 
     <main class="main-content">
 
-        <!-- Hero Section -->
+        <!-- Hero -->
 
-    <div class="hero">
+        <div class="hero">
 
-        <div class="hero-text">
+            <div class="hero-text">
 
-            <h1>Hello, Parth 👋</h1>
+                <h1>🎬 Welcome to MoodFlix</h1>
 
-            <p>
-                Discover your next favorite movie with AI-powered recommendations.
-            </p>
+                <p>
 
-        </div>
+                    Discover movies tailored to your mood using AI-powered recommendations.
+                    Search your favourite movie, choose your mood and let AI recommend your next watch.
 
-        <form class="search-area" method="POST">
+                </p>
 
-            <input
-                type="text"
-                name="movie"
-                placeholder="Search a movie..."
-                required
-            >
+            </div>
 
-        <select name="mood">
+            <form class="search-area" method="POST">
 
-            <option value="Happy">Happy</option>
+                <input
+                    type="text"
+                    name="movie"
+                    placeholder="Search a movie..."
+                    required
+                >
 
-            <option value="Sad">Sad</option>
+                <select name="mood">
 
-            <option value="Excited">Excited</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Excited">Excited</option>
+                    <option value="Relaxed">Relaxed</option>
+                    <option value="Romantic">Romantic</option>
+                    <option value="Inspired">Inspired</option>
 
-            <option value="Relaxed">Relaxed</option>
+                </select>
 
-            <option value="Romantic">Romantic</option>
+                <button type="submit">
 
-            <option value="Inspired">Inspired</option>
+                    ✨ Recommend
 
-        </select>
+                </button>
 
-        <button type="submit">
-
-            ✨ Recommend
-
-        </button>
-
-        </form>
-
-    </div>
-
-    <!-- Summary Cards -->
-
-    <div class="summary">
-
-        <div class="summary-card">
-
-            ❤️
-
-            <h2>0</h2>
-
-            <p>Favorites</p>
+            </form>
 
         </div>
 
-        <div class="summary-card">
+        <!-- Summary -->
 
-            🎬
+        <div class="summary">
 
-            <h2>0</h2>
+            <div class="summary-card">
 
-            <p>Recommendations</p>
+                ❤️
+
+                <h2>0</h2>
+
+                <p>Favorites</p>
+
+            </div>
+
+            <div class="summary-card">
+
+                🎬
+
+                <h2>0</h2>
+
+                <p>Recommendations</p>
+
+            </div>
+
+            <div class="summary-card">
+
+                😊
+
+                <h2>Happy</h2>
+
+                <p>Current Mood</p>
+
+            </div>
 
         </div>
 
-        <div class="summary-card">
+        <!-- Trending Movies -->
 
-            😊
+        <section class="movie-section">
 
-            <h2>Happy</h2>
+            <h2>🔥 Trending Movies</h2>
 
-            <p>Current Mood</p>
+            <div class="movie-grid">
 
-        </div>
+                <!-- Card 1 -->
 
-    </div>
+                <div class="movie-card">
+
+                    <img src="https://via.placeholder.com/250x350"
+                         alt="Avatar">
+
+                    <div class="movie-info">
+
+                        <h3>Avatar</h3>
+
+                        <div class="movie-meta">
+
+                            <span>⭐ 7.9</span>
+
+                            <span>📅 2009</span>
+
+                        </div>
+
+                        <p class="movie-tag">
+
+                            Trending
+
+                        </p>
+
+                        <button>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 2 -->
+
+                <div class="movie-card">
+
+                    <img src="https://via.placeholder.com/250x350"
+                         alt="Interstellar">
+
+                    <div class="movie-info">
+
+                        <h3>Interstellar</h3>
+
+                        <div class="movie-meta">
+
+                            <span>⭐ 8.7</span>
+
+                            <span>📅 2014</span>
+
+                        </div>
+
+                        <p class="movie-tag">
+
+                            Trending
+
+                        </p>
+
+                        <button>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 3 -->
+
+                <div class="movie-card">
+
+                    <img src="https://via.placeholder.com/250x350"
+                         alt="Inception">
+
+                    <div class="movie-info">
+
+                        <h3>Inception</h3>
+
+                        <div class="movie-meta">
+
+                            <span>⭐ 8.8</span>
+
+                            <span>📅 2010</span>
+
+                        </div>
+
+                        <p class="movie-tag">
+
+                            Trending
+
+                        </p>
+
+                        <button>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 4 -->
+
+                <div class="movie-card">
+
+                    <img src="https://via.placeholder.com/250x350"
+                         alt="The Batman">
+
+                    <div class="movie-info">
+
+                        <h3>The Batman</h3>
+
+                        <div class="movie-meta">
+
+                            <span>⭐ 7.8</span>
+
+                            <span>📅 2022</span>
+
+                        </div>
+
+                        <p class="movie-tag">
+
+                            Trending
+
+                        </p>
+
+                        <button>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- AI Recommendations -->
+
+        {% if recommendations %}
+
+        <section class="movie-section">
+
+            <h2>✨ AI Recommendations</h2>
+
+            <div class="movie-grid">
+
+                {% for movie in recommendations %}
+
+                <div class="movie-card">
+
+                    <img src="{{ movie.poster }}"
+                         alt="{{ movie.title }}">
+
+                    <div class="movie-info">
+
+                        <h3>{{ movie.title }}</h3>
+
+                        <div class="movie-meta">
+
+                            <span>⭐ {{ movie.rating }}</span>
+
+                            <span>📅 {{ movie.release_date[:4] }}</span>
+
+                        </div>
+
+                        <p class="movie-tag">
+
+                            AI Recommended
+
+                        </p>
+
+                        <button>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        {% endif %}
 
     </main>
 
 </div>
 
-<!-- Trending Movies -->
-
-<section class="movie-section">
-
-    <h2>🔥 Trending Movies</h2>
-
-    <div class="movie-grid">
-
-        <!-- Movie Card 1 -->
-
-        <div class="movie-card">
-
-            <img
-            src="https://via.placeholder.com/250x350"
-            alt="Movie Poster"
-            >
-
-            <div class="movie-info">
-
-                <h3>Avatar</h3>
-
-                <p>2009 • Action • ⭐ 7.9</p>
-
-                <button>
-
-                    View Details
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- Movie Card 2 -->
-
-        <div class="movie-card">
-
-            <img
-            src="https://via.placeholder.com/250x350"
-            alt="Movie Poster"
-            >
-
-            <div class="movie-info">
-
-                <h3>Interstellar</h3>
-
-                <p>2014 • Sci-Fi • ⭐ 8.7</p>
-
-                <button>
-
-                    View Details
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- Movie Card 3 -->
-
-        <div class="movie-card">
-
-            <img
-            src="https://via.placeholder.com/250x350"
-            alt="Movie Poster"
-            >
-
-            <div class="movie-info">
-
-                <h3>Inception</h3>
-
-                <p>2010 • Thriller • ⭐ 8.8</p>
-
-                <button>
-
-                    View Details
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- Movie Card 4 -->
-
-        <div class="movie-card">
-
-            <img
-            src="https://via.placeholder.com/250x350"
-            alt="Movie Poster"
-            >
-
-            <div class="movie-info">
-
-                <h3>The Batman</h3>
-
-                <p>2022 • Crime • ⭐ 7.8</p>
-
-                <button>
-
-                    View Details
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- AI Recommendations -->
-
-{% if recommendations %}
-
-<section class="movie-section">
-
-    <h2>✨ AI Recommendations</h2>
-
-    <div class="movie-grid">
-
-        {% for movie in recommendations %}
-
-        <div class="movie-card">
-
-            <img
-            src="{{ movie.poster }}"
-            alt="{{ movie.title }}"
-            >
-
-            <div class="movie-info">
-
-                <h3>{{ movie.title }}</h3>
-
-                <p>
-
-                    ⭐ {{ movie.rating }}
-
-                    <br>
-
-                    📅 {{ movie.release_date }}
-
-                </p>
-
-                <button>
-
-                    View Details
-
-                </button>
-
-            </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-</section>
-
-{% endif %}
-
-<script src="{{ url_for('static',
-filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 
