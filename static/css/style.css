@@ -44,6 +44,8 @@ body{
     color:#ff9800;
 
     font-size:34px;
+
+    letter-spacing:1px;
 }
 
 .logo p{
@@ -62,20 +64,28 @@ nav ul{
 
 nav li{
 
-    padding:18px;
+    list-style:none;
 
-    margin-bottom:12px;
+    padding:16px;
+
+    margin-bottom:10px;
 
     border-radius:12px;
 
+    transition:.3s;
+
     cursor:pointer;
 
-    transition:.3s;
+    font-weight:600;
 }
 
 nav li:hover{
 
-    background:#0b1120;
+    background:#182235;
+
+    color:#ff9800;
+
+    padding-left:22px;
 }
 
 .active{
@@ -101,13 +111,41 @@ nav li:hover{
 
     background:#111827;
 
+    border-radius:15px;
+
     padding:18px;
 
-    border-radius:10px;
-
-    margin-bottom:12px;
+    margin-top:15px;
 
     text-align:center;
+
+    transition:.3s;
+}
+
+.stat-box:hover{
+
+    transform:translateY(-3px);
+
+    background:#182235;
+}
+
+.stat-box span{
+
+    font-size:28px;
+}
+
+.stat-box h4{
+
+    margin:10px 0;
+
+    color:white;
+}
+
+.stat-box p{
+
+    color:#ff9800;
+
+    font-weight:bold;
 }
 
 /* Main */
@@ -309,11 +347,10 @@ nav li:hover{
 
 .movie-card:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-10px) scale(1.02);
 
-    box-shadow:0 15px 35px rgba(255,152,0,.20);
+    box-shadow:0 18px 40px rgba(255,152,0,.25);
 
-    border-color:#ff9800;
 }
 
 /* Poster */
@@ -332,6 +369,32 @@ nav li:hover{
 .movie-card:hover img{
 
     transform:scale(1.04);
+}
+
+.movie-genre{
+
+    color:#ff9800;
+
+    font-size:14px;
+
+    margin:12px 0;
+
+    font-weight:600;
+}
+
+.movie-overview{
+
+    color:#cbd5e1;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    margin-bottom:20px;
+
+    height:70px;
+
+    overflow:hidden;
 }
 
 /* Information */
@@ -361,7 +424,7 @@ nav li:hover{
 
     width:100%;
 
-    padding:13px;
+    padding:12px;
 
     background:#ff9800;
 
@@ -375,12 +438,17 @@ nav li:hover{
 
     font-weight:bold;
 
-    transition:.3s;
+    transition:0.3s;
 }
 
 .movie-info button:hover{
 
     background:#ffae33;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 18px rgba(255,152,0,.35);
+
 }
 
 .movie-meta{
@@ -389,11 +457,15 @@ nav li:hover{
 
     justify-content:space-between;
 
-    margin-bottom:15px;
+    align-items:center;
 
-    color:#CBD5E1;
+    margin:15px 0;
+
+    color:#d1d5db;
 
     font-size:14px;
+
+    font-weight:600;
 }
 
 .movie-tag{
@@ -411,4 +483,234 @@ nav li:hover{
     font-size:13px;
 
     margin-bottom:18px;
+}
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(0,0,0,.7);
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:1000;
+}
+
+.modal-content{
+
+    background:#111827;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    max-width:650px;
+
+    width:90%;
+
+    animation:popup .35s ease;
+}
+
+@keyframes popup{
+
+    from{
+
+        transform:scale(.85);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+.close{
+
+    float:right;
+
+    cursor:pointer;
+
+    font-size:28px;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+
+@media (max-width:1200px){
+
+    .movie-grid{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    .container{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        border-right:none;
+
+        border-bottom:1px solid #1e293b;
+
+    }
+
+    .summary{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .movie-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .search-area{
+
+        flex-direction:column;
+
+    }
+
+    .search-area input,
+    .search-area select,
+    .search-area button{
+
+        width:100%;
+
+    }
+
+    .summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .movie-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .hero h1{
+
+        font-size:34px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .main-content{
+
+        padding:20px;
+
+    }
+
+    .hero{
+
+        padding:25px;
+
+    }
+
+    .sidebar{
+
+        padding:20px;
+
+    }
+
+}
+
+/* Smooth Animations */
+
+*{
+
+    transition:
+    background .3s,
+    color .3s,
+    transform .3s,
+    box-shadow .3s;
+
+}
+
+/* Custom Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#ff9800;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#050816;
+
+}
+
+.hero{
+
+    animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
 }

@@ -49,23 +49,35 @@
 
         <div class="stats">
 
-            <h3>Quick Stats</h3>
+            <h3>Dashboard</h3>
 
             <div class="stat-box">
 
-                😊 Current Mood
+                <span>😊</span>
+
+                <h4>Current Mood</h4>
+
+                <p>Happy</p>
 
             </div>
 
             <div class="stat-box">
 
-                🎬 Recommended
+                <span>🎬</span>
+
+                <h4>Recommendations</h4>
+
+                <p>{{ recommendations|length }}</p>
 
             </div>
 
             <div class="stat-box">
 
-                ⭐ Favorite Genre
+                <span>🎭</span>
+
+                <h4>Favorite Genre</h4>
+
+                <p>Action</p>
 
             </div>
 
@@ -335,19 +347,35 @@
 
                         <div class="movie-meta">
 
-                            <span>⭐ {{ movie.rating }}</span>
+                            <span>⭐ {{ "%.1f"|format(movie.rating) }}</span>
 
                             <span>📅 {{ movie.release_date[:4] }}</span>
 
                         </div>
 
-                        <p class="movie-tag">
+                        <p class="movie-genre">
 
-                            AI Recommended
+                            🎭 {{ movie.genres }}
 
                         </p>
 
-                        <button>
+                        <p class="movie-overview">
+
+                            {{ movie.overview[:140] }}...
+
+                        </p>
+
+                        <button
+                        class="details-btn"
+
+                        data-title="{{ movie.title }}"
+                        data-rating="{{ movie.rating }}"
+                        data-year="{{ movie.release_date[:4] }}"
+                        data-genre="{{ movie.genres }}"
+                        data-runtime="{{ movie.runtime }}"
+                        data-votes="{{ movie.vote_count }}"
+                        data-overview="{{ movie.overview }}">
+                        >
 
                             View Details
 
@@ -370,6 +398,22 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<div id="movieModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close">&times;</span>
+
+        <h2 id="modalTitle"></h2>
+
+        <p id="modalMeta"></p>
+
+        <p id="modalOverview"></p>
+
+    </div>
+
+</div>
 
 </body>
 

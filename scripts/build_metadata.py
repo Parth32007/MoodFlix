@@ -50,3 +50,19 @@ print(movie_metadata.head())
 print()
 
 print("Rows:", len(movie_metadata))
+
+print("=" * 60)
+
+test_movies = [
+    "Avatar",
+    "Inception",
+    "Interstellar",
+    "Titanic",
+    "The Dark Knight"
+]
+
+for movie in test_movies:
+
+    result = movie_metadata[movie_metadata["title"] == movie]
+
+    print(movie, "->", len(result))

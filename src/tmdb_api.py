@@ -3,7 +3,7 @@ from requests.exceptions import RequestException
 import requests
 
 
-API_KEY = "YOUR_API_KEY"
+API_KEY = "Your_TMDB_API_Key"  # Replace with your actual TMDB API key
 
 BASE_URL = "https://api.themoviedb.org/3"
 
