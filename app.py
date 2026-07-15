@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from src.recommender import recommend_hybrid
-from src.tmdb_api import fetch_movie_details
+from src.metadata import get_movie_details
 import time
 
 app = Flask(__name__)
@@ -16,7 +16,12 @@ def home():
 
         mood = request.form["mood"]
 
-        recommended_titles = recommend_hybrid(movie, mood)[:1]
+        recommended_titles = recommend_hybrid(movie, mood)
+
+        print("=" * 50)
+        print("Recommended Titles:")
+        print(recommended_titles)
+        print("=" * 50)
 
         recommendations = []
 
@@ -24,12 +29,11 @@ def home():
 
             print("Searching:", title)
 
-            details = fetch_movie_details(title)
+            details = get_movie_details(title)
 
             print(details)
 
             if details:
-
                 recommendations.append(details) 
 
             time.sleep(0.3)
