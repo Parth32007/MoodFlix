@@ -338,8 +338,9 @@
 
                 <div class="movie-card">
 
-                    <img src="{{ movie.poster }}"
-                         alt="{{ movie.title }}">
+                    <img
+                    src="https://via.placeholder.com/250x350?text=Movie"
+                    alt="{{ movie.title }}">
 
                     <div class="movie-info">
 
@@ -375,9 +376,16 @@
                         data-runtime="{{ movie.runtime }}"
                         data-votes="{{ movie.vote_count }}"
                         data-overview="{{ movie.overview }}">
-                        >
 
                             View Details
+
+                        </button>
+
+                        <button 
+                        class="favorite-btn"
+                        data-title="{{ movie.title }}">
+
+                            ❤️ Favorite
 
                         </button>
 

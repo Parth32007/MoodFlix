@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 from src.recommender import recommend_hybrid
 from src.metadata import get_movie_details
 import time
+from flask import redirect, url_for
+from src.favorites import add_favorite
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -31,7 +34,7 @@ def home():
 
             details = get_movie_details(title)
 
-            print(details)
+            print("Found:", details is not None)
 
             if details:
                 recommendations.append(details) 
@@ -40,6 +43,22 @@ def home():
 
     return render_template("index.html", recommendations=recommendations)
 
+@app.route("/favorite", methods=["POST"])
+def favorite():
+
+    data = request.get_json()
+
+    movie_title = data.get("movie")
+
+    add_favorite(movie_title)
+
+    return jsonify({
+
+        "status": "success",
+
+        "message": f"{movie_title} added to favorites"
+
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)

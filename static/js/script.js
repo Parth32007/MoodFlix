@@ -40,3 +40,39 @@ window.onclick = (event) => {
     }
 
 };
+
+// Favorite Button
+
+document.querySelectorAll(".favorite-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        fetch("/favorite", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                movie: button.dataset.title
+
+            })
+
+        })
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            alert(data.message);
+
+        });
+
+    });
+
+});

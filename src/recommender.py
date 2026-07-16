@@ -78,9 +78,29 @@ def recommend_hybrid(movie, mood):
     if mood not in mood_mapping:
         return ["Invalid mood selected."]
 
-    # Validate movie
-    if movie not in new_df['title'].values:
-        return ["Movie not found."]
+    movie = movie.strip()
+
+    titles = new_df["title"].tolist()
+
+    # Exact match (case-insensitive)
+    exact_match = next(
+        (title for title in titles if title.lower() == movie.lower()),
+        None
+        )
+
+    if exact_match:
+        movie = exact_match
+    else:
+        # Partial match
+        partial_match = next(
+            (title for title in titles if movie.lower() in title.lower()),
+            None
+        )
+
+        if partial_match:
+            movie = partial_match
+        else:
+            return ["Movie not found."]
 
     # Find movie index
     movie_index = new_df[new_df['title'] == movie].index[0]

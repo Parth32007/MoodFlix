@@ -714,3 +714,43 @@ nav li:hover{
     }
 
 }
+
+.card-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.favorite-btn{
+
+    flex:1;
+
+    background:#dc2626;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.favorite-btn:hover{
+
+    background:#ef4444;
+}
+
+.details-btn{
+
+    flex:1;
+}
