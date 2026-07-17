@@ -37,14 +37,22 @@ def validate_input(data_dict, required_fields):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    """Home page with recommendation form."""
+    """Home page with recommendation form. Supports both form-data and JSON."""
     recommendations = []
     error_message = None
 
     if request.method == "POST":
         try:
-            movie = request.form.get("movie", "").strip()
-            mood = request.form.get("mood", "").strip()
+            # Handle both form data and JSON
+            if request.is_json:
+                data = request.get_json()
+                movie = data.get("movie", "").strip()
+                mood = data.get("mood", "").strip()
+                is_json_request = True
+            else:
+                movie = request.form.get("movie", "").strip()
+                mood = request.form.get("mood", "").strip()
+                is_json_request = False
 
             # Validate input
             is_valid, error = validate_input(
@@ -54,6 +62,8 @@ def home():
             if not is_valid:
                 error_message = error
                 logger.warning(f"Validation failed in home(): {error}")
+                if is_json_request:
+                    return jsonify({"status": "error", "message": error_message}), 400
             else:
                 logger.info(f"Processing recommendation request: movie='{movie}', mood='{mood}'")
                 
@@ -63,6 +73,8 @@ def home():
                 if not recommended_titles:
                     error_message = f"Could not find recommendations for '{movie}' with mood '{mood}'"
                     logger.info(error_message)
+                    if is_json_request:
+                        return jsonify({"status": "error", "message": error_message}), 404
                 else:
                     logger.debug(f"Received {len(recommended_titles)} recommendations")
 
@@ -81,10 +93,21 @@ def home():
                     if not recommendations:
                         error_message = "Could not fetch details for recommended movies"
                         logger.warning(error_message)
+                        if is_json_request:
+                            return jsonify({"status": "error", "message": error_message}), 500
+
+                    # Return JSON if requested
+                    if is_json_request:
+                        return jsonify({
+                            "status": "success",
+                            "recommendations": recommendations
+                        }), 200
 
         except Exception as e:
             error_message = "An error occurred while processing your request"
             logger.exception(f"Error in home() POST: {e}")
+            if request.is_json:
+                return jsonify({"status": "error", "message": error_message}), 500
 
     return render_template(
         "index.html",
@@ -170,6 +193,101 @@ def delete_favorite(movie_title):
         return jsonify({
             "status": "error",
             "message": "Failed to remove favorite"
+        }), 500
+
+
+# API Endpoints for Dashboard
+@app.route("/api/favorites", methods=["GET"])
+def api_get_favorites():
+    """Get all favorites with details."""
+    try:
+        favorite_titles = get_favorites()
+        logger.debug(f"Retrieved {len(favorite_titles)} favorite titles")
+        
+        # Fetch details for each favorite
+        favorites_with_details = []
+        for title in favorite_titles:
+            try:
+                details = get_movie_details(title)
+                if details:
+                    favorites_with_details.append(details)
+                time.sleep(0.1)  # Small delay to avoid rate limiting
+            except Exception as e:
+                logger.error(f"Error fetching details for favorite '{title}': {e}")
+                # Still add it with minimal info
+                favorites_with_details.append({"title": title})
+        
+        return jsonify({
+            "status": "success",
+            "favorites": favorites_with_details
+        }), 200
+    except Exception as e:
+        logger.exception(f"Error in api_get_favorites(): {e}")
+        return jsonify({
+            "status": "error",
+            "message": "Failed to retrieve favorites"
+        }), 500
+
+
+@app.route("/api/movies", methods=["GET"])
+def api_get_movies():
+    """Get trending and recommended movies for dashboard."""
+    try:
+        # For now, return the first few movies from the dataset
+        # In a real app, this could be based on trending/popular metrics
+        
+        # Sample movies for demo (in production, fetch from database)
+        from src.metadata import _load_metadata
+        
+        try:
+            metadata = _load_metadata()
+            if metadata is not None and len(metadata) > 0:
+                # Get first 6 movies as trending
+                trending = []
+                recommended = []
+                
+                for i, (idx, row) in enumerate(metadata.iterrows()):
+                    if i < 6:
+                        movie = {
+                            "title": row.get("title", "Unknown"),
+                            "rating": row.get("vote_average", "N/A"),
+                            "release_date": str(row.get("release_date", "N/A"))[:10],
+                            "genres": str(row.get("genres", "Unknown"))[:50],
+                            "poster": ""
+                        }
+                        trending.append(movie)
+                    elif i < 12:
+                        movie = {
+                            "title": row.get("title", "Unknown"),
+                            "rating": row.get("vote_average", "N/A"),
+                            "release_date": str(row.get("release_date", "N/A"))[:10],
+                            "genres": str(row.get("genres", "Unknown"))[:50],
+                            "poster": ""
+                        }
+                        recommended.append(movie)
+                    else:
+                        break
+                
+                return jsonify({
+                    "status": "success",
+                    "trending": trending,
+                    "recommended": recommended
+                }), 200
+        except Exception as e:
+            logger.warning(f"Could not load metadata: {e}")
+        
+        # Fallback: return empty lists
+        return jsonify({
+            "status": "success",
+            "trending": [],
+            "recommended": []
+        }), 200
+        
+    except Exception as e:
+        logger.exception(f"Error in api_get_movies(): {e}")
+        return jsonify({
+            "status": "error",
+            "message": "Failed to retrieve movies"
         }), 500
 
 

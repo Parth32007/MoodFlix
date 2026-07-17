@@ -178,3 +178,66 @@ werkzeug.exceptions.BadRequest: 400 Bad Request: The browser (or proxy) sent a r
 2026-07-17 18:55:40 - __main__ - INFO - Processing recommendation request: movie='Avatar', mood='Excited'
 2026-07-17 18:55:52 - src.recommender - INFO - Hybrid recommendations for 'Avatar' (mood: Excited): ['U.F.O.', 'Muppets from Space', 'Avengers: Age of Ultron', 'Aliens vs Predator: Requiem', "Logan's Run"]
 2026-07-17 18:55:52 - src.metadata - INFO - Loaded movie metadata: 4818 movies
+2026-07-17 19:10:56 - src.preprocessing - INFO - Starting movie data preprocessing pipeline...
+2026-07-17 19:10:56 - src.preprocessing - INFO - Loading raw data...
+2026-07-17 19:10:56 - src.preprocessing - INFO - Loaded 4803 movies and 4803 credit records
+2026-07-17 19:10:56 - src.preprocessing - INFO - After merge: 4809 records
+2026-07-17 19:10:56 - src.preprocessing - INFO - Removed 3 rows (null/duplicates)
+2026-07-17 19:11:01 - src.preprocessing - INFO - Applying stemming (this may take a minute)...
+2026-07-17 19:11:03 - src.preprocessing - INFO - Processed 4806 movies
+2026-07-17 19:11:03 - src.preprocessing - INFO - Vectorizing tags...
+2026-07-17 19:11:03 - src.preprocessing - INFO - Computing cosine similarity matrix...
+2026-07-17 19:11:04 - src.preprocessing - INFO - Saving models to pickle files...
+2026-07-17 19:11:05 - src.preprocessing - INFO -   - Processed 4806 movies
+2026-07-17 19:11:05 - src.preprocessing - INFO -   - Created 5000 features
+2026-07-17 19:11:05 - src.preprocessing - INFO -   - Generated similarity matrix of shape (4806, 4806)
+2026-07-17 19:11:12 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-07-17 19:11:21 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:21 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:22 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/app.js
+2026-07-17 19:11:24 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-07-17 19:11:32 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:32 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/app.js
+2026-07-17 19:11:32 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:43 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:43 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/app.js
+2026-07-17 19:11:43 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:54 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:11:54 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/app.js
+2026-07-17 19:11:54 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:12:20 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/style.css
+2026-07-17 19:12:20 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/app.js
+2026-07-17 19:12:49 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-07-17 19:12:59 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-07-17 19:12:59 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-07-17 19:12:59 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:12:59 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:05 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:05 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:08 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:08 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:29 - __main__ - INFO - Processing recommendation request: movie='The Matrix', mood='Happy'
+2026-07-17 19:13:31 - src.recommender - INFO - Hybrid recommendations for 'The Matrix' (mood: Happy): ['The Matrix Revolutions', 'Four Single Fathers', 'Sunshine Cleaning', 'Shanghai Knights', 'Alpha and Omega: The Legend of the Saw Tooth Cave']
+2026-07-17 19:13:31 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:31 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:31 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:31 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:32 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:32 - __main__ - WARNING - Could not fetch details for recommended movies
+2026-07-17 19:13:54 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:54 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:54 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:13:54 - src.metadata - ERROR - Missing expected column in metadata: 'overview'
+2026-07-17 19:14:17 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-07-17 19:14:26 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-07-17 19:14:26 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-07-17 19:14:43 - __main__ - INFO - Processing recommendation request: movie='Avatar', mood='Calm'
+2026-07-17 19:14:44 - src.recommender - WARNING - Invalid mood provided: Calm
+2026-07-17 19:14:44 - __main__ - INFO - Could not find recommendations for 'Avatar' with mood 'Calm'
+2026-07-17 19:15:43 - __main__ - INFO - Processing recommendation request: movie='The Matrix', mood='Happy'
+2026-07-17 19:15:44 - src.recommender - INFO - Hybrid recommendations for 'The Matrix' (mood: Happy): ['The Matrix Revolutions', 'Four Single Fathers', 'Sunshine Cleaning', 'Shanghai Knights', 'Alpha and Omega: The Legend of the Saw Tooth Cave']
+2026-07-17 19:17:16 - __main__ - INFO - Processing recommendation request: movie='Avatar', mood='Excited'
+2026-07-17 19:17:17 - src.recommender - INFO - Hybrid recommendations for 'Avatar' (mood: Excited): ['U.F.O.', 'Muppets from Space', 'Avengers: Age of Ultron', 'Aliens vs Predator: Requiem', "Logan's Run"]
+2026-07-17 19:19:17 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-07-17 19:20:04 - __main__ - INFO - Processing recommendation request: movie='Avatar', mood='Excited'
+2026-07-17 19:20:05 - src.recommender - INFO - Hybrid recommendations for 'Avatar' (mood: Excited): ['U.F.O.', 'Muppets from Space', 'Avengers: Age of Ultron', 'Aliens vs Predator: Requiem', "Logan's Run"]

@@ -116,19 +116,30 @@ def get_movie_details(title):
 
         movie = movie.iloc[0]
 
-        return {
-            "title": movie["title"],
-            "overview": movie["overview"],
-            "rating": movie["vote_average"],
-            "release_date": movie["release_date"],
-            "genres": extract_genres(movie["genres"]),
-            "runtime": movie["runtime"],
-            "vote_count": movie["vote_count"]
+        # Safely get attributes with fallbacks for missing columns
+        result = {
+            "title": movie.get("title", title),
+            "overview": movie.get("overview", "No description available"),
+            "rating": movie.get("vote_average", "N/A"),
+            "release_date": movie.get("release_date", "N/A"),
+            "genres": extract_genres(movie.get("genres", "Unknown")),
+            "runtime": movie.get("runtime", "N/A"),
+            "vote_count": movie.get("vote_count", 0),
+            "poster": ""  # Will be fetched from TMDB API if needed
         }
+        
+        return result
 
-    except KeyError as e:
-        logger.error(f"Missing expected column in metadata: {e}")
-        return None
     except Exception as e:
-        logger.exception(f"Error retrieving movie details for '{title}': {e}")
-        return None
+        logger.debug(f"Error retrieving movie details for '{title}': {e}")
+        # Return minimal info instead of None
+        return {
+            "title": title,
+            "overview": "No description available",
+            "rating": "N/A",
+            "release_date": "N/A",
+            "genres": "Unknown",
+            "runtime": "N/A",
+            "vote_count": 0,
+            "poster": ""
+        }

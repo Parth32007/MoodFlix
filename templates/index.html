@@ -1,428 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MoodFlix</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CinePick</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body>
 
 <div class="container">
 
-    <!-- ================= Sidebar ================= -->
-
-    <aside class="sidebar">
-
-        <div class="logo">
-
-            <h1>MoodFlix</h1>
-
-            <p>AI Movie Recommender</p>
-
-        </div>
-
-        <nav>
-
-            <ul>
-
-                <li class="active">🏠 Home</li>
-
-                <li>❤️ Favorites</li>
-
-                <li>🔖 Watchlist</li>
-
-                <li>🧠 Mood History</li>
-
-                <li>📊 Dashboard</li>
-
-            </ul>
-
-        </nav>
-
-        <div class="stats">
-
-            <h3>Dashboard</h3>
-
-            <div class="stat-box">
-
-                <span>😊</span>
-
-                <h4>Current Mood</h4>
-
-                <p>Happy</p>
-
-            </div>
-
-            <div class="stat-box">
-
-                <span>🎬</span>
-
-                <h4>Recommendations</h4>
-
-                <p>{{ recommendations|length }}</p>
-
-            </div>
-
-            <div class="stat-box">
-
-                <span>🎭</span>
-
-                <h4>Favorite Genre</h4>
-
-                <p>Action</p>
-
-            </div>
-
-        </div>
-
-    </aside>
-
-    <!-- ================= Main Content ================= -->
-
-    <main class="main-content">
-
-        <!-- Hero -->
-
-        <div class="hero">
-
-            <div class="hero-text">
-
-                <h1>🎬 Welcome to MoodFlix</h1>
-
-                <p>
-
-                    Discover movies tailored to your mood using AI-powered recommendations.
-                    Search your favourite movie, choose your mood and let AI recommend your next watch.
-
-                </p>
-
-            </div>
-
-            <form class="search-area" method="POST">
-
-                <input
-                    type="text"
-                    name="movie"
-                    placeholder="Search a movie..."
-                    required
-                >
-
-                <select name="mood">
-
-                    <option value="Happy">Happy</option>
-                    <option value="Sad">Sad</option>
-                    <option value="Excited">Excited</option>
-                    <option value="Relaxed">Relaxed</option>
-                    <option value="Romantic">Romantic</option>
-                    <option value="Inspired">Inspired</option>
-
-                </select>
-
-                <button type="submit">
-
-                    ✨ Recommend
-
-                </button>
-
-            </form>
-
-        </div>
-
-        <!-- Summary -->
-
-        <div class="summary">
-
-            <div class="summary-card">
-
-                ❤️
-
-                <h2>0</h2>
-
-                <p>Favorites</p>
-
-            </div>
-
-            <div class="summary-card">
-
-                🎬
-
-                <h2>0</h2>
-
-                <p>Recommendations</p>
-
-            </div>
-
-            <div class="summary-card">
-
-                😊
-
-                <h2>Happy</h2>
-
-                <p>Current Mood</p>
-
-            </div>
-
-        </div>
-
-        <!-- Trending Movies -->
-
-        <section class="movie-section">
-
-            <h2>🔥 Trending Movies</h2>
-
-            <div class="movie-grid">
-
-                <!-- Card 1 -->
-
-                <div class="movie-card">
-
-                    <img src="https://via.placeholder.com/250x350"
-                         alt="Avatar">
-
-                    <div class="movie-info">
-
-                        <h3>Avatar</h3>
-
-                        <div class="movie-meta">
-
-                            <span>⭐ 7.9</span>
-
-                            <span>📅 2009</span>
-
-                        </div>
-
-                        <p class="movie-tag">
-
-                            Trending
-
-                        </p>
-
-                        <button>
-
-                            View Details
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- Card 2 -->
-
-                <div class="movie-card">
-
-                    <img src="https://via.placeholder.com/250x350"
-                         alt="Interstellar">
-
-                    <div class="movie-info">
-
-                        <h3>Interstellar</h3>
-
-                        <div class="movie-meta">
-
-                            <span>⭐ 8.7</span>
-
-                            <span>📅 2014</span>
-
-                        </div>
-
-                        <p class="movie-tag">
-
-                            Trending
-
-                        </p>
-
-                        <button>
-
-                            View Details
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- Card 3 -->
-
-                <div class="movie-card">
-
-                    <img src="https://via.placeholder.com/250x350"
-                         alt="Inception">
-
-                    <div class="movie-info">
-
-                        <h3>Inception</h3>
-
-                        <div class="movie-meta">
-
-                            <span>⭐ 8.8</span>
-
-                            <span>📅 2010</span>
-
-                        </div>
-
-                        <p class="movie-tag">
-
-                            Trending
-
-                        </p>
-
-                        <button>
-
-                            View Details
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- Card 4 -->
-
-                <div class="movie-card">
-
-                    <img src="https://via.placeholder.com/250x350"
-                         alt="The Batman">
-
-                    <div class="movie-info">
-
-                        <h3>The Batman</h3>
-
-                        <div class="movie-meta">
-
-                            <span>⭐ 7.8</span>
-
-                            <span>📅 2022</span>
-
-                        </div>
-
-                        <p class="movie-tag">
-
-                            Trending
-
-                        </p>
-
-                        <button>
-
-                            View Details
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- AI Recommendations -->
-
-        {% if recommendations %}
-
-        <section class="movie-section">
-
-            <h2>✨ AI Recommendations</h2>
-
-            <div class="movie-grid">
-
-                {% for movie in recommendations %}
-
-                <div class="movie-card">
-
-                    <img
-                    src="https://via.placeholder.com/250x350?text=Movie"
-                    alt="{{ movie.title }}">
-
-                    <div class="movie-info">
-
-                        <h3>{{ movie.title }}</h3>
-
-                        <div class="movie-meta">
-
-                            <span>⭐ {{ "%.1f"|format(movie.rating) }}</span>
-
-                            <span>📅 {{ movie.release_date[:4] }}</span>
-
-                        </div>
-
-                        <p class="movie-genre">
-
-                            🎭 {{ movie.genres }}
-
-                        </p>
-
-                        <p class="movie-overview">
-
-                            {{ movie.overview[:140] }}...
-
-                        </p>
-
-                        <button
-                        class="details-btn"
-
-                        data-title="{{ movie.title }}"
-                        data-rating="{{ movie.rating }}"
-                        data-year="{{ movie.release_date[:4] }}"
-                        data-genre="{{ movie.genres }}"
-                        data-runtime="{{ movie.runtime }}"
-                        data-votes="{{ movie.vote_count }}"
-                        data-overview="{{ movie.overview }}">
-
-                            View Details
-
-                        </button>
-
-                        <button 
-                        class="favorite-btn"
-                        data-title="{{ movie.title }}">
-
-                            ❤️ Favorite
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                {% endfor %}
-
-            </div>
-
-        </section>
-
-        {% endif %}
-
-    </main>
-
-</div>
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-<div id="movieModal" class="modal">
-
-    <div class="modal-content">
-
-        <span class="close">&times;</span>
-
-        <h2 id="modalTitle"></h2>
-
-        <p id="modalMeta"></p>
-
-        <p id="modalOverview"></p>
-
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-film"></i></div>
+      <div>
+        <h2>CinePick</h2>
+        <p>Discover great films</p>
+      </div>
     </div>
 
+    <h4 class="menu-heading">MENU</h4>
+
+    <ul class="menu">
+      <li class="active"><i class="fa-solid fa-house"></i><span>Home</span></li>
+      <li><i class="fa-regular fa-heart"></i><span>Favorites</span></li>
+      <li><i class="fa-regular fa-bookmark"></i><span>Watchlist</span></li>
+      <li><i class="fa-solid fa-clock-rotate-left"></i><span>Recent Searches</span></li>
+      <li><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></li>
+    </ul>
+
+    <div class="quick-stats">
+      <h3><i class="fa-solid fa-chart-pie"></i> Quick Stats</h3>
+
+      <div class="stat-grid">
+        <div class="stat-box">
+          <i class="fa-regular fa-heart"></i>
+          <h2>12</h2>
+          <span>Favorites</span>
+        </div>
+
+        <div class="stat-box">
+          <i class="fa-regular fa-bookmark"></i>
+          <h2>8</h2>
+          <span>Watchlist</span>
+        </div>
+
+        <div class="stat-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <h2>24</h2>
+          <span>Searches</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="hero">
+      <div class="hero-left">
+        <h1>Welcome Back 👋</h1>
+        <p>Discover amazing movies curated just for you.</p>
+      </div>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search movies...">
+      </div>
+    </header>
+
+    <section class="overview">
+      <div class="overview-card">
+        <i class="fa-regular fa-heart"></i>
+        <div>
+          <h2>12</h2>
+          <p>Favorites</p>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <i class="fa-regular fa-bookmark"></i>
+        <div>
+          <h2>8</h2>
+          <p>Watchlist</p>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <div>
+          <h2>24</h2>
+          <p>Searches</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="movie-section">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-fire"></i> Trending Now</h2>
+        <a href="#">View All</a>
+      </div>
+
+      <div class="movie-grid">
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Inception" alt="Inception">
+          <div class="movie-info">
+            <h3>Inception</h3>
+            <p>2010 • Sci-Fi</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.8</span>
+              <button><i class="fa-regular fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=The+Dark+Knight" alt="The Dark Knight">
+          <div class="movie-info">
+            <h3>The Dark Knight</h3>
+            <p>2008 • Action</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 9.0</span>
+              <button><i class="fa-regular fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Interstellar" alt="Interstellar">
+          <div class="movie-info">
+            <h3>Interstellar</h3>
+            <p>2014 • Sci-Fi</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.7</span>
+              <button><i class="fa-regular fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Avengers:+Endgame" alt="Avengers: Endgame">
+          <div class="movie-info">
+            <h3>Avengers: Endgame</h3>
+            <p>2019 • Action</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.4</span>
+              <button><i class="fa-regular fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Joker" alt="Joker">
+          <div class="movie-info">
+            <h3>Joker</h3>
+            <p>2019 • Drama</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.5</span>
+              <button><i class="fa-regular fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Oppenheimer" alt="Oppenheimer">
+          <div class="movie-info">
+            <h3>Oppenheimer</h3>
+            <p>2023 • Biography</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.6</span>
+              <button><i class="fa-regular fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="movie-section">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Recommended For You</h2>
+      </div>
+
+      <div class="movie-grid">
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=The+Prestige" alt="The Prestige">
+          <div class="movie-info">
+            <h3>The Prestige</h3>
+            <p>2006 • Mystery</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.5</span>
+              <button><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Shutter+Island" alt="Shutter Island">
+          <div class="movie-info">
+            <h3>Shutter Island</h3>
+            <p>2010 • Thriller</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.2</span>
+              <button><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Fight+Club" alt="Fight Club">
+          <div class="movie-info">
+            <h3>Fight Club</h3>
+            <p>1999 • Drama</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.8</span>
+              <button><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=The+Matrix" alt="The Matrix">
+          <div class="movie-info">
+            <h3>The Matrix</h3>
+            <p>1999 • Sci-Fi</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.7</span>
+              <button><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Parasite" alt="Parasite">
+          <div class="movie-info">
+            <h3>Parasite</h3>
+            <p>2019 • Thriller</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.5</span>
+              <button><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="https://placehold.co/300x430?text=Whiplash" alt="Whiplash">
+          <div class="movie-info">
+            <h3>Whiplash</h3>
+            <p>2014 • Drama</p>
+            <div class="rating">
+              <span><i class="fa-solid fa-star"></i> 8.5</span>
+              <button><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
 </div>
 
-</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
+</body>
 </html>
