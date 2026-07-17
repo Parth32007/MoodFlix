@@ -1,0 +1,180 @@
+2026-07-17 18:48:21 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:48:21 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:22 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:48:57 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:49:36 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:49:36 - src.tmdb_api - INFO - No results found for movie: NonexistentMovie12345
+2026-07-17 18:49:36 - src.tmdb_api - WARNING - Invalid movie name provided: 
+2026-07-17 18:49:36 - src.tmdb_api - WARNING - Invalid movie name provided: None
+2026-07-17 18:49:36 - src.tmdb_api - WARNING - Invalid movie name provided: 123
+2026-07-17 18:49:37 - src.tmdb_api - ERROR - Unexpected error fetching movie details for 'The Matrix': Network error
+Traceback (most recent call last):
+  File "C:\MoodFlix\src\tmdb_api.py", line 52, in fetch_movie_details
+    response = session.get(search_url, timeout=TMDB_REQUEST_TIMEOUT)
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\unittest\mock.py", line 1175, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\unittest\mock.py", line 1179, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\unittest\mock.py", line 1234, in _execute_mock_call
+    raise effect
+Exception: Network error
+2026-07-17 18:49:37 - src.tmdb_api - ERROR - Error parsing TMDB response for 'The Matrix': Invalid JSON
+2026-07-17 18:53:46 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:53:46 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:04 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:11 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:15 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-07-17 18:54:16 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-07-17 18:54:16 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-07-17 18:54:16 - src.favorites - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:16 - app - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:16 - app - ERROR - Error in favorite(): 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+Traceback (most recent call last):
+  File "C:\MoodFlix\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 611, in get_json
+    rv = self.json_module.loads(data)
+  File "C:\MoodFlix\venv\Lib\site-packages\flask\json\provider.py", line 187, in loads
+    return json.loads(s, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\MoodFlix\venv\Lib\site-packages\flask\wrappers.py", line 214, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\MoodFlix\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 645, in on_json_loading_failed
+    raise BadRequest(f"Failed to decode JSON object: {e}")
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to decode JSON object: Expecting value: line 1 column 1 (char 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\MoodFlix\app.py", line 100, in favorite
+    data = request.get_json()
+  File "C:\MoodFlix\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 620, in get_json
+    rv = self.on_json_loading_failed(e)
+  File "C:\MoodFlix\venv\Lib\site-packages\flask\wrappers.py", line 219, in on_json_loading_failed
+    raise BadRequest() from ebr
+werkzeug.exceptions.BadRequest: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2026-07-17 18:54:16 - src.favorites - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:16 - app - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:16 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-07-17 18:54:16 - app - INFO - Removed from favorites: Test Movie
+2026-07-17 18:54:16 - app - WARNING - 404 error: http://localhost/favorite/
+2026-07-17 18:54:16 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-07-17 18:54:16 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-07-17 18:54:16 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-07-17 18:54:16 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:54:16 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:54:16 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-07-17 18:54:16 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-07-17 18:54:16 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:54:16 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-07-17 18:54:38 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:54:39 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-07-17 18:54:40 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-07-17 18:54:40 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-07-17 18:54:40 - src.favorites - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:40 - app - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:40 - src.favorites - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:40 - app - INFO - Added to favorites: Test Movie
+2026-07-17 18:54:40 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-07-17 18:54:40 - app - INFO - Removed from favorites: Test Movie
+2026-07-17 18:54:40 - app - WARNING - 404 error: http://localhost/favorite/
+2026-07-17 18:54:40 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-07-17 18:54:40 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-07-17 18:54:40 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-07-17 18:54:40 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:54:40 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:54:40 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-07-17 18:54:40 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-07-17 18:54:40 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:54:40 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-07-17 18:55:06 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-07-17 18:55:06 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-07-17 18:55:07 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-07-17 18:55:07 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-07-17 18:55:07 - src.favorites - INFO - Added to favorites: Test Movie
+2026-07-17 18:55:07 - app - INFO - Added to favorites: Test Movie
+2026-07-17 18:55:07 - src.favorites - INFO - Added to favorites: Test Movie
+2026-07-17 18:55:07 - app - INFO - Added to favorites: Test Movie
+2026-07-17 18:55:07 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-07-17 18:55:07 - app - INFO - Removed from favorites: Test Movie
+2026-07-17 18:55:07 - app - WARNING - 404 error: http://localhost/favorite/
+2026-07-17 18:55:07 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-07-17 18:55:07 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-07-17 18:55:07 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-07-17 18:55:07 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:55:07 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:55:07 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-07-17 18:55:07 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-07-17 18:55:07 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-07-17 18:55:07 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-07-17 18:55:25 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-07-17 18:55:34 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-07-17 18:55:40 - __main__ - INFO - Processing recommendation request: movie='Avatar', mood='Excited'
+2026-07-17 18:55:52 - src.recommender - INFO - Hybrid recommendations for 'Avatar' (mood: Excited): ['U.F.O.', 'Muppets from Space', 'Avengers: Age of Ultron', 'Aliens vs Predator: Requiem', "Logan's Run"]
+2026-07-17 18:55:52 - src.metadata - INFO - Loaded movie metadata: 4818 movies

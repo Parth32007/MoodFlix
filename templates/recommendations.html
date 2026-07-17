@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations - MoodFlix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recommendations.css') }}">
+    <style>
+        .recommendations-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .recommendations-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e0a80a;
+        }
+
+        .recommendations-header p {
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .recommendation-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(224, 168, 10, 0.2);
+            border: 2px solid #e0a80a;
+            color: #e0a80a;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #e0a80a;
+            color: #000;
+        }
+
+        .recommendations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .recommendation-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(224, 168, 10, 0.2);
+        }
+
+        .recommendation-poster {
+            position: relative;
+            overflow: hidden;
+            height: 350px;
+        }
+
+        .recommendation-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .recommendation-card:hover .recommendation-poster img {
+            transform: scale(1.05);
+        }
+
+        .recommendation-poster-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .recommendation-card:hover .recommendation-poster-overlay {
+            opacity: 1;
+        }
+
+        .overlay-button {
+            background: #e0a80a;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .overlay-button:hover {
+            background: #ffd700;
+        }
+
+        .recommendation-info {
+            padding: 20px;
+        }
+
+        .recommendation-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .recommendation-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .recommendation-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rating-stars {
+            color: #e0a80a;
+        }
+
+        .recommendation-genres {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .genre-badge {
+            background: rgba(224, 168, 10, 0.2);
+            color: #e0a80a;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+
+        .recommendation-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-view,
+        .btn-add-favorite {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view {
+            background: #e0a80a;
+            color: #000;
+        }
+
+        .btn-view:hover {
+            background: #ffd700;
+        }
+
+        .btn-add-favorite {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(224, 168, 10, 0.5);
+        }
+
+        .btn-add-favorite:hover {
+            background: rgba(224, 168, 10, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state h2 {
+            font-size: 1.8rem;
+            color: #e0a80a;
+            margin-bottom: 20px;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            background: #e0a80a;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background: #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .recommendations-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .recommendations-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .recommendation-poster {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>MoodFlix</h1>
+                <p>AI Movie Recommender</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">🏠 Home</a></li>
+                    <li class="active">🎬 Recommendations</li>
+                    <li><a href="#favorites">❤️ Favorites</a></li>
+                    <li><a href="#watchlist">🔖 Watchlist</a></li>
+                </ul>
+            </nav>
+            <div class="stats">
+                <h3>Quick Stats</h3>
+                <div class="stat-box">
+                    <span>🎬</span>
+                    <h4>Total Results</h4>
+                    <p id="total-recommendations">0</p>
+                </div>
+                <div class="stat-box">
+                    <span>❤️</span>
+                    <h4>Favorites</h4>
+                    <p id="total-favorites">0</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="recommendations-header">
+                <h1>✨ Your Recommendations</h1>
+                <p>AI-powered movies tailored to your mood and preferences</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="recommendation-filters">
+                <button class="filter-btn active" onclick="filterByMood('all')">All Genres</button>
+                <button class="filter-btn" onclick="filterByMood('action')">Action</button>
+                <button class="filter-btn" onclick="filterByMood('drama')">Drama</button>
+                <button class="filter-btn" onclick="filterByMood('comedy')">Comedy</button>
+                <button class="filter-btn" onclick="filterByMood('romance')">Romance</button>
+            </div>
+
+            <!-- Recommendations Grid -->
+            <div class="recommendations-container" id="recommendations-grid">
+                {% if recommendations %}
+                    {% for movie in recommendations %}
+                    <div class="recommendation-card">
+                        <div class="recommendation-poster">
+                            <img src="{{ movie.poster }}" alt="{{ movie.title }}" 
+                                 onerror="this.src='https://via.placeholder.com/280x350?text=No+Image'">
+                            <div class="recommendation-poster-overlay">
+                                <button class="overlay-button" onclick="viewMovie('{{ movie.title }}')">
+                                    View Details →
+                                </button>
+                            </div>
+                        </div>
+                        <div class="recommendation-info">
+                            <div class="recommendation-title">{{ movie.title }}</div>
+                            <div class="recommendation-meta">
+                                <div class="recommendation-rating">
+                                    <span class="rating-stars">⭐ {{ movie.rating }}/10</span>
+                                </div>
+                                <div>{{ movie.release_date[:4] }}</div>
+                            </div>
+                            {% if movie.genres %}
+                            <div class="recommendation-genres">
+                                {% for genre in movie.genres.split(', ')[:2] %}
+                                <span class="genre-badge">{{ genre }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="recommendation-actions">
+                                <button class="btn-view" onclick="viewMovie('{{ movie.title }}')">
+                                    View
+                                </button>
+                                <button class="btn-add-favorite" onclick="addToFavorites('{{ movie.title }}')">
+                                    ❤️
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <h2>No Recommendations Yet</h2>
+                        <p>Search for a movie and select your mood to get personalized recommendations!</p>
+                        <a href="/" class="back-to-home">← Back to Home</a>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function viewMovie(movieTitle) {
+            // In a real app, this would navigate to a movie detail page
+            alert(`Movie: ${movieTitle}\n\nNavigating to details...`);
+            // window.location.href = `/movie/${encodeURIComponent(movieTitle)}`;
+        }
+
+        function addToFavorites(movieTitle) {
+            fetch('/favorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ movie: movieTitle })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('✓ ' + data.message);
+                } else {
+                    alert('✗ Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('✗ Error adding to favorites');
+            });
+        }
+
+        function filterByMood(mood) {
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // In a real app, this would filter the recommendations
+            console.log(`Filtering by mood: ${mood}`);
+        }
+
+        // Load initial stats
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.recommendation-card').length;
+            document.getElementById('total-recommendations').textContent = cards;
+        });
+    </script>
+</body>
+
+</html>
