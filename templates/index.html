@@ -3,268 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CinePick</title>
+  <title>MoodFlix AI - Discover Movies That Match Your Emotion</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="dark-theme">
 
-<div class="container">
+  <!-- Ambient Background Effect -->
+  <div class="ambient-background">
+    <div class="glow magenta-glow"></div>
+    <div class="glow blue-glow"></div>
+    <div class="particles"></div>
+  </div>
 
-  <aside class="sidebar">
-    <div class="logo">
-      <div class="logo-icon"><i class="fa-solid fa-film"></i></div>
-      <div>
-        <h2>CinePick</h2>
-        <p>Discover great films</p>
+  <div class="app-container">
+
+    <!-- Minimal Header -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fa-solid fa-sparkles text-neon"></i>
+        <span>MoodFlix AI</span>
       </div>
-    </div>
-
-    <h4 class="menu-heading">MENU</h4>
-
-    <ul class="menu">
-      <li class="active"><i class="fa-solid fa-house"></i><span>Home</span></li>
-      <li><i class="fa-regular fa-heart"></i><span>Favorites</span></li>
-      <li><i class="fa-regular fa-bookmark"></i><span>Watchlist</span></li>
-      <li><i class="fa-solid fa-clock-rotate-left"></i><span>Recent Searches</span></li>
-      <li><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></li>
-    </ul>
-
-    <div class="quick-stats">
-      <h3><i class="fa-solid fa-chart-pie"></i> Quick Stats</h3>
-
-      <div class="stat-grid">
-        <div class="stat-box">
-          <i class="fa-regular fa-heart"></i>
-          <h2>12</h2>
-          <span>Favorites</span>
-        </div>
-
-        <div class="stat-box">
-          <i class="fa-regular fa-bookmark"></i>
-          <h2>8</h2>
-          <span>Watchlist</span>
-        </div>
-
-        <div class="stat-box">
+      <nav class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Discover</a>
+        <a href="#">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn search-trigger" id="top-search-btn">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <h2>24</h2>
-          <span>Searches</span>
-        </div>
-      </div>
-    </div>
-  </aside>
-
-  <main class="main">
-
-    <header class="hero">
-      <div class="hero-left">
-        <h1>Welcome Back 👋</h1>
-        <p>Discover amazing movies curated just for you.</p>
-      </div>
-
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Search movies...">
+        </button>
       </div>
     </header>
 
-    <section class="overview">
-      <div class="overview-card">
-        <i class="fa-regular fa-heart"></i>
-        <div>
-          <h2>12</h2>
-          <p>Favorites</p>
+    <main id="main-content">
+      
+      <!-- VIEW 1: MOOD SELECTION (LANDING) -->
+      <section id="view-landing" class="view active-view">
+        <div class="hero-text">
+          <h1>What are you in the mood for?</h1>
+          <p>Tell us how you're feeling, and we'll find the perfect movie for you.</p>
         </div>
+
+        <div class="glass-panel main-interaction-panel">
+          
+          <!-- Premium Search Bar -->
+          <div class="search-bar-premium">
+            <i class="fa-solid fa-film search-icon-premium"></i>
+            <input type="text" id="reference-movie-input" placeholder="Search for a reference movie..." autocomplete="off">
+          </div>
+
+          <div class="divider-subtle">
+            <span>AND CHOOSE YOUR VIBE</span>
+          </div>
+
+          <div class="mood-selector" id="mood-selector">
+            <button class="mood-pill" data-mood="Happy">😊 Happy</button>
+            <button class="mood-pill" data-mood="Sad">😢 Sad</button>
+            <button class="mood-pill" data-mood="Romantic">❤️ Romantic</button>
+            <button class="mood-pill" data-mood="Excited">🔥 Excited</button>
+            <button class="mood-pill" data-mood="Fear">😱 Fear</button>
+            <button class="mood-pill" data-mood="Relaxed">😌 Relaxed</button>
+            <button class="mood-pill" data-mood="Motivated">💪 Motivated</button>
+            <button class="mood-pill" data-mood="Curious">🧠 Curious</button>
+            <button class="mood-pill" data-mood="Lonely">🌙 Lonely</button>
+            <button class="mood-pill" data-mood="Inspired">✨ Inspired</button>
+          </div>
+
+          <div class="custom-mood-input-container">
+            <i class="fa-solid fa-microphone mic-icon"></i>
+            <input type="text" id="custom-mood-input" placeholder="Or tell us how you're feeling..." autocomplete="off">
+          </div>
+
+          <button id="find-movie-btn" class="neon-btn primary-btn">
+            ✨ Find My Movie
+          </button>
+        </div>
+      </section>
+
+      <!-- VIEW 2: AI ANALYSIS LOADER -->
+      <section id="view-loading" class="view">
+        <div class="loader-container">
+          <div class="ai-orb">
+            <div class="orb-core"></div>
+            <div class="orb-ring ring-1"></div>
+            <div class="orb-ring ring-2"></div>
+            <div class="orb-particles"></div>
+          </div>
+          <h2 id="loading-text">Understanding your mood...</h2>
+        </div>
+      </section>
+
+      <!-- VIEW 3: RECOMMENDATIONS -->
+      <section id="view-recommendations" class="view">
+        <div class="recommendations-header">
+          <div>
+            <h2>Movies picked for your mood</h2>
+            <p class="detected-mood">Your mood: <span id="display-detected-mood" class="text-gradient"></span></p>
+          </div>
+          <button id="change-mood-btn" class="glass-btn small-btn">
+            <i class="fa-solid fa-rotate-left"></i> Change Mood
+          </button>
+        </div>
+
+        <div class="movie-grid" id="recommendations-grid">
+          <!-- Movie cards injected via JS -->
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- MOVIE DETAILS MODAL -->
+  <div id="movie-modal" class="modal-overlay">
+    <div class="modal-content glass-panel">
+      <button class="close-modal-btn" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="modal-layout" id="modal-layout-content">
+        <!-- Injected via JS -->
       </div>
+    </div>
+  </div>
 
-      <div class="overview-card">
-        <i class="fa-regular fa-bookmark"></i>
-        <div>
-          <h2>8</h2>
-          <p>Watchlist</p>
-        </div>
+  <!-- SEARCH OVERLAY -->
+  <div id="search-overlay" class="search-overlay">
+    <div class="search-container glass-panel">
+      <button class="close-search-btn" id="close-search"><i class="fa-solid fa-xmark"></i></button>
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon-large"></i>
+        <input type="text" id="global-search-input" placeholder="Search for a movie..." autocomplete="off">
       </div>
-
-      <div class="overview-card">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <div>
-          <h2>24</h2>
-          <p>Searches</p>
-        </div>
+      <div id="search-results" class="search-results">
+        <!-- Results injected here -->
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="movie-section">
-      <div class="section-header">
-        <h2><i class="fa-solid fa-fire"></i> Trending Now</h2>
-        <a href="#">View All</a>
-      </div>
-
-      <div class="movie-grid">
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Inception" alt="Inception">
-          <div class="movie-info">
-            <h3>Inception</h3>
-            <p>2010 • Sci-Fi</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.8</span>
-              <button><i class="fa-regular fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=The+Dark+Knight" alt="The Dark Knight">
-          <div class="movie-info">
-            <h3>The Dark Knight</h3>
-            <p>2008 • Action</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 9.0</span>
-              <button><i class="fa-regular fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Interstellar" alt="Interstellar">
-          <div class="movie-info">
-            <h3>Interstellar</h3>
-            <p>2014 • Sci-Fi</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.7</span>
-              <button><i class="fa-regular fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Avengers:+Endgame" alt="Avengers: Endgame">
-          <div class="movie-info">
-            <h3>Avengers: Endgame</h3>
-            <p>2019 • Action</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.4</span>
-              <button><i class="fa-regular fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Joker" alt="Joker">
-          <div class="movie-info">
-            <h3>Joker</h3>
-            <p>2019 • Drama</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.5</span>
-              <button><i class="fa-regular fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Oppenheimer" alt="Oppenheimer">
-          <div class="movie-info">
-            <h3>Oppenheimer</h3>
-            <p>2023 • Biography</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.6</span>
-              <button><i class="fa-regular fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="movie-section">
-      <div class="section-header">
-        <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Recommended For You</h2>
-      </div>
-
-      <div class="movie-grid">
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=The+Prestige" alt="The Prestige">
-          <div class="movie-info">
-            <h3>The Prestige</h3>
-            <p>2006 • Mystery</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.5</span>
-              <button><i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Shutter+Island" alt="Shutter Island">
-          <div class="movie-info">
-            <h3>Shutter Island</h3>
-            <p>2010 • Thriller</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.2</span>
-              <button><i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Fight+Club" alt="Fight Club">
-          <div class="movie-info">
-            <h3>Fight Club</h3>
-            <p>1999 • Drama</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.8</span>
-              <button><i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=The+Matrix" alt="The Matrix">
-          <div class="movie-info">
-            <h3>The Matrix</h3>
-            <p>1999 • Sci-Fi</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.7</span>
-              <button><i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Parasite" alt="Parasite">
-          <div class="movie-info">
-            <h3>Parasite</h3>
-            <p>2019 • Thriller</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.5</span>
-              <button><i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://placehold.co/300x430?text=Whiplash" alt="Whiplash">
-          <div class="movie-info">
-            <h3>Whiplash</h3>
-            <p>2014 • Drama</p>
-            <div class="rating">
-              <span><i class="fa-solid fa-star"></i> 8.5</span>
-              <button><i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
-
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

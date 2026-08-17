@@ -37,7 +37,7 @@ class TestFlaskRoutes:
         """Test GET request to home page."""
         response = client.get('/')
         assert response.status_code == 200
-        assert b'MoodFlix' in response.data or b'recommendations' in response.data
+        assert b'CinePick' in response.data or b'recommendations' in response.data
 
     @patch('app.recommend_hybrid')
     @patch('app.get_movie_details')

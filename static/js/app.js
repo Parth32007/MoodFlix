@@ -1,444 +1,277 @@
-// CinePick - Frontend Integration Script
-// Handles all API interactions with the backend
+document.addEventListener('DOMContentLoaded', () => {
+  // Elements
+  const views = document.querySelectorAll('.view');
+  const viewLanding = document.getElementById('view-landing');
+  const viewLoading = document.getElementById('view-loading');
+  const viewRecommendations = document.getElementById('view-recommendations');
+  
+  const moodPills = document.querySelectorAll('.mood-pill');
+  const customInput = document.getElementById('custom-mood-input');
+  const referenceMovieInput = document.getElementById('reference-movie-input');
+  const findMovieBtn = document.getElementById('find-movie-btn');
+  const changeMoodBtn = document.getElementById('change-mood-btn');
+  
+  const displayDetectedMood = document.getElementById('display-detected-mood');
+  const recommendationsGrid = document.getElementById('recommendations-grid');
+  
+  const topSearchBtn = document.getElementById('top-search-btn');
+  const searchOverlay = document.getElementById('search-overlay');
+  const closeSearchBtn = document.getElementById('close-search');
+  
+  const movieModal = document.getElementById('movie-modal');
+  const closeModalBtn = document.getElementById('close-modal');
+  const modalLayoutContent = document.getElementById('modal-layout-content');
 
-document.addEventListener('DOMContentLoaded', function() {
-    initializeUI();
-    loadFavoritesCount();
-    setupSearchBox();
-    setupMenuNavigation();
-    setupMovieCardButtons();
-});
+  // State
+  let selectedMoods = [];
 
-// ============ INITIALIZATION ============
-
-function initializeUI() {
-    console.log('CinePick initialized');
-    // Load initial recommendations
-    loadRecommendations();
-}
-
-function loadFavoritesCount() {
-    fetch('/api/favorites')
-        .then(response => response.json())
-        .then(data => {
-            const favCount = data.favorites ? data.favorites.length : 0;
-            updateFavoritesStats(favCount);
-        })
-        .catch(error => console.error('Error loading favorites:', error));
-}
-
-function updateFavoritesStats(count) {
-    // Update sidebar stats
-    document.querySelectorAll('.stat-box').forEach((box, index) => {
-        if (index === 0) {
-            box.querySelector('h2').textContent = count;
-        }
-    });
-    
-    // Update overview cards
-    document.querySelectorAll('.overview-card').forEach((card, index) => {
-        if (index === 0) {
-            card.querySelector('h2').textContent = count;
-        }
-    });
-}
-
-// ============ SEARCH & RECOMMENDATIONS ============
-
-function setupSearchBox() {
-    const searchInput = document.querySelector('.search-box input');
-    
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            const movieName = this.value.trim();
-            if (movieName) {
-                showMoodSelector(movieName);
-            }
-        }
-    });
-}
-
-function showMoodSelector(movieName) {
-    const moods = ['Happy', 'Sad', 'Romantic', 'Excited', 'Fear', 'Relaxed', 'Motivated', 'Curious', 'Lonely', 'Inspired'];
-    
-    // Create modal
-    const modal = document.createElement('div');
-    modal.className = 'mood-modal';
-    modal.innerHTML = `
-        <div class="mood-modal-content">
-            <h2>How are you feeling?</h2>
-            <p>Select your mood for better recommendations</p>
-            <div class="mood-grid">
-                ${moods.map(mood => `
-                    <button class="mood-btn" onclick="searchWithMood('${movieName}', '${mood}')">
-                        ${getMoodEmoji(mood)} ${mood}
-                    </button>
-                `).join('')}
-            </div>
-            <button class="close-modal" onclick="this.parentElement.parentElement.remove()">✕</button>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-}
-
-function getMoodEmoji(mood) {
-    const moodEmojis = {
-        'Happy': '😊',
-        'Sad': '😢',
-        'Romantic': '❤️',
-        'Excited': '⚡',
-        'Fear': '😨',
-        'Relaxed': '😌',
-        'Motivated': '💪',
-        'Curious': '🤔',
-        'Lonely': '😔',
-        'Inspired': '✨'
-    };
-    return moodEmojis[mood] || '🎬';
-}
-
-function searchWithMood(movieName, mood) {
-    // Close modal
-    document.querySelector('.mood-modal').remove();
-    
-    // Show loading state
-    showLoadingState();
-    
-    // Call backend
-    fetch('/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            movie: movieName,
-            mood: mood
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'error') {
-            alert('Error: ' + data.message);
-            loadRecommendations();
-        } else {
-            displayRecommendations(data.recommendations, movieName, mood);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to get recommendations');
-        loadRecommendations();
-    });
-}
-
-function showLoadingState() {
-    const sections = document.querySelectorAll('.movie-section');
-    sections.forEach(section => {
-        section.innerHTML = '<div class="loading">Loading recommendations...</div>';
-    });
-}
-
-function loadRecommendations() {
-    // Load trending and recommended movies
-    fetch('/api/movies')
-        .then(response => response.json())
-        .then(data => {
-            displayTrendingMovies(data.trending || []);
-            displayRecommendedMovies(data.recommended || []);
-        })
-        .catch(error => console.error('Error loading recommendations:', error));
-}
-
-function displayRecommendations(recommendations, movieName, mood) {
-    const sections = document.querySelectorAll('.movie-section');
-    if (sections.length < 2) return;
-    
-    // Update first section to show search results
-    const firstSection = sections[0];
-    firstSection.innerHTML = `
-        <div class="section-header">
-            <h2><i class="fa-solid fa-sparkles"></i> Recommendations for "${movieName}" (${mood} mood)</h2>
-            <a href="#" onclick="loadRecommendations(); return false;">Back to Trending</a>
-        </div>
-        <div class="movie-grid">
-            ${recommendations.map(movie => createMovieCard(movie)).join('')}
-        </div>
-    `;
-    
-    setupMovieCardButtons();
-}
-
-function displayTrendingMovies(movies) {
-    const sections = document.querySelectorAll('.movie-section');
-    if (sections.length < 1) return;
-    
-    const firstSection = sections[0];
-    if (!firstSection.querySelector('.section-header h2').textContent.includes('Recommendations')) {
-        firstSection.querySelector('.movie-grid').innerHTML = movies.map(movie => createMovieCard(movie)).join('');
-        setupMovieCardButtons();
+  // Mock Movie Data
+  const mockMovies = [
+    {
+      id: 1,
+      title: 'Interstellar',
+      year: 2014,
+      rating: 8.7,
+      genres: 'Sci-Fi • Drama • Adventure',
+      overview: 'An emotional journey through space, time, and human connection. A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.',
+      poster: 'https://placehold.co/300x450/0f0f19/ec4899?text=Interstellar',
+      backdrop: 'https://placehold.co/900x300/0f0f19/3b82f6?text=Interstellar+Backdrop',
+      match: 94
+    },
+    {
+      id: 2,
+      title: 'The Secret Life of Walter Mitty',
+      year: 2013,
+      rating: 7.3,
+      genres: 'Adventure • Comedy • Drama',
+      overview: 'When his job along with that of his co-worker are threatened, Walter takes action in the real world embarking on a global journey that turns into an adventure more extraordinary than anything he could have ever imagined.',
+      poster: 'https://placehold.co/300x450/0f0f19/a855f7?text=Walter+Mitty',
+      backdrop: 'https://placehold.co/900x300/0f0f19/ec4899?text=Walter+Mitty+Backdrop',
+      match: 88
+    },
+    {
+      id: 3,
+      title: 'Everything Everywhere All at Once',
+      year: 2022,
+      rating: 7.8,
+      genres: 'Action • Adventure • Comedy',
+      overview: 'A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence by exploring other universes and connecting with the lives she could have led.',
+      poster: 'https://placehold.co/300x450/0f0f19/3b82f6?text=EEAAO',
+      backdrop: 'https://placehold.co/900x300/0f0f19/a855f7?text=EEAAO+Backdrop',
+      match: 91
+    },
+    {
+      id: 4,
+      title: 'Arrival',
+      year: 2016,
+      rating: 7.9,
+      genres: 'Drama • Sci-Fi • Mystery',
+      overview: 'A linguist works with the military to communicate with alien lifeforms after twelve mysterious spacecraft appear around the world.',
+      poster: 'https://placehold.co/300x450/0f0f19/ec4899?text=Arrival',
+      backdrop: 'https://placehold.co/900x300/0f0f19/3b82f6?text=Arrival+Backdrop',
+      match: 85
     }
-}
+  ];
 
-function displayRecommendedMovies(movies) {
-    const sections = document.querySelectorAll('.movie-section');
-    if (sections.length < 2) return;
-    
-    const secondSection = sections[1];
-    secondSection.querySelector('.movie-grid').innerHTML = movies.map(movie => createMovieCard(movie)).join('');
-    setupMovieCardButtons();
-}
-
-// ============ MOVIE CARDS ============
-
-function createMovieCard(movie) {
-    return `
-        <div class="movie-card" data-movie-title="${movie.title || 'Unknown'}">
-            <img src="${movie.poster || 'https://placehold.co/300x430?text=No+Image'}" 
-                 alt="${movie.title}" 
-                 onerror="this.src='https://placehold.co/300x430?text=No+Image'">
-            <div class="movie-info">
-                <h3>${movie.title || 'Unknown'}</h3>
-                <p>${movie.release_date ? movie.release_date.split('-')[0] : 'N/A'} • ${movie.genres || 'N/A'}</p>
-                <div class="rating">
-                    <span><i class="fa-solid fa-star"></i> ${movie.rating || 'N/A'}</span>
-                    <button class="fav-btn" onclick="toggleFavorite(event, '${movie.title}')">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function setupMovieCardButtons() {
-    document.querySelectorAll('.fav-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+  // --- MOOD SELECTION ---
+  moodPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      // Toggle selection
+      if (pill.classList.contains('selected')) {
+        pill.classList.remove('selected');
+        selectedMoods = selectedMoods.filter(m => m !== pill.dataset.mood);
+      } else {
+        pill.classList.add('selected');
+        selectedMoods.push(pill.dataset.mood);
+      }
     });
-}
+  });
 
-// ============ FAVORITES ============
+  // --- NAVIGATION FLOW ---
+  function switchView(targetViewId) {
+    views.forEach(view => {
+      view.classList.remove('active-view');
+    });
+    document.getElementById(targetViewId).classList.add('active-view');
+  }
 
-function toggleFavorite(event, movieTitle) {
-    const btn = event.currentTarget;
-    const icon = btn.querySelector('i');
-    
-    if (!icon) {
-        console.error('Icon not found in button');
-        return;
+  findMovieBtn.addEventListener('click', () => {
+    const customText = customInput.value.trim();
+    const referenceMovie = referenceMovieInput.value.trim();
+    if (selectedMoods.length === 0 && customText === '' && referenceMovie === '') {
+      // Small shake animation if nothing is selected
+      findMovieBtn.style.transform = 'translateX(-10px)';
+      setTimeout(() => findMovieBtn.style.transform = 'translateX(10px)', 100);
+      setTimeout(() => findMovieBtn.style.transform = 'translateX(0)', 200);
+      return;
     }
-    
-    if (icon.classList.contains('fa-regular')) {
-        // Add to favorites
-        addFavorite(movieTitle, btn);
+
+    // Determine display mood
+    let displayMood = '';
+    if (customText) {
+      displayMood = `"${customText}"`;
+    } else if (selectedMoods.length > 0) {
+      displayMood = selectedMoods.join(', ');
     } else {
-        // Remove from favorites
-        removeFavorite(movieTitle, btn);
+      displayMood = 'Any mood';
     }
-}
-
-function addFavorite(movieTitle, btn) {
-    fetch('/favorite', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ movie: movieTitle })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            if (btn) {
-                btn.style.background = '#ff1744';
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-regular');
-                    icon.classList.add('fa-solid');
-                }
-            }
-            loadFavoritesCount();
-        }
-    })
-    .catch(error => console.error('Error adding favorite:', error));
-}
-
-function removeFavorite(movieTitle, btn) {
-    fetch(`/favorite/${encodeURIComponent(movieTitle)}`, {
-        method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            if (btn) {
-                btn.style.background = '#ff8c1a';
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    icon.classList.add('fa-regular');
-                    icon.classList.remove('fa-solid');
-                }
-            }
-            loadFavoritesCount();
-        }
-    })
-    .catch(error => console.error('Error removing favorite:', error));
-}
-
-// ============ SIDEBAR MENU NAVIGATION ============
-
-function setupMenuNavigation() {
-    const menuItems = document.querySelectorAll('.menu li');
     
-    menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const text = this.querySelector('span').textContent;
-            handleMenuClick(text);
-        });
+    if (referenceMovie) {
+      displayMood += ` | Similar to: ${referenceMovie}`;
+    }
+    
+    displayDetectedMood.textContent = displayMood;
+
+    // Transition to Loading
+    switchView('view-loading');
+
+    // The backend ONLY accepts exactly one of 10 specific mood strings.
+    const validBackendMoods = ["Happy", "Sad", "Romantic", "Excited", "Fear", "Relaxed", "Motivated", "Curious", "Lonely", "Inspired"];
+    let backendMood = "Happy"; // Fallback
+    
+    // Find the first selected mood that is valid
+    if (selectedMoods.length > 0) {
+      backendMood = selectedMoods[0];
+    } else if (customText) {
+      // If user typed custom text, try to find a valid mood keyword in it
+      const match = validBackendMoods.find(m => customText.toLowerCase().includes(m.toLowerCase()));
+      if (match) backendMood = match;
+    }
+
+    // Fetch recommendations from real API
+    fetch('/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // The API requires both. If user left referenceMovie empty, use a fallback like "Inception"
+        movie: referenceMovie || 'Inception', 
+        mood: backendMood
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'success' && data.recommendations) {
+        renderRecommendations(data.recommendations);
+        switchView('view-recommendations');
+      } else {
+        alert("Error: " + (data.message || "Failed to find recommendations"));
+        switchView('view-landing');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error connecting to AI engine.");
+      switchView('view-landing');
     });
-}
+  });
 
-function handleMenuClick(menuItem) {
-    const mainContent = document.querySelector('.main');
+  changeMoodBtn.addEventListener('click', () => {
+    switchView('view-landing');
+  });
+
+  // --- RENDER RECOMMENDATIONS ---
+  function renderRecommendations(movies = []) {
+    recommendationsGrid.innerHTML = '';
     
-    switch(menuItem) {
-        case 'Home':
-            location.reload();
-            break;
-        case 'Favorites':
-            showFavoritesPage();
-            break;
-        case 'Watchlist':
-            alert('Watchlist feature coming soon!');
-            break;
-        case 'Recent Searches':
-            alert('Recent Searches feature coming soon!');
-            break;
-        case 'Dashboard':
-            alert('Dashboard feature coming soon!');
-            break;
-    }
-}
+    // If empty array passed, fallback to mockMovies for safety
+    const moviesToRender = movies.length > 0 ? movies : mockMovies;
+    
+    moviesToRender.forEach((apiMovie, index) => {
+      // Map API TMDB data to our frontend format
+      const movie = {
+        title: apiMovie.title || 'Unknown',
+        year: apiMovie.release_date ? apiMovie.release_date.substring(0, 4) : 'N/A',
+        rating: apiMovie.vote_average ? parseFloat(apiMovie.vote_average).toFixed(1) : 'N/A',
+        genres: Array.isArray(apiMovie.genres) ? apiMovie.genres.join(' • ') : (apiMovie.genres || 'Film'),
+        overview: apiMovie.overview || 'No description available.',
+        poster: apiMovie.poster || (apiMovie.poster_path ? `https://image.tmdb.org/t/p/w500${apiMovie.poster_path}` : ''),
+        backdrop: apiMovie.backdrop_path ? `https://image.tmdb.org/t/p/original${apiMovie.backdrop_path}` : '',
+        match: 99 - (index * 2) // mock match percentage for visual flair
+      };
+      const card = document.createElement('div');
+      card.className = 'movie-card';
+      card.onclick = () => openModal(movie);
 
-function showFavoritesPage() {
-    fetch('/api/favorites')
-        .then(response => response.json())
-        .then(data => {
-            const movies = data.favorites || [];
-            
-            const mainContent = document.querySelector('.main');
-            mainContent.innerHTML = `
-                <header class="hero">
-                    <div class="hero-left">
-                        <h1>❤️ Your Favorites</h1>
-                        <p>All your saved movies in one place.</p>
-                    </div>
-                </header>
-                
-                <section class="movie-section">
-                    <div class="section-header">
-                        <h2>Saved Movies (${movies.length})</h2>
-                        <a href="#" onclick="location.reload(); return false;">Back to Home</a>
-                    </div>
-                    <div class="movie-grid">
-                        ${movies.length > 0 ? movies.map(movie => createMovieCard(movie)).join('') : '<p>No favorites yet!</p>'}
-                    </div>
-                </section>
-            `;
-            
-            setupMovieCardButtons();
-        })
-        .catch(error => console.error('Error loading favorites:', error));
-}
+      let posterHtml = '';
+      let badgeHtml = `<div class="match-badge" style="position:relative; top:auto; right:auto; align-self: flex-end; margin-bottom: 10px;">${movie.match}% Match</div>`;
+      
+      if (movie.poster) {
+        posterHtml = `
+        <div class="poster-container">
+          <img src="${movie.poster}" alt="${movie.title}">
+          <div class="match-badge">${movie.match}% Match</div>
+        </div>`;
+        badgeHtml = '';
+      }
 
-// ============ STYLING FOR MODALS ============
+      card.innerHTML = `
+        ${posterHtml}
+        <div class="card-info" style="${!movie.poster ? 'padding-top: 15px;' : ''}">
+          ${badgeHtml}
+          <h3 class="card-title">${movie.title}</h3>
+          <div class="card-meta">
+            <span>${movie.year}</span>
+            <span class="rating">⭐ ${movie.rating}</span>
+          </div>
+          <div class="card-genres">${movie.genres}</div>
+          <p class="card-desc">${movie.overview}</p>
+        </div>
+      `;
+      recommendationsGrid.appendChild(card);
+    });
+  }
 
-const styles = `
-.mood-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
+  // --- MODAL & DETAILS ---
+  function openModal(movie) {
+    const activeMoods = selectedMoods.length > 0 ? selectedMoods.join(', ') : 'your mood';
+    
+    modalLayoutContent.innerHTML = `
+      <div class="modal-backdrop" style="${movie.backdrop ? `background-image: url('${movie.backdrop}')` : 'display:none;'}"></div>
+      <div class="modal-details" style="${!movie.backdrop ? 'margin-top: 2rem;' : ''}">
+        ${movie.poster ? `<img src="${movie.poster}" alt="${movie.title}" class="modal-poster">` : ''}
+        <div class="modal-info">
+          <h2 class="modal-title">${movie.title}</h2>
+          <div class="modal-tags">
+            <span>${movie.year}</span>
+            <span style="color: #fbbf24">⭐ ${movie.rating}/10</span>
+            <span>${movie.genres}</span>
+          </div>
+          <p class="modal-overview">${movie.overview}</p>
+          
+          <div class="why-match-box">
+            <h4>Why we recommend this</h4>
+            <p>"Based on ${activeMoods}, we prioritized this film for its perfect blend of emotional storytelling and immersive visuals, matching your vibe at a ${movie.match}% level."</p>
+          </div>
 
-.mood-modal-content {
-    background: #101827;
-    border-radius: 22px;
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
+          <div class="modal-actions">
+            <button class="neon-btn">
+              <i class="fa-solid fa-play"></i> Watch Trailer
+            </button>
+            <button class="btn-secondary" onclick="document.getElementById('movie-modal').classList.remove('active')">
+              Back to Recommendations
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    movieModal.classList.add('active');
+  }
 
-.mood-modal-content h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    color: #fff;
-}
+  closeModalBtn.addEventListener('click', () => {
+    movieModal.classList.remove('active');
+  });
 
-.mood-modal-content p {
-    color: #9aa5ba;
-    margin-bottom: 25px;
-}
+  // --- SEARCH OVERLAY ---
+  topSearchBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    searchOverlay.classList.add('active');
+    document.getElementById('global-search-input').focus();
+  });
 
-.mood-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
-}
+  closeSearchBtn.addEventListener('click', () => {
+    searchOverlay.classList.remove('active');
+  });
 
-.mood-btn {
-    background: #1a2540;
-    border: 1px solid #2a3d5a;
-    color: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 14px;
-}
-
-.mood-btn:hover {
-    background: #ff8c1a;
-    border-color: #ff8c1a;
-    transform: scale(1.05);
-}
-
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #9aa5ba;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: #9aa5ba;
-    font-size: 18px;
-}
-
-.fav-btn {
-    background: #ff8c1a;
-}
-
-.fav-btn i.fa-solid {
-    color: #ff1744;
-}
-`;
-
-const styleSheet = document.createElement('style');
-styleSheet.textContent = styles;
-document.head.appendChild(styleSheet);
+});
