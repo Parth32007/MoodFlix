@@ -78,6 +78,31 @@ The project follows a standard Client-Server architecture:
 - **Engine:** The core `recommender.py` module which computes the mathematical similarity between vector matrices.
 - **Storage:** Pre-trained model artifacts (`movies.pkl`, `similarity.pkl`) are serialized and stored locally to ensure fast inference times.
 
+### Directory Structure
+```text
+MoodFlix/
+├── __pycache__/
+├── .pytest_cache/
+├── .venv/
+├── cache/
+├── data/
+├── model/
+├── screenshots/
+├── src/
+├── static/
+├── storage/
+├── templates/
+├── tests/
+├── venv/
+├── .env.example
+├── .gitignore
+├── app.py
+├── config.py
+├── moodflix.log
+├── README.md
+└── requirements.txt
+```
+
 ---
 
 # 9. Dataset
