@@ -81,24 +81,43 @@ The project follows a standard Client-Server architecture:
 ### Directory Structure
 ```text
 MoodFlix/
-├── __pycache__/
-├── .pytest_cache/
-├── .venv/
-├── cache/
 ├── data/
+│   ├── raw/
+│   └── processed/
 ├── model/
+│   ├── movie_metadata.pkl
+│   ├── movies.pkl
+│   ├── similarity.pkl
+│   └── vectorizer.pkl
 ├── screenshots/
+│   ├── home-screenshot.png
+│   └── modal-screenshot.png
 ├── src/
+│   ├── __init__.py
+│   ├── favorites.py
+│   ├── logger.py
+│   ├── metadata.py
+│   ├── mood_engine.py
+│   ├── preprocessing.py
+│   ├── recommender.py
+│   ├── tmdb_api.py
+│   └── utils.py
 ├── static/
-├── storage/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── app.js
 ├── templates/
+│   └── index.html
 ├── tests/
-├── venv/
+│   ├── conftest.py
+│   ├── test_api.py
+│   ├── test_flask_integration.py
+│   └── test_recommender.py
 ├── .env.example
 ├── .gitignore
 ├── app.py
 ├── config.py
-├── moodflix.log
 ├── README.md
 └── requirements.txt
 ```
