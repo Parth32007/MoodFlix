@@ -204,4 +204,4 @@ This project utilizes the **TMDB 5000 Movies Dataset** (The Movie Database).
 
 # 16. Contributors
 
-- [**Parth32007**](https://github.com/Parth32007) - *Lead Developer*
+- Parth Tambe - *Lead Developer*
