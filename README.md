@@ -133,8 +133,8 @@ This project utilizes the **TMDB 5000 Movies Dataset** (The Movie Database).
 # 12. Screenshots
 
 *(Add screenshots of your application here)*
-- ![Home Page](path/to/home-screenshot.png)
-- ![Recommendations Modal](path/to/modal-screenshot.png)
+- ![Home Page](screenshots/home-screenshot.png)
+- ![Recommendations Modal](screenshots/modal-screenshot.png)
 
 ---
 
