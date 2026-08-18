@@ -605,3 +605,9 @@ when serializing dict item 'recommendations'
 2026-08-18 14:49:37 - src.recommender - WARNING - Invalid mood provided: InvalidMood
 2026-08-18 14:49:37 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
 2026-08-18 14:49:37 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-08-18 15:06:47 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 15:10:38 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 15:10:40 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-18 15:11:34 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Romantic'
+2026-08-18 15:11:37 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Romantic): ['Iron Man 3', 'Iron Man 2', 'Captain America: The First Avenger', 'Avengers: Age of Ultron', 'The Incredibly True Adventure of Two Girls In Love', 'Silver Medalist', 'The Bodyguard', 'Celebrity', 'The Young Victoria', 'New York, New York', 'High School Musical 3: Senior Year', "Can't Hardly Wait"]
+2026-08-18 15:11:37 - src.metadata - INFO - Loaded movie metadata: 4805 movies
