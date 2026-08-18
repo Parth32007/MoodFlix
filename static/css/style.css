@@ -95,6 +95,7 @@ body.dark-theme {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--glass-border);
   z-index: 100;
+  position: relative;
 }
 
 .logo {
@@ -113,6 +114,9 @@ body.dark-theme {
 }
 
 .nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 2rem;
 }

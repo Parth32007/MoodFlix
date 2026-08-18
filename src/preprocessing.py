@@ -74,7 +74,11 @@ def main():
             "genres",
             "keywords",
             "cast",
-            "crew"
+            "crew",
+            "vote_average",
+            "release_date",
+            "runtime",
+            "vote_count"
         ]]
         
         # Clean data
@@ -83,6 +87,9 @@ def main():
         movies.dropna(inplace=True)
         movies.drop_duplicates(inplace=True)
         logger.info(f"Removed {initial_count - len(movies)} rows (null/duplicates)")
+        
+        # Save metadata before transformations
+        metadata_to_save = movies[['movie_id', 'title', 'overview', 'genres', 'vote_average', 'release_date', 'runtime', 'vote_count']].copy()
         
         # Parse JSON-formatted fields
         logger.debug("Parsing genres, keywords, cast, crew...")
@@ -158,9 +165,8 @@ def main():
         
         # Save metadata (optional)
         try:
-            metadata = new_df[['movie_id', 'title']].copy()
             with open(MODEL_DIR / "movie_metadata.pkl", "wb") as f:
-                pickle.dump(metadata, f)
+                pickle.dump(metadata_to_save, f)
                 logger.debug("Saved movie_metadata.pkl")
         except Exception as e:
             logger.warning(f"Could not save movie_metadata.pkl: {e}")

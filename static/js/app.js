@@ -87,6 +87,66 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- SPEECH RECOGNITION ---
+  const micIcon = document.querySelector('.mic-icon');
+  if (micIcon) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      let isListening = false;
+
+      micIcon.addEventListener('click', () => {
+        if (isListening) {
+          recognition.stop();
+          return;
+        }
+        try {
+          recognition.start();
+          isListening = true;
+          micIcon.style.color = 'var(--neon-magenta)';
+          micIcon.classList.add('fa-beat-fade');
+          customInput.placeholder = 'Listening...';
+        } catch (e) {
+          console.error('Speech recognition error', e);
+        }
+      });
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        customInput.value = transcript;
+      };
+
+      recognition.onspeechend = () => {
+        recognition.stop();
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        micIcon.style.color = '';
+        micIcon.classList.remove('fa-beat-fade');
+        customInput.placeholder = "Or tell us how you're feeling...";
+      };
+      
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error detected: ' + event.error);
+        isListening = false;
+        micIcon.style.color = '';
+        micIcon.classList.remove('fa-beat-fade');
+        customInput.placeholder = "Or tell us how you're feeling...";
+      };
+    } else {
+      micIcon.addEventListener('click', () => {
+        alert("Speech recognition is not supported in this browser.");
+      });
+      micIcon.style.opacity = '0.5';
+      micIcon.style.cursor = 'not-allowed';
+    }
+  }
+
   // --- NAVIGATION FLOW ---
   function switchView(targetViewId) {
     views.forEach(view => {
@@ -182,12 +242,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Map API TMDB data to our frontend format
       const movie = {
         title: apiMovie.title || 'Unknown',
-        year: apiMovie.release_date ? apiMovie.release_date.substring(0, 4) : 'N/A',
-        rating: apiMovie.vote_average ? parseFloat(apiMovie.vote_average).toFixed(1) : 'N/A',
+        year: apiMovie.release_date && apiMovie.release_date !== 'N/A' ? apiMovie.release_date.substring(0, 4) : 'N/A',
+        rating: apiMovie.rating && apiMovie.rating !== 'N/A' ? parseFloat(apiMovie.rating).toFixed(1) : 'N/A',
         genres: Array.isArray(apiMovie.genres) ? apiMovie.genres.join(' • ') : (apiMovie.genres || 'Film'),
         overview: apiMovie.overview || 'No description available.',
         poster: apiMovie.poster || (apiMovie.poster_path ? `https://image.tmdb.org/t/p/w500${apiMovie.poster_path}` : ''),
-        backdrop: apiMovie.backdrop_path ? `https://image.tmdb.org/t/p/original${apiMovie.backdrop_path}` : '',
+        backdrop: apiMovie.backdrop || (apiMovie.backdrop_path ? `https://image.tmdb.org/t/p/original${apiMovie.backdrop_path}` : ''),
         match: 99 - (index * 2) // mock match percentage for visual flair
       };
       const card = document.createElement('div');
@@ -246,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="modal-actions">
-            <button class="neon-btn">
+            <button class="neon-btn" onclick="playTrailer('${movie.title.replace(/'/g, "\\'")}', event)">
               <i class="fa-solid fa-play"></i> Watch Trailer
             </button>
             <button class="btn-secondary" onclick="document.getElementById('movie-modal').classList.remove('active')">
@@ -262,6 +322,31 @@ document.addEventListener('DOMContentLoaded', () => {
   closeModalBtn.addEventListener('click', () => {
     movieModal.classList.remove('active');
   });
+
+  window.playTrailer = function(title, event) {
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+    btn.disabled = true;
+    
+    fetch(`/api/trailer?movie=${encodeURIComponent(title)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.url) {
+          window.open(data.url, '_blank');
+        } else {
+          alert('Could not find trailer');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Error fetching trailer');
+      })
+      .finally(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      });
+  };
 
   // --- SEARCH OVERLAY ---
   topSearchBtn.addEventListener('click', (e) => {

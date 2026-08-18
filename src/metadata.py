@@ -5,6 +5,7 @@ Movie metadata extraction and retrieval module.
 import pickle
 import ast
 from pathlib import Path
+import pandas as pd
 
 from src.logger import get_logger
 
@@ -118,13 +119,13 @@ def get_movie_details(title):
 
         # Safely get attributes with fallbacks for missing columns
         result = {
-            "title": movie.get("title", title),
-            "overview": movie.get("overview", "No description available"),
-            "rating": movie.get("vote_average", "N/A"),
-            "release_date": movie.get("release_date", "N/A"),
+            "title": str(movie.get("title", title)),
+            "overview": str(movie.get("overview", "No description available")),
+            "rating": float(movie.get("vote_average", 0.0)) if pd.notna(movie.get("vote_average")) else "N/A",
+            "release_date": str(movie.get("release_date", "N/A")),
             "genres": extract_genres(movie.get("genres", "Unknown")),
-            "runtime": movie.get("runtime", "N/A"),
-            "vote_count": movie.get("vote_count", 0),
+            "runtime": float(movie.get("runtime", 0.0)) if pd.notna(movie.get("runtime")) else "N/A",
+            "vote_count": int(movie.get("vote_count", 0)) if pd.notna(movie.get("vote_count")) else 0,
             "poster": ""  # Will be fetched from TMDB API if needed
         }
         

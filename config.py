@@ -18,7 +18,7 @@ TMDB_REQUEST_TIMEOUT = int(os.getenv("TMDB_TIMEOUT", "10"))
 TMDB_DELAY_BETWEEN_REQUESTS = float(os.getenv("TMDB_DELAY", "0.3"))
 
 # Recommendation settings
-RECOMMENDATION_COUNT = int(os.getenv("RECOMMENDATION_COUNT", "5"))
+RECOMMENDATION_COUNT = int(os.getenv("RECOMMENDATION_COUNT", "12"))
 MOOD_WEIGHT = float(os.getenv("MOOD_WEIGHT", "0.7"))
 CONTENT_WEIGHT = float(os.getenv("CONTENT_WEIGHT", "0.3"))
 

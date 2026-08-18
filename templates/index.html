@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MoodFlix AI - Discover Movies That Match Your Emotion</title>
+  <title>MoodFlix - Discover Movies That Match Your Emotion</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,18 +23,12 @@
     <header class="app-header">
       <div class="logo">
         <i class="fa-solid fa-sparkles text-neon"></i>
-        <span>MoodFlix AI</span>
+        <span>MoodFlix</span>
       </div>
       <nav class="nav-links">
         <a href="#" class="active">Home</a>
-        <a href="#">Discover</a>
-        <a href="#">About</a>
       </nav>
-      <div class="header-actions">
-        <button class="icon-btn search-trigger" id="top-search-btn">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
+
     </header>
 
     <main id="main-content">
@@ -115,6 +109,18 @@
     </main>
 
   </div>
+
+  <!-- INFO SECTION -->
+  <section class="info-section" style="max-width: 900px; margin: 60px auto; text-align: center; padding: 0 40px;">
+    <div class="glass-panel" style="padding: 40px; border-radius: 16px;">
+      <h3 style="font-size: 1.8rem; margin-bottom: 20px;">About MoodFlix</h3>
+      <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.1rem;">
+        <strong>MoodFlix</strong> is an AI-powered movie recommendation platform that helps you discover movies based on your interests and current mood. Search for a movie, select how you're feeling, and let our intelligent recommendation engine find personalized movies for your next watch.
+        <br><br>
+        <strong>Search. Discover. Feel. Watch.</strong>
+      </p>
+    </div>
+  </section>
 
   <!-- MOVIE DETAILS MODAL -->
   <div id="movie-modal" class="modal-overlay">

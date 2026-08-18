@@ -241,3 +241,367 @@ werkzeug.exceptions.BadRequest: 400 Bad Request: The browser (or proxy) sent a r
 2026-07-17 19:19:17 - __main__ - INFO - Starting MoodFlix application (debug=False)
 2026-07-17 19:20:04 - __main__ - INFO - Processing recommendation request: movie='Avatar', mood='Excited'
 2026-07-17 19:20:05 - src.recommender - INFO - Hybrid recommendations for 'Avatar' (mood: Excited): ['U.F.O.', 'Muppets from Space', 'Avengers: Age of Ultron', 'Aliens vs Predator: Requiem', "Logan's Run"]
+2026-08-17 23:01:41 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:01:45 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-08-17 23:01:45 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-08-17 23:01:45 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-08-17 23:01:45 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-17 23:01:45 - app - INFO - Added to favorites: Test Movie
+2026-08-17 23:01:45 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-17 23:01:45 - app - INFO - Added to favorites: Test Movie
+2026-08-17 23:01:46 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-08-17 23:01:46 - app - INFO - Removed from favorites: Test Movie
+2026-08-17 23:01:46 - app - WARNING - 404 error: http://localhost/favorite/
+2026-08-17 23:01:46 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-08-17 23:01:46 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-08-17 23:01:46 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-08-17 23:01:46 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-17 23:01:46 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-17 23:01:46 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-08-17 23:01:46 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-08-17 23:01:46 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-17 23:01:46 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-08-17 23:02:29 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-17 23:02:29 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-08-17 23:02:30 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-08-17 23:02:30 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-08-17 23:02:30 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-17 23:02:30 - app - INFO - Added to favorites: Test Movie
+2026-08-17 23:02:30 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-17 23:02:30 - app - INFO - Added to favorites: Test Movie
+2026-08-17 23:02:30 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-08-17 23:02:30 - app - INFO - Removed from favorites: Test Movie
+2026-08-17 23:02:30 - app - WARNING - 404 error: http://localhost/favorite/
+2026-08-17 23:02:30 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-08-17 23:02:30 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-08-17 23:02:30 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-08-17 23:02:30 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-17 23:02:30 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-17 23:02:30 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-08-17 23:02:30 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-08-17 23:02:30 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-17 23:02:30 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-08-17 23:13:05 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:13:07 - src.metadata - ERROR - Movie metadata file not found: C:\MoodFlix\model\movie_metadata.pkl
+2026-08-17 23:13:07 - src.metadata - ERROR - Movie metadata file not found: C:\MoodFlix\model\movie_metadata.pkl
+2026-08-17 23:13:07 - src.metadata - ERROR - Cannot get movie details: metadata not loaded
+2026-08-17 23:13:07 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-17 23:13:07 - src.metadata - ERROR - Movie metadata file not found: C:\MoodFlix\model\movie_metadata.pkl
+2026-08-17 23:13:07 - src.metadata - ERROR - Cannot get movie details: metadata not loaded
+2026-08-17 23:13:35 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Romantic'
+2026-08-17 23:13:35 - src.recommender - ERROR - Model file not found: C:\MoodFlix\model\similarity.pkl
+2026-08-17 23:13:35 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-08-17 23:13:35 - __main__ - INFO - Could not find recommendations for 'Iron man' with mood 'Romantic'
+2026-08-17 23:13:38 - src.metadata - ERROR - Movie metadata file not found: C:\MoodFlix\model\movie_metadata.pkl
+2026-08-17 23:15:13 - src.preprocessing - INFO - Starting movie data preprocessing pipeline...
+2026-08-17 23:15:13 - src.preprocessing - INFO - Loading raw data...
+2026-08-17 23:15:14 - src.preprocessing - INFO - Loaded 4803 movies and 4803 credit records
+2026-08-17 23:15:14 - src.preprocessing - INFO - After merge: 4809 records
+2026-08-17 23:15:14 - src.preprocessing - INFO - Removed 3 rows (null/duplicates)
+2026-08-17 23:15:18 - src.preprocessing - INFO - Applying stemming (this may take a minute)...
+2026-08-17 23:15:20 - src.preprocessing - INFO - Processed 4806 movies
+2026-08-17 23:15:20 - src.preprocessing - INFO - Vectorizing tags...
+2026-08-17 23:15:21 - src.preprocessing - INFO - Computing cosine similarity matrix...
+2026-08-17 23:15:22 - src.preprocessing - INFO - Saving models to pickle files...
+2026-08-17 23:15:22 - src.preprocessing - INFO -   - Processed 4806 movies
+2026-08-17 23:15:22 - src.preprocessing - INFO -   - Created 5000 features
+2026-08-17 23:15:22 - src.preprocessing - INFO -   - Generated similarity matrix of shape (4806, 4806)
+2026-08-17 23:15:48 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:15:52 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-17 23:15:52 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-17 23:16:04 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Sad'
+2026-08-17 23:16:14 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Sad): ['Iron Man 3', 'Iron Man 2', 'Captain America: The First Avenger', 'Avengers: Age of Ultron', 'Silver Medalist']
+2026-08-17 23:29:12 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:29:15 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-17 23:29:15 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-17 23:34:02 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:34:04 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-17 23:36:53 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:42:00 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:52:18 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-17 23:58:22 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 00:00:11 - __main__ - INFO - Processing recommendation request: movie='iron man', mood='Emotional | Similar to: iron man'
+2026-08-18 00:00:14 - src.recommender - WARNING - Invalid mood provided: Emotional | Similar to: iron man
+2026-08-18 00:00:14 - __main__ - INFO - Could not find recommendations for 'iron man' with mood 'Emotional | Similar to: iron man'
+2026-08-18 00:02:55 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Happy'
+2026-08-18 00:02:55 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Happy): ['Flying By', 'Rockaway', 'After Earth', 'Shanghai Knights', 'The Cold Light of Day']
+2026-08-18 00:02:55 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 00:05:42 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 00:05:54 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 00:05:57 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights']
+2026-08-18 00:05:57 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 00:13:21 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 00:13:31 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Sad'
+2026-08-18 00:13:47 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Sad): ['Iron Man 3', 'Iron Man 2', 'Captain America: The First Avenger', 'Avengers: Age of Ultron', 'Silver Medalist']
+2026-08-18 00:13:47 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 00:15:32 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:15:36 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-08-18 00:15:36 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-08-18 00:15:36 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-08-18 00:15:36 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-18 00:15:36 - app - INFO - Added to favorites: Test Movie
+2026-08-18 00:15:36 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-18 00:15:36 - app - INFO - Added to favorites: Test Movie
+2026-08-18 00:15:36 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-08-18 00:15:36 - app - INFO - Removed from favorites: Test Movie
+2026-08-18 00:15:36 - app - WARNING - 404 error: http://localhost/favorite/
+2026-08-18 00:15:36 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-08-18 00:15:36 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-08-18 00:15:36 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-08-18 00:15:36 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 00:15:36 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 00:15:36 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-08-18 00:15:36 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-08-18 00:15:36 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 00:15:36 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-08-18 00:17:37 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 00:17:51 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Happy'
+2026-08-18 00:18:02 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Happy): ['Flying By', 'Rockaway', 'After Earth', 'Shanghai Knights', 'The Cold Light of Day']
+2026-08-18 00:18:02 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 00:18:05 - __main__ - INFO - Processing recommendation request: movie='The Matrix', mood='Fear'
+2026-08-18 00:18:05 - src.recommender - INFO - Hybrid recommendations for 'The Matrix' (mood: Fear): ['The Matrix Revolutions', 'Pulse', 'The Lawnmower Man', 'The Matrix Reloaded', 'Regression']
+2026-08-18 00:18:07 - __main__ - INFO - Processing recommendation request: movie='The Dark Knight', mood='Sad'
+2026-08-18 00:18:07 - src.recommender - INFO - Hybrid recommendations for 'The Dark Knight' (mood: Sad): ['The Dark Knight Rises', 'Batman Begins', "Gangster's Paradise: Jerusalema", "Amidst the Devil's Wings", 'Blood Ties']
+2026-08-18 00:18:10 - __main__ - INFO - Processing recommendation request: movie='Interstellar', mood='Inspired'
+2026-08-18 00:18:10 - src.recommender - INFO - Hybrid recommendations for 'Interstellar' (mood: Inspired): ['Silent Running', 'The Other Side of Heaven', 'Caravans', 'The Martian', 'Apollo 13']
+2026-08-18 00:19:37 - __main__ - INFO - Processing recommendation request: movie='Toy Story', mood='Happy'
+2026-08-18 00:19:37 - src.recommender - INFO - Hybrid recommendations for 'Toy Story' (mood: Happy): ['Toy Story 2', 'Toy Story 3', 'My Big Fat Greek Wedding 2', 'Shanghai Knights', 'Stuart Little 2']
+2026-08-18 00:19:39 - __main__ - INFO - Processing recommendation request: movie='Titanic', mood='Sad'
+2026-08-18 00:19:39 - src.recommender - INFO - Hybrid recommendations for 'Titanic' (mood: Sad): ['The City of Your Final Destination', 'The Notebook', 'Under the Same Moon', 'The Bounty', 'Poseidon']
+2026-08-18 00:19:42 - __main__ - INFO - Processing recommendation request: movie='Twilight', mood='Romantic'
+2026-08-18 00:19:42 - src.recommender - INFO - Hybrid recommendations for 'Twilight' (mood: Romantic): ['The Twilight Saga: New Moon', 'The Twilight Saga: Eclipse', 'The Twilight Saga: Breaking Dawn - Part 2', 'The Incredibly True Adventure of Two Girls In Love', 'The Age of Adaline']
+2026-08-18 00:19:45 - __main__ - INFO - Processing recommendation request: movie='The Avengers', mood='Excited'
+2026-08-18 00:19:45 - src.recommender - INFO - Hybrid recommendations for 'The Avengers' (mood: Excited): ['Avengers: Age of Ultron', 'Iron Man 3', 'Captain America: Civil War', 'Captain America: The First Avenger', 'U.F.O.']
+2026-08-18 00:19:47 - __main__ - INFO - Processing recommendation request: movie='Alien', mood='Fear'
+2026-08-18 00:19:47 - src.recommender - INFO - Hybrid recommendations for 'Alien' (mood: Fear): ['The Texas Chainsaw Massacre 2', 'Malevolence', 'The Haunting in Connecticut 2: Ghosts of Georgia', 'Sinister', 'Texas Chainsaw 3D']
+2026-08-18 00:19:50 - __main__ - INFO - Processing recommendation request: movie='Finding Nemo', mood='Relaxed'
+2026-08-18 00:19:50 - src.recommender - INFO - Hybrid recommendations for 'Finding Nemo' (mood: Relaxed): ['Nicholas Nickleby', 'After Earth', 'Flying By', 'Rockaway', 'The Barbarian Invasions']
+2026-08-18 00:19:52 - __main__ - INFO - Processing recommendation request: movie='Rocky', mood='Motivated'
+2026-08-18 00:19:53 - src.recommender - INFO - Hybrid recommendations for 'Rocky' (mood: Motivated): ['Summer Catch', '(500) Days of Summer', 'The Flintstones in Viva Rock Vegas', "She's the Man", 'Veer-Zaara']
+2026-08-18 00:19:55 - __main__ - INFO - Processing recommendation request: movie='The Matrix', mood='Curious'
+2026-08-18 00:19:55 - src.recommender - INFO - Hybrid recommendations for 'The Matrix' (mood: Curious): ['The Matrix Revolutions', 'Hackers', 'U.F.O.', 'Antitrust', 'Swordfish']
+2026-08-18 00:19:58 - __main__ - INFO - Processing recommendation request: movie='Fight Club', mood='Lonely'
+2026-08-18 00:19:58 - src.recommender - INFO - Hybrid recommendations for 'Fight Club' (mood: Lonely): ['This Is Martin Bonner', 'The Incredibly True Adventure of Two Girls In Love', 'Bride & Prejudice', 'Fight Valley', 'Paint Your Wagon']
+2026-08-18 00:20:00 - __main__ - INFO - Processing recommendation request: movie='Forrest Gump', mood='Inspired'
+2026-08-18 00:20:01 - src.recommender - INFO - Hybrid recommendations for 'Forrest Gump' (mood: Inspired): ['The Other Side of Heaven', 'Big Fish', 'Hugo', 'Juliet and Alfa Romeo', "What's Eating Gilbert Grape"]
+2026-08-18 00:34:55 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 00:34:56 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-08-18 00:34:56 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-08-18 00:34:56 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-08-18 00:34:56 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-18 00:34:56 - app - INFO - Added to favorites: Test Movie
+2026-08-18 00:34:56 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-18 00:34:56 - app - INFO - Added to favorites: Test Movie
+2026-08-18 00:34:56 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-08-18 00:34:56 - app - INFO - Removed from favorites: Test Movie
+2026-08-18 00:34:56 - app - WARNING - 404 error: http://localhost/favorite/
+2026-08-18 00:34:56 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-08-18 00:34:56 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-08-18 00:34:56 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-08-18 00:34:56 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 00:34:56 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 00:34:56 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-08-18 00:34:56 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-08-18 00:34:56 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 00:34:56 - src.recommender - ERROR - Models not loaded, cannot provide recommendations
+2026-08-18 13:55:30 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 13:55:34 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-18 13:55:47 - __main__ - INFO - Processing recommendation request: movie='Avengers', mood='Excited'
+2026-08-18 13:56:05 - src.recommender - INFO - Hybrid recommendations for 'Avengers: Age of Ultron' (mood: Excited): ['Iron Man 3', 'Iron Man 2', 'Iron Man', 'Muppets from Space', 'I Am Number Four']
+2026-08-18 13:56:05 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 13:59:12 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:06:17 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:08:34 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:11:52 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Romantic'
+2026-08-18 14:12:09 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Romantic): ['Iron Man 3', 'Iron Man 2', 'Captain America: The First Avenger', 'Avengers: Age of Ultron', 'The Incredibly True Adventure of Two Girls In Love']
+2026-08-18 14:12:09 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 14:13:38 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:13:51 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 14:13:54 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights', 'My Big Fat Greek Wedding 2', 'The Blue Bird', 'Soul Food', 'Sunshine Cleaning', 'Four Single Fathers']
+2026-08-18 14:13:54 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 14:14:10 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 14:14:10 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights', 'My Big Fat Greek Wedding 2', 'The Blue Bird', 'Soul Food', 'Sunshine Cleaning', 'Four Single Fathers']
+2026-08-18 14:14:19 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 14:14:19 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights', 'My Big Fat Greek Wedding 2', 'The Blue Bird', 'Soul Food', 'Sunshine Cleaning', 'Four Single Fathers']
+2026-08-18 14:14:28 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 14:14:28 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights', 'My Big Fat Greek Wedding 2', 'The Blue Bird', 'Soul Food', 'Sunshine Cleaning', 'Four Single Fathers']
+2026-08-18 14:14:38 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Sad'
+2026-08-18 14:14:38 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Sad): ['Iron Man 3', 'Iron Man 2', 'Captain America: The First Avenger', 'Avengers: Age of Ultron', 'Silver Medalist', 'The Wolf of Wall Street', 'The City of Your Final Destination', 'Against the Wild', 'Chain Reaction', 'The Avengers']
+2026-08-18 14:22:36 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:22:39 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-18 14:24:23 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:24:40 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 14:24:43 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights', 'My Big Fat Greek Wedding 2', 'The Blue Bird', 'Soul Food', 'Sunshine Cleaning', 'Four Single Fathers']
+2026-08-18 14:24:43 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 14:28:09 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:28:11 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-18 14:29:54 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:29:55 - __main__ - WARNING - 404 error: http://127.0.0.1:5000/favicon.ico
+2026-08-18 14:31:10 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:31:51 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Excited'
+2026-08-18 14:31:54 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Excited): ['I Am Number Four', 'The Other Side of Heaven', 'Muppets from Space', '12 Rounds', 'Avengers: Age of Ultron', 'RED', 'Abduction', 'Krrish', 'The Animal', 'Timecop']
+2026-08-18 14:31:54 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 14:33:28 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:33:35 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Romantic'
+2026-08-18 14:33:38 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Romantic): ['Celebrity', '12 Rounds', 'Copying Beethoven', 'The Truman Show', 'Me You and Five Bucks', 'Juliet and Alfa Romeo', 'Flying By', 'Rockaway', 'Harsh Times', 'Robot & Frank', 'Wish I Was Here', 'Disturbia']
+2026-08-18 14:33:38 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 14:35:42 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:35:47 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Sad'
+2026-08-18 14:35:50 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Sad): ['12 Rounds', 'Copying Beethoven', 'The Truman Show', 'Me You and Five Bucks', 'Juliet and Alfa Romeo', 'Flying By', 'Rockaway', 'Harsh Times', 'Robot & Frank', 'Wish I Was Here', 'Disturbia', '10th & Wolf']
+2026-08-18 14:35:50 - src.metadata - INFO - Loaded movie metadata: 4806 movies
+2026-08-18 14:38:36 - __main__ - INFO - Starting movie data preprocessing pipeline...
+2026-08-18 14:38:36 - __main__ - INFO - Loading raw data...
+2026-08-18 14:38:37 - __main__ - INFO - Loaded 4803 movies and 4803 credit records
+2026-08-18 14:38:37 - __main__ - INFO - After merge: 4809 records
+2026-08-18 14:38:37 - __main__ - INFO - Removed 4 rows (null/duplicates)
+2026-08-18 14:38:42 - __main__ - INFO - Applying stemming (this may take a minute)...
+2026-08-18 14:38:44 - __main__ - INFO - Processed 4805 movies
+2026-08-18 14:38:44 - __main__ - INFO - Vectorizing tags...
+2026-08-18 14:38:44 - __main__ - INFO - Computing cosine similarity matrix...
+2026-08-18 14:38:46 - __main__ - INFO - Saving models to pickle files...
+2026-08-18 14:38:46 - __main__ - INFO -   - Processed 4805 movies
+2026-08-18 14:38:46 - __main__ - INFO -   - Created 5000 features
+2026-08-18 14:38:46 - __main__ - INFO -   - Generated similarity matrix of shape (4805, 4805)
+2026-08-18 14:39:48 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:39:52 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Motivated'
+2026-08-18 14:39:55 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Motivated): ['Owning Mahowny', 'Madison', 'American Sniper', 'About Time', 'The Fan', 'Paul Blart: Mall Cop', 'Resurrecting the Champ', 'Licence to Kill', 'The Game Plan', 'Kiss of Death', 'Kicking & Screaming', 'Fight to the Finish']
+2026-08-18 14:39:55 - src.metadata - INFO - Loaded movie metadata: 4805 movies
+2026-08-18 14:39:59 - __main__ - ERROR - Error in home() POST: Object of type int64 is not JSON serializable
+Traceback (most recent call last):
+  File "C:\MoodFlix\app.py", line 101, in home
+    return jsonify({
+           ~~~~~~~^^
+        "status": "success",
+        ^^^^^^^^^^^^^^^^^^^^
+        "recommendations": recommendations
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    }), 200
+    ^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\provider.py", line 214, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\provider.py", line 179, in dumps
+    return json.dumps(obj, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\provider.py", line 121, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type int64 is not JSON serializable
+when serializing dict item 'vote_count'
+when serializing list item 0
+when serializing dict item 'recommendations'
+2026-08-18 14:40:04 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Motivated'
+2026-08-18 14:40:04 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Motivated): ['Owning Mahowny', 'Madison', 'American Sniper', 'About Time', 'The Fan', 'Paul Blart: Mall Cop', 'Resurrecting the Champ', 'Licence to Kill', 'The Game Plan', 'Kiss of Death', 'Kicking & Screaming', 'Fight to the Finish']
+2026-08-18 14:40:08 - __main__ - ERROR - Error in home() POST: Object of type int64 is not JSON serializable
+Traceback (most recent call last):
+  File "C:\MoodFlix\app.py", line 101, in home
+    return jsonify({
+           ~~~~~~~^^
+        "status": "success",
+        ^^^^^^^^^^^^^^^^^^^^
+        "recommendations": recommendations
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    }), 200
+    ^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\provider.py", line 214, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\provider.py", line 179, in dumps
+    return json.dumps(obj, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 242, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\parth\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\json\provider.py", line 121, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type int64 is not JSON serializable
+when serializing dict item 'vote_count'
+when serializing list item 0
+when serializing dict item 'recommendations'
+2026-08-18 14:42:04 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:42:08 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Inspired'
+2026-08-18 14:42:10 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Inspired): ['Big Fish', 'The Other Side of Heaven', 'Hugo', '12 Rounds', 'An Unfinished Life', 'Copying Beethoven', 'The Truman Show', 'Me You and Five Bucks', 'Juliet and Alfa Romeo', 'Flying By', 'Rockaway', 'Harsh Times']
+2026-08-18 14:42:10 - src.metadata - INFO - Loaded movie metadata: 4805 movies
+2026-08-18 14:42:43 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Romantic'
+2026-08-18 14:42:43 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Romantic): ['Celebrity', '12 Rounds', 'Copying Beethoven', 'The Truman Show', 'Me You and Five Bucks', 'Juliet and Alfa Romeo', 'Flying By', 'Rockaway', 'Harsh Times', 'Robot & Frank', 'Wish I Was Here', 'Disturbia']
+2026-08-18 14:43:58 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:44:08 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Romantic'
+2026-08-18 14:44:10 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Romantic): ['Celebrity', '12 Rounds', 'Copying Beethoven', 'The Truman Show', 'Me You and Five Bucks', 'Juliet and Alfa Romeo', 'Flying By', 'Rockaway', 'Harsh Times', 'Robot & Frank', 'Wish I Was Here', 'Disturbia']
+2026-08-18 14:44:10 - src.metadata - INFO - Loaded movie metadata: 4805 movies
+2026-08-18 14:47:18 - __main__ - INFO - Starting MoodFlix application (debug=False)
+2026-08-18 14:47:24 - __main__ - INFO - Processing recommendation request: movie='Inception', mood='Fear'
+2026-08-18 14:47:25 - src.recommender - INFO - Hybrid recommendations for 'Inception' (mood: Fear): ['Malevolence', 'Regression', 'Alien Zone', 'Hide and Seek', 'Raising Cain', '2:13', 'Boogeyman', 'Paranormal Activity: The Marked Ones', 'Phantasm II', 'Ghost Rider', 'The Last Days on Mars', 'Hannibal Rising']
+2026-08-18 14:47:25 - src.metadata - INFO - Loaded movie metadata: 4805 movies
+2026-08-18 14:48:19 - __main__ - INFO - Processing recommendation request: movie='Iron man', mood='Happy'
+2026-08-18 14:48:20 - src.recommender - INFO - Hybrid recommendations for 'Iron Man' (mood: Happy): ['Avengers: Age of Ultron', 'Iron Man 3', 'Iron Man 2', 'Alpha and Omega: The Legend of the Saw Tooth Cave', 'Shanghai Knights', 'My Big Fat Greek Wedding 2', 'The Blue Bird', 'Soul Food', 'Sunshine Cleaning', 'Four Single Fathers', 'Against the Wild', 'Mad Max']
+2026-08-18 14:49:33 - src.tmdb_api - WARNING - TMDB_API_KEY not configured. Set the TMDB_API_KEY environment variable.
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:36 - src.tmdb_api - ERROR - Cannot fetch movie details: TMDB_API_KEY not configured
+2026-08-18 14:49:37 - app - INFO - Processing recommendation request: movie='Test Movie', mood='Happy'
+2026-08-18 14:49:37 - app - WARNING - Validation failed in home(): Missing required field: mood
+2026-08-18 14:49:37 - app - WARNING - Validation failed in home(): Missing required field: movie
+2026-08-18 14:49:37 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-18 14:49:37 - app - INFO - Added to favorites: Test Movie
+2026-08-18 14:49:37 - src.favorites - INFO - Added to favorites: Test Movie
+2026-08-18 14:49:37 - app - INFO - Added to favorites: Test Movie
+2026-08-18 14:49:37 - src.favorites - INFO - Removed from favorites: Test Movie
+2026-08-18 14:49:37 - app - INFO - Removed from favorites: Test Movie
+2026-08-18 14:49:37 - app - WARNING - 404 error: http://localhost/favorite/
+2026-08-18 14:49:37 - app - WARNING - 404 error: http://localhost/nonexistent-route
+2026-08-18 14:49:37 - src.recommender - WARNING - Movie not found for content-based recommendation: Nonexistent Movie
+2026-08-18 14:49:37 - src.recommender - WARNING - Invalid mood: InvalidMood123
+2026-08-18 14:49:37 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 14:49:37 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 14:49:37 - src.recommender - WARNING - No movie found matching: xyz123nonexistent
+2026-08-18 14:49:37 - src.recommender - WARNING - Invalid mood provided: InvalidMood
+2026-08-18 14:49:37 - src.recommender - INFO - Hybrid recommendations for 'Movie A' (mood: Happy): ['Movie C', 'Movie D', 'Movie B', 'Movie E']
+2026-08-18 14:49:37 - src.recommender - ERROR - Models not loaded, cannot provide recommendations

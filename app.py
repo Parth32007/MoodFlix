@@ -322,6 +322,25 @@ def handle_exception(error):
     }), 500
 
 
+@app.route("/api/trailer")
+def get_trailer():
+    """Fetch the first YouTube search result for a movie trailer."""
+    movie_title = request.args.get('movie')
+    if not movie_title:
+        return jsonify({"error": "Movie title required"}), 400
+        
+    try:
+        import urllib.request, urllib.parse, re
+        query = urllib.parse.quote(f"{movie_title} official trailer")
+        html = urllib.request.urlopen(f"https://www.youtube.com/results?search_query={query}", timeout=5)
+        video_ids = re.findall(r'"videoId":"([^"]+)"', html.read().decode())
+        if video_ids:
+            return jsonify({"url": f"https://www.youtube.com/watch?v={video_ids[0]}"})
+        return jsonify({"error": "No trailer found"}), 404
+    except Exception as e:
+        logger.error(f"Error fetching trailer for {movie_title}: {e}")
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     logger.info(f"Starting MoodFlix application (debug={DEBUG})")
     app.run(debug=DEBUG)
