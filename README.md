@@ -72,13 +72,6 @@ MoodFlix uses a **hybrid recommendation approach**:
 
 # 8. Project Architecture
 
-The project follows a standard Client-Server architecture:
-- **Client:** A responsive web application that captures user inputs (text and voice) and renders dynamic movie cards.
-- **Server:** A Flask backend that handles routing, processes requests, and lazily loads Machine Learning models into memory.
-- **Engine:** The core `recommender.py` module which computes the mathematical similarity between vector matrices.
-- **Storage:** Pre-trained model artifacts (`movies.pkl`, `similarity.pkl`) are serialized and stored locally to ensure fast inference times.
-
-### Directory Structure
 ```text
 MoodFlix/
 ├── data/
